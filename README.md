@@ -4,7 +4,8 @@ Activities:
   
 
 FireBases:  
-//todo: insert URL of the dbdesigner  
+//URL of the dbdesigner
+https://dbdesigner.page.link/aU1cAp3EEX3oxR7s8
 
   1)Users:  
     names(String)  
@@ -27,5 +28,5 @@ Classes:
   
   database:  
   
-  https://dbdesigner.page.link/aU1cAp3EEX3oxR7s8 
+   
     
