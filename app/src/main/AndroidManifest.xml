@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity android:name=".Requests"></activity>
-        <activity android:name=".Chat" />
-        <activity android:name=".Welcome" />
-        <activity android:name=".Create_request" />
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".WelcomeActivity" />
+        <activity android:name=".CreateRequestActivity" />
         <activity android:name=".Requestes" />
         <activity android:name=".MainActivity">
             <intent-filter>
