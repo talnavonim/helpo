@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".Requests"></activity>
+        <activity android:name=".RequestsActivity"></activity>
         <activity android:name=".ChatActivity" />
         <activity android:name=".WelcomeActivity" />
         <activity android:name=".CreateRequestActivity" />
