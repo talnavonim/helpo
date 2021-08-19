@@ -12,5 +12,6 @@ public class Request {
     RequestStatus status;
     String location;
     String address;
+    //
 
 }
