@@ -13,7 +13,7 @@
         <activity android:name=".ChatActivity" />
         <activity android:name=".WelcomeActivity" />
         <activity android:name=".CreateRequestActivity" />
-        <activity android:name=".Requestes" />
+        <activity android:name=".Request" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
