@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,6 +24,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -47,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int DEFAULT_ZOOM = 15;
     private final LatLng defaultLocation = new LatLng(-33.8523341, 151.2106085);
     private Location lastKnownLocation;
+
+    SharedPreferences sp = null;
+    FirebaseFirestore firestore = null;
 
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =
@@ -90,6 +97,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FirebaseApp.initializeApp(this);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        firestore = FirebaseFirestore.getInstance();
+
         // Get a handle to the fragment and register the callback.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -98,6 +109,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         getLocationPermission();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        Button sendButton = findViewById(R.id.button_gotochat);
+        sendButton.setOnClickListener(v->{
+            Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
