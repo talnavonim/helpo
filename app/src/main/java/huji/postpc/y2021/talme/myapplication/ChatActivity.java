@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
-public class ChatActivity extends AppCompatActivity {
+public class    ChatActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     MessageListAdapter adapter;
     ChatMessageHolder chatMessagesHolder;
@@ -31,19 +31,17 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         EditText editText = findViewById(R.id.editTextInsertTask);
-        Button floatingActionButton = findViewById(R.id.button_gchat_send);
+        Button sendButton = findViewById(R.id.button_gchat_send);
 
-        floatingActionButton.setOnClickListener(v->{
+        sendButton.setOnClickListener(v->{
             int length = editText.getText().toString().length();
             if(length != 0){
                 //TODO call amitsour model
                 chatMessagesHolder.addChat(editText.getText().toString(), 1);
 
                 adapter.notifyDataSetChanged();
-//                botMessenger.setUserMessage(editText.getText().toString());
-//                editText.setText("");
-//                chatMessagesHolder.addChat(botMessenger.responseMessage(), 2);
-//                bubbleAdapter.notifyDataSetChanged();
+                editText.setText("");
+
             }
 
         });

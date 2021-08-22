@@ -98,6 +98,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         getLocationPermission();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        Button sendButton = findViewById(R.id.button_gotochat);
+        sendButton.setOnClickListener(v->{
+            Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
