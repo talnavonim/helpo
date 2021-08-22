@@ -11,4 +11,8 @@ public class User {
 //    Reports
     int rating;
     int raters;
+
+    public String getName() {
+        return name;
+    }
 }
