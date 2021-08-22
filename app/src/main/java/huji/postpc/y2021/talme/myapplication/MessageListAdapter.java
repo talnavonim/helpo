@@ -14,9 +14,10 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
-//    private Context mContext; TODO really needed?
-    private List<Message> mMessageList;
     ChatMessageHolder chatHolder = null;
+
+//    private Context mContext; TODO really needed?
+//    private List<Message> mMessageList; TODO really needed?
 
 //    public MessageListAdapter(Context context, List<Message> messageList) {
 //        mContext = context;
@@ -25,7 +26,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return mMessageList.size();
+            return chatHolder.getChat().size();
     }
 
     // Determines the appropriate ViewType according to the sender of the message.
@@ -33,6 +34,10 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getItemViewType(int position) {
         Message bubbleChat = chatHolder.getChat().get(position);
         return bubbleChat.getType();
+    }
+
+    public void setChatMessagesHolder(ChatMessageHolder chatMessagesHolder){
+        this.chatHolder = chatMessagesHolder;
     }
 
     @NonNull

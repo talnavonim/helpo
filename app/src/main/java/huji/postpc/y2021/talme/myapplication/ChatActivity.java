@@ -1,16 +1,22 @@
 package huji.postpc.y2021.talme.myapplication;
 
-//import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 
 public class ChatActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     MessageListAdapter adapter;
-//        ChatMessagesHolder chatMessagesHolder;
+    ChatMessageHolder chatMessagesHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,24 +24,26 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         recyclerView = findViewById(R.id.recycler_gchat);
-
         adapter = new MessageListAdapter();
-        bubbleAdapter.setChatMessagesHolder(chatMessagesHolder);
+        chatMessagesHolder = new ChatMessageHolder();
+        adapter.setChatMessagesHolder(chatMessagesHolder);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(bubbleAdapter);
+        recyclerView.setAdapter(adapter);
+
         EditText editText = findViewById(R.id.editTextInsertTask);
-        FloatingActionButton floatingActionButton = findViewById(R.id.buttonSend);
+        Button floatingActionButton = findViewById(R.id.button_gchat_send);
+
         floatingActionButton.setOnClickListener(v->{
             int length = editText.getText().toString().length();
             if(length != 0){
                 //TODO call amitsour model
-                chatMessagesHolder.addChat(editText.getText().toString(), true);
+                chatMessagesHolder.addChat(editText.getText().toString(), 1);
 
-                bubbleAdapter.notifyDataSetChanged();
-                botMessenger.setUserMessage(editText.getText().toString());
-                editText.setText("");
-                chatMessagesHolder.addChat(botMessenger.responseMessage(), false);
-                bubbleAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
+//                botMessenger.setUserMessage(editText.getText().toString());
+//                editText.setText("");
+//                chatMessagesHolder.addChat(botMessenger.responseMessage(), 2);
+//                bubbleAdapter.notifyDataSetChanged();
             }
 
         });
