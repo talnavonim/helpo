@@ -2,21 +2,20 @@ package huji.postpc.y2021.talme.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-
-public class    ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     MessageListAdapter adapter;
     ChatMessageHolder chatMessagesHolder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
