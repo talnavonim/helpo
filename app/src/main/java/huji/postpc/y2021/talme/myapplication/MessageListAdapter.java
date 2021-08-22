@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MessageListAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
@@ -51,13 +51,15 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             View receiver = LayoutInflater.from(parent.getContext()).inflate(R.layout.shape_bg_incoming_bubble, parent, false);
             return new ReceivedMessageViewHolder(receiver);
         }
-        return null;
+        View sender = LayoutInflater.from(parent.getContext()).inflate(R.layout.shape_bg_outgoing_bubble, parent, false);
+        return new SentMessageViewHolder(sender);
+//        return null;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Message bubbleChat = chatHolder.getChat().get(position);
-        if(bubbleChat.equals(VIEW_TYPE_MESSAGE_SENT)){
+        if(bubbleChat.getType()==VIEW_TYPE_MESSAGE_SENT){
             TextView user_message_txv = ((SentMessageViewHolder) holder).message;
             TextView user_message_hour_txv = ((SentMessageViewHolder) holder).hour;
             user_message_txv.setText(bubbleChat.getMessage());
@@ -75,6 +77,5 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             String time = hour + ":" + minutes;
             user_message_hour_txv.setText(time);
         }
-
     }
 }
