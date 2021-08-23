@@ -12,6 +12,10 @@ public class HelpoApp extends Application {
     private SharedPreferences sp = null;
     public FirebaseFirestore firestore = null; //exposed for tests
     public final String REQUESTS = "requests";
+
+    public User user;
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -20,6 +24,7 @@ public class HelpoApp extends Application {
         firestore = FirebaseFirestore.getInstance();
         instance = this;
 
+        user = new User("talme1091@gmail.com", "tal", 10, 1);
     }
 
     public static HelpoApp getInstance()

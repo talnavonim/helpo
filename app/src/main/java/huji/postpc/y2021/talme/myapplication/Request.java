@@ -16,6 +16,10 @@ public class Request {
     String address;
     HashMap<String, Integer> groceriesAmounts = new HashMap<String, Integer>();
     String mailLocation;
+    String comment;
+    String geohash;
+    String full_name;
+
 
     public Request(){
 //        req_id = UUID.randomUUID().toString();
@@ -28,7 +32,27 @@ public class Request {
 //        initialGroceries();
     }
 
-    public Request(String email, RequestType type, String location, String address, int eggs, int bread, int milk, int oil, int shuger, String mailL){
+    public Request(String id, String name){
+        req_id = id;
+        request_email = "";
+        type = RequestType.SHOPPING;
+        status = RequestStatus.WAITING;
+        location = "NONE";
+        address = "NONE";
+        groceriesAmounts = new HashMap<String, Integer>();
+        initialGroceries();
+        full_name = name;
+    }
+
+    private void initialGroceries(){
+        groceriesAmounts.put("eggs", 0);
+        groceriesAmounts.put("bread", 0);
+        groceriesAmounts.put("milk", 0);
+        groceriesAmounts.put("oil", 0);
+        groceriesAmounts.put("shuger", 0);
+    }
+
+    public Request(String email, RequestType type, String location, String address, int eggs, int bread, int milk, int oil, int shuger, String mailL, String c){
         req_id = UUID.randomUUID().toString();
         request_email = email;
         this.type = type;
@@ -42,15 +66,121 @@ public class Request {
         groceriesAmounts.put("oil", oil);
         groceriesAmounts.put("shuger", shuger);
         mailLocation = mailL;
+        comment = c;
     }
 
-    private void initialGroceries(){
-        groceriesAmounts.put("eggs", 0);
-        groceriesAmounts.put("bread", 0);
-        groceriesAmounts.put("milk", 0);
-        groceriesAmounts.put("oil", 0);
-        groceriesAmounts.put("shuger", 0);
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
+
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public void setMailLocation(String mailLocation) {
+        this.mailLocation = mailLocation;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setGeohash(String geohash) {
+        this.geohash = geohash;
+    }
+
+    public String getMailLocation() {
+        return mailLocation;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public String getGeohash() {
+        return geohash;
+    }
+
+    public int addShuger(){
+        int shuger = groceriesAmounts.get("shuger");
+        if(shuger != 3){
+            groceriesAmounts.put("shuger", shuger+1);
+        }
+        return groceriesAmounts.get("shuger");
+    }
+
+    public int removeShuger(){
+        int shuger = groceriesAmounts.get("shuger");
+        if(shuger > 0){
+            groceriesAmounts.put("shuger", shuger-1);
+        }
+        return groceriesAmounts.get("shuger");
+    }
+
+    public int addOil(){
+        int oil = groceriesAmounts.get("oil");
+        if(oil < 3){
+            groceriesAmounts.put("oil", oil+1);
+        }
+        return groceriesAmounts.get("oil");
+    }
+
+    public int removeOil(){
+        int oil = groceriesAmounts.get("oil");
+        if(oil > 0){
+            groceriesAmounts.put("oil", oil-1);
+        }
+        return groceriesAmounts.get("oil");
+    }
+
+    public int addMilk(){
+        int milk = groceriesAmounts.get("milk");
+        if(milk < 3){
+            groceriesAmounts.put("milk", milk+1);
+        }
+        return groceriesAmounts.get("milk");
+    }
+
+    public int removeMilk(){
+        int milk = groceriesAmounts.get("milk");
+        if(milk > 0){
+            groceriesAmounts.put("milk", milk-1);
+        }
+        return groceriesAmounts.get("milk");
+    }
+
+    public int addEggs(){
+        int eggs = groceriesAmounts.get("eggs");
+        if(eggs < 5){
+            groceriesAmounts.put("eggs", eggs+1);
+        }
+        return groceriesAmounts.get("eggs");
+    }
+
+    public int removeEggs(){
+        int eggs = groceriesAmounts.get("eggs");
+        if(eggs > 0){
+            groceriesAmounts.put("eggs", eggs-1);
+        }
+        return groceriesAmounts.get("eggs");
+    }
+
+    public int addBread(){
+        int bread = groceriesAmounts.get("bread");
+        if(bread < 4){
+            groceriesAmounts.put("bread", bread+1);
+        }
+        return groceriesAmounts.get("bread");
+    }
+
+    public int removeBread(){
+        int bread = groceriesAmounts.get("bread");
+        if(bread > 0){
+            groceriesAmounts.put("bread", bread-1);
+        }
+        return groceriesAmounts.get("bread");
+    }
+
 
     public HashMap<String, Integer> getGroceriesAmounts() {
         return groceriesAmounts;
