@@ -33,7 +33,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="51818239-ebda-4643-ac23-3f9f67b5604b" name="Default Changelist" comment="started the request activity and the request class2">
+    <list default="true" id="51818239-ebda-4643-ac23-3f9f67b5604b" name="Default Changelist" comment="started the request activity and the request class3">
       <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/Request.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -256,7 +256,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629728309731</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="started the request activity and the request class3">
+      <created>1629728897035</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1629728897035</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -296,14 +303,15 @@
     <MESSAGE value="continued chat, have to finish the chat1" />
     <MESSAGE value="started the request activity and the request class" />
     <MESSAGE value="started the request activity and the request class2" />
-    <option name="LAST_COMMIT_MESSAGE" value="started the request activity and the request class2" />
+    <MESSAGE value="started the request activity and the request class3" />
+    <option name="LAST_COMMIT_MESSAGE" value="started the request activity and the request class3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/MainActivity.java</url>
-          <line>84</line>
+          <line>87</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">

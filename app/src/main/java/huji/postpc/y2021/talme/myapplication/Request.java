@@ -9,7 +9,7 @@ public class Request implements Serializable {
     //needs to have timeout
     String req_id;
     String request_email;
-    public enum RequestType {Groceries, MAIL};
+    public enum RequestType {GROCERIES, MAIL};
     RequestType type;
     public enum RequestStatus {WAITING, IN_PROGRESS, READY, DONE}
     RequestStatus status;
@@ -36,7 +36,7 @@ public class Request implements Serializable {
     public Request(String id, String name){
         req_id = id;
         request_email = "";
-        type = RequestType.SHOPPING;
+        type = RequestType.GROCERIES;
         status = RequestStatus.WAITING;
         location = "NONE";
         address = "NONE";
@@ -73,7 +73,7 @@ public class Request implements Serializable {
     @Override
     public String toString() {
         switch (this.type){
-            case SHOPPING:
+            case GROCERIES:
                 String shop = "";
                 for(String key : this.groceriesAmounts.keySet()){
                     int val = this.groceriesAmounts.get(key);
