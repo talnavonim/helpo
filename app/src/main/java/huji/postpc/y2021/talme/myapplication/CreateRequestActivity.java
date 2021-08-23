@@ -113,15 +113,15 @@ public class CreateRequestActivity extends AppCompatActivity {
         addShuger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int shuger = new_request.addSugar();
-                textShuger.setText(""+shuger+" begs of shuger");
+                int shugar = new_request.addSugar();
+                textShuger.setText(""+shugar+" begs of shuger");
             }
         });
         removeShuger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int shuger = new_request.removeShuger();
-                textShuger.setText(""+shuger+" begs of shuger");
+                int sugar = new_request.removeSugar();
+                textShuger.setText(""+sugar+" begs of sugar");
             }
         });
         addEggs.setOnClickListener(new View.OnClickListener() {

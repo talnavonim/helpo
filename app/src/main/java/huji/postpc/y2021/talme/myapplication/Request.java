@@ -83,6 +83,8 @@ public class Request implements Serializable {
                     }
                 }
                 return "Hello, i need some help with groceries, I need: "+shop;
+            case MAIL:
+
         }
 
         return "Request{" +
