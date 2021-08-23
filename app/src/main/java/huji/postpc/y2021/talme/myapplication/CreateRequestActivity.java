@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import java.util.UUID;
 
 import com.google.android.material.button.MaterialButtonToggleGroup;
@@ -113,7 +113,7 @@ public class CreateRequestActivity extends AppCompatActivity {
         addShuger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int shuger = new_request.addShuger();
+                int shuger = new_request.addSugar();
                 textShuger.setText(""+shuger+" begs of shuger");
             }
         });

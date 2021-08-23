@@ -33,7 +33,7 @@ public class ChatActivity extends AppCompatActivity {
         adapter.setChatMessagesHolder(chatMessagesHolder);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-//        chatMessagesHolder.addChat(, 2);
+        chatMessagesHolder.addChat(request.toString(), 2);
 
         EditText editText = findViewById(R.id.editTextInsertTask);
         Button sendButton = findViewById(R.id.button_gchat_send);

@@ -50,10 +50,10 @@ public class Request implements Serializable {
         groceriesAmounts.put("bread", 0);
         groceriesAmounts.put("milk", 0);
         groceriesAmounts.put("oil", 0);
-        groceriesAmounts.put("shuger", 0);
+        groceriesAmounts.put("sugar", 0);
     }
 
-    public Request(String email, RequestType type, String location, String address, int eggs, int bread, int milk, int oil, int shuger, String mailL, String c){
+    public Request(String email, RequestType type, String location, String address, int eggs, int bread, int milk, int oil, int sugar, String mailL, String c){
         req_id = UUID.randomUUID().toString();
         request_email = email;
         this.type = type;
@@ -65,7 +65,7 @@ public class Request implements Serializable {
         groceriesAmounts.put("bread", bread);
         groceriesAmounts.put("milk", milk);
         groceriesAmounts.put("oil", oil);
-        groceriesAmounts.put("shuger", shuger);
+        groceriesAmounts.put("sugar", sugar);
         mailLocation = mailL;
         comment = c;
     }
@@ -133,20 +133,20 @@ public class Request implements Serializable {
         return geohash;
     }
 
-    public int addShuger(){
-        int shuger = groceriesAmounts.get("shuger");
-        if(shuger != 3){
-            groceriesAmounts.put("shuger", shuger+1);
+    public int addSugar(){
+        int sugar = groceriesAmounts.get("sugar");
+        if(sugar != 3){
+            groceriesAmounts.put("sugar", sugar+1);
         }
-        return groceriesAmounts.get("shuger");
+        return groceriesAmounts.get("sugar");
     }
 
-    public int removeShuger(){
-        int shuger = groceriesAmounts.get("shuger");
-        if(shuger > 0){
-            groceriesAmounts.put("shuger", shuger-1);
+    public int removeSugar(){
+        int sugar = groceriesAmounts.get("sugar");
+        if(sugar > 0){
+            groceriesAmounts.put("sugar", sugar-1);
         }
-        return groceriesAmounts.get("shuger");
+        return groceriesAmounts.get("sugar");
     }
 
     public int addOil(){
