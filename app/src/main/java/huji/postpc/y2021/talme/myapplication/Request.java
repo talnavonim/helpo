@@ -70,6 +70,37 @@ public class Request implements Serializable {
         comment = c;
     }
 
+    @Override
+    public String toString() {
+        switch (this.type){
+            case SHOPPING:
+                String shop = "";
+                for(String key : this.groceriesAmounts.keySet()){
+                    int val = this.groceriesAmounts.get(key);
+                    if(val > 0){
+                        shop += val + " ";
+                        shop += key + " ";
+                    }
+                }
+                return "Hello, i need some help with groceries, I need: "+shop;
+        }
+
+        return "Request{" +
+                "req_id='" + req_id + '\'' +
+                ", request_email='" + request_email + '\'' +
+                ", type=" + type +
+                ", status=" + status +
+                ", location='" + location + '\'' +
+                ", address='" + address + '\'' +
+                ", groceriesAmounts=" + groceriesAmounts +
+                ", mailLocation='" + mailLocation + '\'' +
+                ", comment='" + comment + '\'' +
+                ", geohash='" + geohash + '\'' +
+                ", full_name='" + full_name + '\'' +
+                '}';
+    }
+
+
     public void setFull_name(String full_name) {
         this.full_name = full_name;
     }
