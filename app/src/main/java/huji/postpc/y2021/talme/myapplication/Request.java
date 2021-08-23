@@ -1,14 +1,15 @@
 package huji.postpc.y2021.talme.myapplication;
 
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class Request {
+public class Request implements Serializable {
     //needs to have timeout
     String req_id;
     String request_email;
-    public enum RequestType {SHOPPING, MAIL};
+    public enum RequestType {Groceries, MAIL};
     RequestType type;
     public enum RequestStatus {WAITING, IN_PROGRESS, READY, DONE}
     RequestStatus status;

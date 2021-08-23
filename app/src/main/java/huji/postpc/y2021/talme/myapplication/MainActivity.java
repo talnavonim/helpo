@@ -15,6 +15,7 @@ import android.widget.Button;
 import com.firebase.geofire.GeoFireUtils;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQueryBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -43,11 +44,13 @@ import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback , ActivityCompat.OnRequestPermissionsResultCallback{ //
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback , ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnInfoWindowClickListener{ //
 
     private GoogleMap mMap;
 
@@ -115,6 +118,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(@NonNull GoogleMap googleMap) {
 
         mMap = googleMap;
+        googleMap.setOnInfoWindowClickListener(this);
+
         getDeviceLocation();
 
     }
@@ -165,11 +170,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             // ...
                             for (DocumentSnapshot doc : matchingDocs)
                             {
+                                Request req = doc.toObject(Request.class);
                                 double lat = doc.getDouble("lat");
                                 double lng = doc.getDouble("lng");
-                                mMap.addMarker(new MarkerOptions()
+                                String type = doc.getString("type");
+                                String full_name = doc.getString("full_name");
+                                Objects.requireNonNull(mMap.addMarker(new MarkerOptions()
                                         .position(new LatLng(lat, lng))
-                                        .title("Marker"));
+                                        .title(type)
+                                        .snippet(full_name))).setTag(req);
 
                             }
                         }
@@ -199,16 +208,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
                                                 lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                                updateRequests();
                             }
                         } else {
 //                            Log.d(TAG, "Current location is null. Using defaults.");
 //                            Log.e(TAG, "Exception: %s", task.getException());
-                            mMap.moveCamera(CameraUpdateFactory
-                                    .newLatLngZoom(defaultLocation, DEFAULT_ZOOM));
-                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+//                            mMap.moveCamera(CameraUpdateFactory
+//                                    .newLatLngZoom(defaultLocation, DEFAULT_ZOOM));
+//                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                            getDeviceLocation();
                         }
 
-                        updateRequests();
                     }
                 });
             }
@@ -231,4 +241,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
        getDeviceLocation();
     }
 
+    @Override
+    public void onInfoWindowClick(@NonNull Marker marker) {
+//        Toast.makeText(this, "INFO CLICK", Toast.LENGTH_SHORT).show();
+        Intent chatIntent = new Intent(app, ChatActivity.class);
+        chatIntent.putExtra("request", (Serializable) marker.getTag());
+        startActivity(chatIntent);
+    }
 }
