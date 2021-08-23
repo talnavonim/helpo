@@ -52,10 +52,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private final LatLng defaultLocation = new LatLng(-33.8523341, 151.2106085);
     private Location lastKnownLocation;
 
-    SharedPreferences sp = null;
-    FirebaseFirestore firestore = null;
-
-
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
@@ -96,10 +92,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        FirebaseApp.initializeApp(this);
-        sp = PreferenceManager.getDefaultSharedPreferences(this);
-        firestore = FirebaseFirestore.getInstance();
 
         // Get a handle to the fragment and register the callback.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
