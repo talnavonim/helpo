@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -17,7 +18,8 @@ import com.google.android.gms.tasks.Task;
 
 public class RequestsActivity extends AppCompatActivity {
     Button signOut;
-    ImageButton newRequastButton;
+    ImageButton toMapButton;
+    Button newRequastButton;
     GoogleSignInClient mGoogleSignInClient;
 
     @Override
@@ -25,7 +27,9 @@ public class RequestsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_requests);
         signOut = findViewById(R.id.signOutButton);
-        newRequastButton = findViewById(R.id.toMapButton);
+        newRequastButton = findViewById(R.id.create_request_button);
+        toMapButton = findViewById(R.id.toMapButton);
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -40,10 +44,18 @@ public class RequestsActivity extends AppCompatActivity {
             }
 
         });
-        newRequastButton.setOnClickListener(v->
+        toMapButton.setOnClickListener(v->
         {
-            Intent newRequest = new Intent(RequestsActivity.this, MainActivity.class);
-            startActivity(newRequest);
+            Intent findHelpos = new Intent(RequestsActivity.this, MainActivity.class);
+            startActivity(findHelpos);
+        });
+
+        newRequastButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newRequest = new Intent(RequestsActivity.this, CreateRequestActivity.class);
+                startActivity(newRequest);
+            }
         });
     }
     private void signOut() {
