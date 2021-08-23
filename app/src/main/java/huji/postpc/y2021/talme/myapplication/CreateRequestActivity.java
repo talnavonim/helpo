@@ -3,10 +3,14 @@ package huji.postpc.y2021.talme.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.UUID;
 
@@ -38,6 +42,9 @@ public class CreateRequestActivity extends AppCompatActivity {
     FloatingActionButton addOil;
     FloatingActionButton removeOil;
     TextView textOil;
+    EditText comment;
+//    Button groceries;
+//    Button mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +55,8 @@ public class CreateRequestActivity extends AppCompatActivity {
 
         groceriesConteiner = findViewById(R.id.groceries_selected);
         mailConteiner = findViewById(R.id.mail_selected);
-        sendRequestButton = findViewById(R.id.send_request);
+//        groceries = findViewById(R.id.groceries_button);
+//        mail = findViewById(R.id.mail_button);
 
         new_request = new Request(UUID.randomUUID().toString(), app.user.getName());
 
@@ -67,6 +75,9 @@ public class CreateRequestActivity extends AppCompatActivity {
         addOil = findViewById(R.id.add_oil);
         removeOil = findViewById(R.id.remove_oil);
         textOil = findViewById(R.id.text_oil);
+
+        sendRequestButton = findViewById(R.id.send_request);
+        comment = findViewById(R.id.edittext_comment);
 
         selectHelpoType = findViewById(R.id.select_helpo_type);
         selectHelpoType.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
@@ -89,7 +100,23 @@ public class CreateRequestActivity extends AppCompatActivity {
                             break;
 
                     }
-
+                }
+            }
+        });
+        sendRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(groceriesConteiner.getVisibility() == View.VISIBLE){
+                    new_request.setType(Request.RequestType.GROCERIES);
+                    new_request.setComment(comment.getText().toString());
+                }
+                else if(mailConteiner.getVisibility() == View.VISIBLE){
+                    new_request.setType(Request.RequestType.MAIL);
+                    new_request.setComment(comment.getText().toString());
+                }
+                else{
+                    Toast toast = Toast.makeText(app, "You need to select type of helpo first!", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
