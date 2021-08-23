@@ -15,6 +15,7 @@ public class Request {
     String location;
     String address;
     HashMap<String, Integer> groceriesAmounts = new HashMap<String, Integer>();
+    String mailLocation;
 
     public Request(){
 //        req_id = UUID.randomUUID().toString();
@@ -27,16 +28,21 @@ public class Request {
 //        initialGroceries();
     }
 
-//    public Request(){
-//        req_id = UUID.randomUUID().toString();
-//        request_email = "";
-//        type = RequestType.SHOPPING;
-//        status = RequestStatus.WAITING;
-//        location = "NONE";
-//        address = "NONE";
-//        groceriesAmounts = new HashMap<String, Integer>();
-//        initialGroceries();
-//    }
+    public Request(String email, RequestType type, String location, String address, int eggs, int bread, int milk, int oil, int shuger, String mailL){
+        req_id = UUID.randomUUID().toString();
+        request_email = email;
+        this.type = type;
+        status = RequestStatus.WAITING;
+        this.location = location;
+        this.address = address;
+        groceriesAmounts = new HashMap<String, Integer>();
+        groceriesAmounts.put("eggs", eggs);
+        groceriesAmounts.put("bread", bread);
+        groceriesAmounts.put("milk", milk);
+        groceriesAmounts.put("oil", oil);
+        groceriesAmounts.put("shuger", shuger);
+        mailLocation = mailL;
+    }
 
     private void initialGroceries(){
         groceriesAmounts.put("eggs", 0);

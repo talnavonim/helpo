@@ -14,6 +14,8 @@ public class CreateRequestActivity extends AppCompatActivity {
     ConstraintLayout groceriesConteiner;
     ConstraintLayout mailConteiner;
 
+    Request new_request;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
