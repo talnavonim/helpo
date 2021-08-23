@@ -12,6 +12,12 @@ import android.view.View;
 import android.widget.Button;
 
 
+import com.firebase.geofire.GeoFireUtils;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQueryBounds;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,6 +28,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -36,6 +43,9 @@ import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback , ActivityCompat.OnRequestPermissionsResultCallback{ //
 
@@ -47,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int DEFAULT_ZOOM = 15;
     private final LatLng defaultLocation = new LatLng(-33.8523341, 151.2106085);
     private Location lastKnownLocation;
+    private HelpoApp app;
 
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =
@@ -77,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             locationPermissionGranted = true;
         } else {
 
-
             // You can directly ask for the permission.
             // The registered ActivityResultCallback gets the result of this request.
             requestPermissionLauncher.launch(
@@ -98,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         getLocationPermission();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        app = HelpoApp.getInstance();
     }
 
     @Override
@@ -106,10 +117,68 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         getDeviceLocation();
 
-        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    public void updateRequests(){ // todo double radius
+        if (lastKnownLocation != null)
+        {
+            GeoLocation center = new GeoLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+            final double radiusInM = 2.5 * 1000;
+
+            // Each item in 'bounds' represents a startAt/endAt pair. We have to issue
+            // a separate query for each pair. There can be up to 9 pairs of bounds
+            // depending on overlap, but in most cases there are 4.
+            List<GeoQueryBounds> bounds = GeoFireUtils.getGeoHashQueryBounds(center, radiusInM);
+            final List<Task<QuerySnapshot>> tasks = new ArrayList<>();
+            for (GeoQueryBounds b : bounds) {
+                Query q = app.firestore.collection(app.REQUESTS)
+                        .orderBy("geohash")
+                        .startAt(b.startHash)
+                        .endAt(b.endHash);
+
+                tasks.add(q.get());
+            }
+
+// Collect all the query results together into a single list
+            Tasks.whenAllComplete(tasks)
+                    .addOnCompleteListener(new OnCompleteListener<List<Task<?>>>() {
+                        @Override
+                        public void onComplete(@NonNull Task<List<Task<?>>> t) {
+                            List<DocumentSnapshot> matchingDocs = new ArrayList<>();
+
+                            for (Task<QuerySnapshot> task : tasks) {
+                                QuerySnapshot snap = task.getResult();
+                                for (DocumentSnapshot doc : snap.getDocuments()) {
+                                    double lat = doc.getDouble("lat");
+                                    double lng = doc.getDouble("lng");
+
+                                    // We have to filter out a few false positives due to GeoHash
+                                    // accuracy, but most will match
+                                    GeoLocation docLocation = new GeoLocation(lat, lng);
+                                    double distanceInM = GeoFireUtils.getDistanceBetween(docLocation, center);
+                                    if (distanceInM <= radiusInM) {
+                                        matchingDocs.add(doc);
+                                    }
+                                }
+                            }
+                            // matchingDocs contains the results
+                            // ...
+                            for (DocumentSnapshot doc : matchingDocs)
+                            {
+                                double lat = doc.getDouble("lat");
+                                double lng = doc.getDouble("lng");
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(new LatLng(lat, lng))
+                                        .title("Marker"));
+
+                            }
+                        }
+                    });
+        }
+        else
+        {
+
+        }
     }
 
     private void getDeviceLocation() {
@@ -138,6 +207,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     .newLatLngZoom(defaultLocation, DEFAULT_ZOOM));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
                         }
+
+                        updateRequests();
                     }
                 });
             }
@@ -160,6 +231,4 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
        getDeviceLocation();
     }
 
-//    @Override
-//    public void onPointerCaptureChanged(boolean hasCapture) {}
 }

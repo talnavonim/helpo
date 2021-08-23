@@ -19,26 +19,26 @@ public class ChatActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_gchat);
 
-        adapter = new MessageListAdapter();
-        bubbleAdapter.setChatMessagesHolder(chatMessagesHolder);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(bubbleAdapter);
-        EditText editText = findViewById(R.id.editTextInsertTask);
-        FloatingActionButton floatingActionButton = findViewById(R.id.buttonSend);
-        floatingActionButton.setOnClickListener(v->{
-            int length = editText.getText().toString().length();
-            if(length != 0){
-                //TODO call amitsour model
-                chatMessagesHolder.addChat(editText.getText().toString(), true);
-
-                bubbleAdapter.notifyDataSetChanged();
-                botMessenger.setUserMessage(editText.getText().toString());
-                editText.setText("");
-                chatMessagesHolder.addChat(botMessenger.responseMessage(), false);
-                bubbleAdapter.notifyDataSetChanged();
-            }
-
-        });
+//        adapter = new MessageListAdapter();
+//        bubbleAdapter.setChatMessagesHolder(chatMessagesHolder);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(bubbleAdapter);
+//        EditText editText = findViewById(R.id.editTextInsertTask);
+//        FloatingActionButton floatingActionButton = findViewById(R.id.buttonSend);
+//        floatingActionButton.setOnClickListener(v->{
+//            int length = editText.getText().toString().length();
+//            if(length != 0){
+//                //TODO call amitsour model
+//                chatMessagesHolder.addChat(editText.getText().toString(), true);
+//
+//                bubbleAdapter.notifyDataSetChanged();
+//                botMessenger.setUserMessage(editText.getText().toString());
+//                editText.setText("");
+//                chatMessagesHolder.addChat(botMessenger.responseMessage(), false);
+//                bubbleAdapter.notifyDataSetChanged();
+//            }
+//
+//        });
 
     }
 }
