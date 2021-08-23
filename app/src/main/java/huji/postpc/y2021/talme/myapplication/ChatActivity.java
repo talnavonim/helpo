@@ -1,16 +1,21 @@
 package huji.postpc.y2021.talme.myapplication;
 
-//import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.widget.Button;
+import android.widget.EditText;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ChatActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     MessageListAdapter adapter;
-//        ChatMessagesHolder chatMessagesHolder;
+    ChatMessageHolder chatMessagesHolder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,27 +23,27 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         recyclerView = findViewById(R.id.recycler_gchat);
+        adapter = new MessageListAdapter();
+        chatMessagesHolder = new ChatMessageHolder();
+        adapter.setChatMessagesHolder(chatMessagesHolder);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
-//        adapter = new MessageListAdapter();
-//        bubbleAdapter.setChatMessagesHolder(chatMessagesHolder);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(bubbleAdapter);
-//        EditText editText = findViewById(R.id.editTextInsertTask);
-//        FloatingActionButton floatingActionButton = findViewById(R.id.buttonSend);
-//        floatingActionButton.setOnClickListener(v->{
-//            int length = editText.getText().toString().length();
-//            if(length != 0){
-//                //TODO call amitsour model
-//                chatMessagesHolder.addChat(editText.getText().toString(), true);
-//
-//                bubbleAdapter.notifyDataSetChanged();
-//                botMessenger.setUserMessage(editText.getText().toString());
-//                editText.setText("");
-//                chatMessagesHolder.addChat(botMessenger.responseMessage(), false);
-//                bubbleAdapter.notifyDataSetChanged();
-//            }
-//
-//        });
+        EditText editText = findViewById(R.id.editTextInsertTask);
+        Button sendButton = findViewById(R.id.button_gchat_send);
+
+        sendButton.setOnClickListener(v->{
+            int length = editText.getText().toString().length();
+            if(length != 0){
+                //TODO call amitsour model
+                chatMessagesHolder.addChat(editText.getText().toString(), 1);
+
+                adapter.notifyDataSetChanged();
+                editText.setText("");
+
+            }
+
+        });
 
     }
 }
