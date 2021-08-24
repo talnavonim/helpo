@@ -33,6 +33,50 @@
         android:layout_height="wrap_content"
         android:text="new request"
         tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="573dp" />
+        tools:layout_editor_absoluteY="573dp"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="25dp"/>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ihelp_and_requests_conteiner"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="79dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/ihelp_and_requests_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleSelection="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <Button
+                android:id="@+id/i_help_button"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I help"
+                tools:layout_editor_absoluteX="57dp"
+                tools:layout_editor_absoluteY="58dp" />
+            <Button
+                android:id="@+id/my_requests_button"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="my requests"
+                tools:layout_editor_absoluteX="57dp"
+                tools:layout_editor_absoluteY="58dp" />
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

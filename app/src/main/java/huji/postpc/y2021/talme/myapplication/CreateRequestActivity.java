@@ -45,6 +45,8 @@ public class CreateRequestActivity extends AppCompatActivity {
     EditText comment;
 //    Button groceries;
 //    Button mail;
+    EditText mailAddress;
+    EditText mailType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,9 @@ public class CreateRequestActivity extends AppCompatActivity {
 
         sendRequestButton = findViewById(R.id.send_request);
         comment = findViewById(R.id.edittext_comment);
+
+        mailAddress = findViewById(R.id.edittext_commend_mail);
+        mailType = findViewById(R.id.edittext_type_mail);
 
         selectHelpoType = findViewById(R.id.select_helpo_type);
         selectHelpoType.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
@@ -113,6 +118,8 @@ public class CreateRequestActivity extends AppCompatActivity {
                 else if(mailConteiner.getVisibility() == View.VISIBLE){
                     new_request.setType(Request.RequestType.MAIL);
                     new_request.setComment(comment.getText().toString());
+                    new_request.setMailType(mailType.getText().toString());
+                    new_request.setMailLocation(mailAddress.getText().toString());
                 }
                 else{
                     Toast toast = Toast.makeText(app, "You need to select type of helpo first!", Toast.LENGTH_SHORT);
@@ -121,6 +128,7 @@ public class CreateRequestActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void groceryFunc(){
         addBread.setOnClickListener(new View.OnClickListener() {

@@ -41,7 +41,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/CreateRequestActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/CreateRequestActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/Request.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_request.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_request.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_requests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_requests.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,7 +288,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629731032124</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="sugar2">
+      <created>1629734133173</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1629734133173</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -338,16 +347,6 @@
           <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/MainActivity.java</url>
           <line>87</line>
           <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/CreateRequestActivity.java</url>
-          <line>125</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/CreateRequestActivity.java</url>
-          <line>108</line>
-          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

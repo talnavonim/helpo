@@ -17,9 +17,20 @@ public class Request implements Serializable {
     String address;
     HashMap<String, Integer> groceriesAmounts = new HashMap<String, Integer>();
     String mailLocation;
+    String mailType;
+
+    public void setMailType(String mailType) {
+        this.mailType = mailType;
+    }
+
+    public String getMailType() {
+        return mailType;
+    }
+
     String comment;
     String geohash;
     String full_name;
+
 
 
     public Request(){
