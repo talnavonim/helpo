@@ -11,12 +11,12 @@ public class myRequestHolder {
         my_requests = new ArrayList<>();
     }
 
-    public void addMyRequestMail(String req_id, String request_email, Request.RequestStatus status, String location, String address, String mailLocation, String mailType){
-        Request new_request = new Request(req_id, request_email, status, location, address, mailLocation, mailType);
+    public void addMyRequestMail(String req_id, String request_email, Request.RequestStatus status, double lat, double lng, String address, String mailLocation, String mailType){
+        Request new_request = new Request(req_id, request_email, status, lat, lng, address, mailLocation, mailType);
         this.my_requests.add(new_request);
     }
-    public void addMyRequestGroceries(String req_id, String request_email, Request.RequestStatus status, String location, String address, HashMap<String, Integer> groceriesAmounts){
-        Request new_request = new Request(req_id, request_email, status, location, address, groceriesAmounts);
+    public void addMyRequestGroceries(String req_id, String request_email, Request.RequestStatus status, double lat, double lng, String address, HashMap<String, Integer> groceriesAmounts){
+        Request new_request = new Request(req_id, request_email, status, lat, lng, address, groceriesAmounts);
         this.my_requests.add(new_request);
     }
 

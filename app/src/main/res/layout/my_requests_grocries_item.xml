@@ -9,13 +9,6 @@
 
     <!-- TODO: edit this file as you want-->
 
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/imageView"/>
 
     <ImageView
         android:id="@+id/imageView"
@@ -23,7 +16,7 @@
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_menu_delete"
 
-        app:layout_constraintEnd_toStartOf="@id/checkBox"
+        app:layout_constraintRight_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
@@ -33,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintLeft_toRightOf="@+id/checkBox"
+        app:layout_constraintLeft_toRightOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
