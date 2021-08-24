@@ -151,7 +151,7 @@
                         android:id="@+id/text_sugar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0 begs of sugar"
+                        android:text="0 bags of sugar"
                         tools:layout_editor_absoluteX="105dp"
                         tools:layout_editor_absoluteY="14dp"
                         app:layout_constraintLeft_toRightOf="@+id/remove_sugar"
