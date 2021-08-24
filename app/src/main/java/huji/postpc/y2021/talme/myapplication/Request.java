@@ -1,7 +1,12 @@
 package huji.postpc.y2021.talme.myapplication;
 
 
+import com.google.firebase.Timestamp;
+import com.google.type.DateTime;
+
 import java.io.Serializable;
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -20,6 +25,7 @@ public class Request implements Serializable {
     HashMap<String, Integer> groceriesAmounts;
     String mailLocation;
     String mailType;
+    Timestamp request_timestamp;
 
     //for requests type groceries
     public Request(String req_id, String request_email, RequestStatus status, double lat, double lng, String address, HashMap<String, Integer> groceriesAmounts){
@@ -31,6 +37,7 @@ public class Request implements Serializable {
         this.lng = lng;
         this.address = address;
         this.groceriesAmounts = new HashMap<>(groceriesAmounts);
+        this.request_timestamp = Timestamp.now();
     }
 
     //for requests type mail
@@ -44,6 +51,7 @@ public class Request implements Serializable {
         this.address = address;
         this.mailLocation = mailLocation;
         this.mailType = mailType;
+        this.request_timestamp = Timestamp.now();
     }
 
     public void setMailType(String mailType) {

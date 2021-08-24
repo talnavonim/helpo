@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class IhelpHolder {
-//    List<Request> i_help;
+public class HelpOfferList {
+    List<HelpOffer> i_help;
 //
 //    public IhelpHolder(){
 //        i_help = new ArrayList<>();
