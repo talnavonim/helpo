@@ -15,9 +15,32 @@ public class Request implements Serializable {
     RequestStatus status;
     String location;
     String address;
-    HashMap<String, Integer> groceriesAmounts = new HashMap<String, Integer>();
+    HashMap<String, Integer> groceriesAmounts;
     String mailLocation;
     String mailType;
+
+    //for requests type groceries
+    public Request(String req_id, String request_email, RequestStatus status, String location, String address, HashMap<String, Integer> groceriesAmounts){
+        this.req_id = req_id;
+        this.request_email = request_email;
+        this.type = RequestType.GROCERIES;
+        this.status = status;
+        this.location = location;
+        this.address = address;
+        this.groceriesAmounts = new HashMap<>(groceriesAmounts);
+    }
+
+    //for requests type mail
+    public Request(String req_id, String request_email, RequestStatus status, String location, String address, String mailLocation, String mailType){
+        this.req_id = req_id;
+        this.request_email = request_email;
+        this.type = RequestType.MAIL;
+        this.status = status;
+        this.location = location;
+        this.address = address;
+        this.mailLocation = mailLocation;
+        this.mailType = mailType;
+    }
 
     public void setMailType(String mailType) {
         this.mailType = mailType;
