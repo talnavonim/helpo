@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -12,6 +13,7 @@ public class HelpoApp extends Application {
     private SharedPreferences sp = null;
     public FirebaseFirestore firestore = null; //exposed for tests
     public final String REQUESTS = "requests";
+    GoogleSignInAccount account;
 
     public User user;
 

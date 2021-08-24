@@ -18,7 +18,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private static final String TAG = "Error";
     GoogleSignInClient mGoogleSignInClient;
     ImageButton gmailButton;
-
+    HelpoApp app;
     int RC_SIGN_IN = 0;
 
 
@@ -26,7 +26,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-
+        app = HelpoApp.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -75,7 +75,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            app.account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
 //            updateUI(account);
