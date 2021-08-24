@@ -55,6 +55,7 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account!= null) {//todo - receive account information and display it on screen
+            app.account = account;
             Intent intent = new Intent(this, RequestsActivity.class);
             startActivity(intent);
         }
@@ -79,7 +80,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
             // Signed in successfully, show authenticated UI.
 //            updateUI(account);
-            Intent signInIntent = new Intent(WelcomeActivity.this, RequestsActivity.class);
+            Intent signInIntent = new Intent(WelcomeActivity.this, GetAccountInfoActivity.class);
             startActivity(signInIntent);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
