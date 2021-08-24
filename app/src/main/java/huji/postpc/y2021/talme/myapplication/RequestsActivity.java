@@ -113,7 +113,8 @@ public class RequestsActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(RequestsActivity.this,"Signed Out Successfully",Toast.LENGTH_LONG).show();
                         Intent goToLogin = new Intent(RequestsActivity.this, WelcomeActivity.class);
-                        startActivity(goToLogin);
+                        finish();
+//                        startActivity(goToLogin);
                     }
                 });
     }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class Request implements Serializable {
+    String location;
     //needs to have timeout
     String req_id;
     String request_email;
