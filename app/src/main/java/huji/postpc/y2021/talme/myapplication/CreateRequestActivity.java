@@ -146,8 +146,8 @@ public class CreateRequestActivity extends AppCompatActivity {
             new_request.setLng(loc.longitude);
             String hash = GeoFireUtils.getGeoHashForLocation(new GeoLocation(loc.latitude, loc.longitude));
             new_request.setGeohash(hash);
-//            new_request.setRequest_email(app.account.getEmail());
-//            new_request.setFull_name(app.account.getDisplayName()); todo add display name and email
+            new_request.setRequest_email(app.email);
+            new_request.setFull_name(app.full_name);
             DocumentReference orderRef = app.firestore.collection(app.REQUESTS).document(new_request.req_id);
             orderRef.set(new_request)
                     .addOnSuccessListener(result -> {

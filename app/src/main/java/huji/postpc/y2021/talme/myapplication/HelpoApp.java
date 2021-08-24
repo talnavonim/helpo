@@ -13,7 +13,10 @@ public class HelpoApp extends Application {
     private SharedPreferences sp = null;
     public FirebaseFirestore firestore = null; //exposed for tests
     public final String REQUESTS = "requests";
+    public final String HELP_OFFERS = "help_offers";
     GoogleSignInAccount account;
+    public String email;
+    public String full_name;
 
     public User user;
 
@@ -26,6 +29,10 @@ public class HelpoApp extends Application {
         firestore = FirebaseFirestore.getInstance();
         instance = this;
 
+        email = "talme1091@gmail.com"; // todo remove place holder
+        full_name = "Tal Navon"; // todo remove place holder
+
+
         user = new User("talme1091@gmail.com", "tal", 10, 1);
     }
 
@@ -34,3 +41,4 @@ public class HelpoApp extends Application {
         return instance;
     }
 }
+

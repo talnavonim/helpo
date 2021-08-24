@@ -1,11 +1,14 @@
 package huji.postpc.y2021.talme.myapplication;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -17,6 +20,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RequestsActivity extends AppCompatActivity {
     Button signOut;
@@ -30,10 +40,17 @@ public class RequestsActivity extends AppCompatActivity {
     ConstraintLayout ihelpContainer;
     ConstraintLayout myRequestsContainer;
 
+    RecyclerView recyclerHelpOffers;
+
+    HelpoApp app;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_requests);
+
+        app = HelpoApp.getInstance();
+
         signOut = findViewById(R.id.signOutButton);
         newRequastButton = findViewById(R.id.create_request_button);
         toMapButton = findViewById(R.id.toMapButton);
@@ -41,6 +58,10 @@ public class RequestsActivity extends AppCompatActivity {
         myRequestButton = findViewById(R.id.my_requests_button);
         ihelpContainer = findViewById(R.id.ihelp_selected);
         myRequestsContainer = findViewById(R.id.myrequests_selected);
+
+        recyclerHelpOffers = findViewById(R.id.recycler_ihelp);
+
+        loadHelpOffers();
 
 
         selectIhelpOrMyRequests = findViewById(R.id.ihelp_and_requests_buttons);
@@ -96,6 +117,30 @@ public class RequestsActivity extends AppCompatActivity {
                 startActivity(newRequest);
             }
         });
+    }
+
+    private void loadHelpOffers() {
+
+        app.firestore.collection(app.HELP_OFFERS)
+                .whereEqualTo("helper_email", app.email)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("TAG", "Listen failed.", e);
+                            return;
+                        }
+
+                        List<String> cities = new ArrayList<>();
+                        for (QueryDocumentSnapshot doc : value) {
+                            if (doc.get("name") != null) {
+                                cities.add(doc.getString("name"));
+                            }
+                        }
+                        Log.d("TAG", "Current cites in CA: " + cities);
+                    }
+                });
     }
 
     private void iHelpButtonFunc(){
