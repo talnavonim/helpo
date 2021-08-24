@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,9 +17,12 @@ import java.util.UUID;
 
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CreateRequestActivity extends AppCompatActivity {
     HelpoApp app;
+
 
     MaterialButtonToggleGroup selectHelpoType;
     ConstraintLayout groceriesConteiner;
@@ -30,9 +34,9 @@ public class CreateRequestActivity extends AppCompatActivity {
     FloatingActionButton addBread;
     FloatingActionButton removeBread;
     TextView textBread;
-    FloatingActionButton addShuger;
-    FloatingActionButton removeShuger;
-    TextView textShuger;
+    FloatingActionButton addSugar;
+    FloatingActionButton removeSugar;
+    TextView textSugar;
     FloatingActionButton addEggs;
     FloatingActionButton removeEggs;
     TextView textEggs;
@@ -65,9 +69,9 @@ public class CreateRequestActivity extends AppCompatActivity {
         addBread = findViewById(R.id.add_bred);
         removeBread = findViewById(R.id.remove_bred);
         textBread = findViewById(R.id.text_bread);
-        addShuger = findViewById(R.id.add_shuger);
-        removeShuger = findViewById(R.id.remove_shuger);
-        textShuger = findViewById(R.id.text_shuger);
+        addSugar = findViewById(R.id.add_sugar);
+        removeSugar = findViewById(R.id.remove_sugar);
+        textSugar = findViewById(R.id.text_sugar);
         addEggs = findViewById(R.id.add_eggs);
         removeEggs = findViewById(R.id.remove_eggs);
         textEggs = findViewById(R.id.text_eggs);
@@ -108,24 +112,32 @@ public class CreateRequestActivity extends AppCompatActivity {
                 }
             }
         });
-        sendRequestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(groceriesConteiner.getVisibility() == View.VISIBLE){
-                    new_request.setType(Request.RequestType.GROCERIES);
-                    new_request.setComment(comment.getText().toString());
-                }
-                else if(mailConteiner.getVisibility() == View.VISIBLE){
-                    new_request.setType(Request.RequestType.MAIL);
-                    new_request.setComment(comment.getText().toString());
-                    new_request.setMailType(mailType.getText().toString());
-                    new_request.setMailLocation(mailAddress.getText().toString());
-                }
-                else{
-                    Toast toast = Toast.makeText(app, "You need to select type of helpo first!", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
+        sendRequestButton.setOnClickListener(v -> {
+            if(groceriesConteiner.getVisibility() == View.VISIBLE){
+                new_request.setType(Request.RequestType.GROCERIES);
+                new_request.setComment(comment.getText().toString());
             }
+            else if(mailConteiner.getVisibility() == View.VISIBLE){
+                new_request.setType(Request.RequestType.MAIL);
+                new_request.setComment(comment.getText().toString());
+                new_request.setMailType(mailType.getText().toString());
+                new_request.setMailLocation(mailAddress.getText().toString());
+            }
+            else{
+                Toast toast = Toast.makeText(app, "You need to select type of helpo first!", Toast.LENGTH_SHORT);
+                toast.show();
+                return;
+            }
+
+            DocumentReference orderRef = app.firestore.collection(app.REQUESTS).document(new_request.req_id);
+            orderRef.set(new_request)
+                    .addOnSuccessListener(result -> {
+                        Intent intent = new Intent(app, RequestsActivity.class);
+                        startActivity(intent);
+                    }).addOnFailureListener(u -> {
+                Toast toast = Toast.makeText(app, "Failed to send request!", Toast.LENGTH_SHORT);
+                toast.show();
+            });
         });
     }
 
@@ -145,18 +157,18 @@ public class CreateRequestActivity extends AppCompatActivity {
                 textBread.setText(""+bread+" breads");
             }
         });
-        addShuger.setOnClickListener(new View.OnClickListener() {
+        addSugar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int shugar = new_request.addSugar();
-                textShuger.setText(""+shugar+" begs of shuger");
+                int sugar = new_request.addSugar();
+                textSugar.setText(""+sugar+" begs of sugar");
             }
         });
-        removeShuger.setOnClickListener(new View.OnClickListener() {
+        removeSugar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int sugar = new_request.removeSugar();
-                textShuger.setText(""+sugar+" begs of sugar");
+                textSugar.setText(""+sugar+" begs of sugar");
             }
         });
         addEggs.setOnClickListener(new View.OnClickListener() {

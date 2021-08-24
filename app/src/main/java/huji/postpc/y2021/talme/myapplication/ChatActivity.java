@@ -24,7 +24,6 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        Request request = (Request) getIntent().getSerializableExtra("request");
 //        Toast.makeText(HelpoApp.getInstance(), request.address, Toast.LENGTH_SHORT).show();
 
         recyclerView = findViewById(R.id.recycler_gchat);
@@ -33,7 +32,9 @@ public class ChatActivity extends AppCompatActivity {
         adapter.setChatMessagesHolder(chatMessagesHolder);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-        chatMessagesHolder.addChat(request.toString(), 2);
+
+        Request request = (Request) getIntent().getSerializableExtra("request");
+        chatMessagesHolder.addChat(request.toString(), MessageListAdapter.VIEW_TYPE_MESSAGE_RECEIVED, request.full_name);
 
         EditText editText = findViewById(R.id.editTextInsertTask);
         Button sendButton = findViewById(R.id.button_gchat_send);
@@ -42,7 +43,7 @@ public class ChatActivity extends AppCompatActivity {
             int length = editText.getText().toString().length();
             if(length != 0){
                 //TODO call amitsour model
-                chatMessagesHolder.addChat(editText.getText().toString(), 1);
+                chatMessagesHolder.addChat(editText.getText().toString(), MessageListAdapter.VIEW_TYPE_MESSAGE_SENT);
 
                 adapter.notifyDataSetChanged();
                 editText.setText("");

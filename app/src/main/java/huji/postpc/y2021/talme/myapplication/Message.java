@@ -16,6 +16,16 @@ public class Message {
         type = typeOfUser;
     }
 
+    Message(String message, int typeOfUser, String fullName){
+
+        this.message = message;
+        time = new Time();
+        time.setToNow();
+        type = typeOfUser;
+        this.fullName = fullName;
+
+    }
+
 
     String getMessage(){
         return message;

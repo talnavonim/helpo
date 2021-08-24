@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
-    private static final int VIEW_TYPE_MESSAGE_SENT = 1;
-    private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
+    public static final int VIEW_TYPE_MESSAGE_SENT = 1;
+    public static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
     ChatMessageHolder chatHolder = null;
 
@@ -61,6 +61,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         Message bubbleChat = chatHolder.getChat().get(position);
         if(bubbleChat.getType()==VIEW_TYPE_MESSAGE_SENT){
             TextView user_message_txv = ((SentMessageViewHolder) holder).message;
+
             TextView user_message_hour_txv = ((SentMessageViewHolder) holder).hour;
             user_message_txv.setText(bubbleChat.getMessage());
             int hour = bubbleChat.getTime().hour;
@@ -71,6 +72,8 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         else{
             TextView user_message_txv = ((ReceivedMessageViewHolder) holder).message;
             TextView user_message_hour_txv = ((ReceivedMessageViewHolder) holder).hour;
+            TextView user_message_sender_txv = ((ReceivedMessageViewHolder) holder).sender;
+            user_message_sender_txv.setText(bubbleChat.getFullName());
             user_message_txv.setText(bubbleChat.getMessage());
             int hour = bubbleChat.getTime().hour;
             int minutes = bubbleChat.getTime().minute;

@@ -12,10 +12,12 @@ import android.view.View;
 public class ReceivedMessageViewHolder extends RecyclerView.ViewHolder {
     TextView message;
     TextView hour;
+    TextView sender;
 
     public ReceivedMessageViewHolder(@NonNull  View itemView) {
         super(itemView);
         message = itemView.findViewById(R.id.text_gchat_message_other);
         hour = itemView.findViewById(R.id.text_gchat_timestamp_other);
+        sender = itemView.findViewById(R.id.text_gchat_user_other);
     }
 }
