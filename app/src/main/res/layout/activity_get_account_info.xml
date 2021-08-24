@@ -8,38 +8,36 @@
 
     <ImageView
         android:id="@+id/InfoImage"
-        android:layout_width="106dp"
-        android:layout_height="102dp"
-        android:layout_marginTop="188dp"
+        android:layout_width="138dp"
+        android:layout_height="133dp"
+        android:layout_marginTop="112dp"
         app:layout_constraintEnd_toEndOf="@+id/infoName"
+        app:layout_constraintHorizontal_bias="0.453"
         app:layout_constraintStart_toStartOf="@+id/infoName"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars[2]" />
 
     <EditText
         android:id="@+id/infoName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="64dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/InfoImage" />
 
-    <EditText
+    <TextView
         android:id="@+id/InfoEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="104dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
+        android:layout_width="215dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="72dp"
         android:text="Email"
         app:layout_constraintEnd_toEndOf="@+id/infoName"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/infoName"
         app:layout_constraintTop_toBottomOf="@+id/infoName" />
 
@@ -57,8 +55,8 @@
         android:id="@+id/ConfirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="32dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

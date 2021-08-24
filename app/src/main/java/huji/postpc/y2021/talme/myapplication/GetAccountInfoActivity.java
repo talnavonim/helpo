@@ -7,15 +7,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class GetAccountInfoActivity extends AppCompatActivity {
     EditText name;
-    EditText email;
+    TextView email;
     ImageView photo;
     FloatingActionButton confirmButton;
 
@@ -35,12 +37,15 @@ public class GetAccountInfoActivity extends AppCompatActivity {
 //            String personFamilyName = acct.getFamilyName();
             String personEmail = acct.getEmail();
 //            String personId = acct.getId();
-//            Uri personPhoto = acct.getPhotoUrl();
-            name.setText((personName));
+            Uri personPhoto = acct.getPhotoUrl();
+            name.setText(personName);
             email.setText(personEmail);
+            Glide.with(this).load(String.valueOf(personPhoto)).into(photo);
             confirmButton.setOnClickListener(v->
             {
-                Intent confirmedUser= new Intent(GetAccountInfoActivity.this, RequestsActivity.class);
+                app.full_name = name.getText().toString();
+                app.email = email.getText().toString();
+                Intent confirmedUser = new Intent(GetAccountInfoActivity.this, RequestsActivity.class);
                 startActivity(confirmedUser);
             });
         }
@@ -49,11 +54,5 @@ public class GetAccountInfoActivity extends AppCompatActivity {
             Toast.makeText(GetAccountInfoActivity.this, "Failed to receive information - please resign", Toast.LENGTH_SHORT).show();
             finish();
         }
-
-
-
-
-
-
     }
 }
