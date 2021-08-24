@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class Request implements Serializable {
-    String location;
+
     //needs to have timeout
     String req_id;
     String request_email;
@@ -90,6 +90,14 @@ public class Request implements Serializable {
         groceriesAmounts = new HashMap<String, Integer>();
         initialGroceries();
         full_name = name;
+    }
+
+    public Timestamp getRequest_timestamp() {
+        return request_timestamp;
+    }
+
+    public void setRequest_timestamp(Timestamp request_timestamp) {
+        this.request_timestamp = request_timestamp;
     }
 
     private void initialGroceries(){

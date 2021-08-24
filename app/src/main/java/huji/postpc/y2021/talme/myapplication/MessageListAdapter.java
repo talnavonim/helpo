@@ -8,7 +8,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+import com.google.firebase.Timestamp;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
     public static final int VIEW_TYPE_MESSAGE_SENT = 1;
@@ -64,8 +68,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
             TextView user_message_hour_txv = ((SentMessageViewHolder) holder).hour;
             user_message_txv.setText(bubbleChat.getMessage());
-            int hour = bubbleChat.getTime().hour;
-            int minutes = bubbleChat.getTime().minute;
+            LocalDateTime lcl = bubbleChat.getLocalDateTime();
+            int hour = lcl.getHour();
+            int minutes = lcl.getMinute();
             String time = hour + ":" + minutes;
             user_message_hour_txv.setText(time);
         }
@@ -75,8 +80,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             TextView user_message_sender_txv = ((ReceivedMessageViewHolder) holder).sender;
             user_message_sender_txv.setText(bubbleChat.getFullName());
             user_message_txv.setText(bubbleChat.getMessage());
-            int hour = bubbleChat.getTime().hour;
-            int minutes = bubbleChat.getTime().minute;
+            LocalDateTime lcl = bubbleChat.getLocalDateTime();
+            int hour = lcl.getHour();
+            int minutes = lcl.getMinute();
             String time = hour + ":" + minutes;
             user_message_hour_txv.setText(time);
         }

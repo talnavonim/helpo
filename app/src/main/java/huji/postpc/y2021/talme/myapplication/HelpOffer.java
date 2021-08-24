@@ -4,7 +4,7 @@ import android.renderscript.ScriptIntrinsicYuvToRGB;
 
 import com.google.firebase.Timestamp;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +16,7 @@ public class HelpOffer {
     Request.RequestType requestType;
     Request.RequestStatus requestStatus;
     Timestamp offer_timestamp;
-//    List<HashMap<String, String>> chat;//todo add chats
+    List<Message> chat;//todo add chats
 
     public HelpOffer(){}
 
@@ -26,6 +26,7 @@ public class HelpOffer {
         this.helper_email = helper_email;
         this.requester_full_name = requester_full_name;
         this.requestType = requestType;
+        chat = new ArrayList<>();
     }
 
     public String getReq_id() {

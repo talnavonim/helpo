@@ -22,6 +22,7 @@ import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 
 public class CreateRequestActivity extends AppCompatActivity {
@@ -148,6 +149,7 @@ public class CreateRequestActivity extends AppCompatActivity {
             new_request.setGeohash(hash);
             new_request.setRequest_email(app.email);
             new_request.setFull_name(app.full_name);
+            new_request.setRequest_timestamp(Timestamp.now());
             DocumentReference orderRef = app.firestore.collection(app.REQUESTS).document(new_request.req_id);
             orderRef.set(new_request)
                     .addOnSuccessListener(result -> {
