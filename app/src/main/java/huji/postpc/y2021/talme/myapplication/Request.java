@@ -13,7 +13,8 @@ public class Request implements Serializable {
     RequestType type;
     public enum RequestStatus {WAITING, IN_PROGRESS, READY, DONE}
     RequestStatus status;
-    String location;
+    double lat;
+    double lng;
     String address;
     HashMap<String, Integer> groceriesAmounts = new HashMap<String, Integer>();
     String mailLocation;
@@ -49,7 +50,8 @@ public class Request implements Serializable {
         request_email = "";
         type = RequestType.GROCERIES;
         status = RequestStatus.WAITING;
-        location = "NONE";
+        lat = 0;
+        lng = 0;
         address = "NONE";
         groceriesAmounts = new HashMap<String, Integer>();
         initialGroceries();
@@ -64,12 +66,13 @@ public class Request implements Serializable {
         groceriesAmounts.put("sugar", 0);
     }
 
-    public Request(String email, RequestType type, String location, String address, int eggs, int bread, int milk, int oil, int sugar, String mailL, String c){
+    public Request(String email, RequestType type, double lat, double lng, String address, int eggs, int bread, int milk, int oil, int sugar, String mailL, String c){
         req_id = UUID.randomUUID().toString();
         request_email = email;
         this.type = type;
         status = RequestStatus.WAITING;
-        this.location = location;
+        this.lat = lat;
+        this.lng = lng;
         this.address = address;
         groceriesAmounts = new HashMap<String, Integer>();
         groceriesAmounts.put("eggs", eggs);
@@ -103,7 +106,8 @@ public class Request implements Serializable {
                 ", request_email='" + request_email + '\'' +
                 ", type=" + type +
                 ", status=" + status +
-                ", location='" + location + '\'' +
+                ", latitude='" + lat + '\'' +
+                ", longitude='" + lng + '\'' +
                 ", address='" + address + '\'' +
                 ", groceriesAmounts=" + groceriesAmounts +
                 ", mailLocation='" + mailLocation + '\'' +
@@ -259,12 +263,20 @@ public class Request implements Serializable {
         this.address = address;
     }
 
-    public String getLocation() {
-        return location;
+    public double getLat() {
+        return lat;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 
     public String getReq_id() {

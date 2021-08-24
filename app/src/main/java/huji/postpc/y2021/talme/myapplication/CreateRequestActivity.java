@@ -3,22 +3,26 @@ package huji.postpc.y2021.talme.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.firebase.geofire.GeoFireUtils;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
 import java.util.UUID;
 
+import com.firebase.geofire.GeoLocation;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CreateRequestActivity extends AppCompatActivity {
     HelpoApp app;
@@ -51,6 +55,7 @@ public class CreateRequestActivity extends AppCompatActivity {
 //    Button mail;
     EditText mailAddress;
     EditText mailType;
+    EditText textAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +86,7 @@ public class CreateRequestActivity extends AppCompatActivity {
         addOil = findViewById(R.id.add_oil);
         removeOil = findViewById(R.id.remove_oil);
         textOil = findViewById(R.id.text_oil);
+        textAddress = findViewById(R.id.edittext_address);
 
         sendRequestButton = findViewById(R.id.send_request);
         comment = findViewById(R.id.edittext_comment);
@@ -128,7 +134,18 @@ public class CreateRequestActivity extends AppCompatActivity {
                 toast.show();
                 return;
             }
-
+            String address = textAddress.getText().toString();
+            new_request.setAddress(address);
+            LatLng loc = getLocationFromAddress(app, address);
+            if (loc == null)
+            {
+                Toast.makeText(app, "Wrong address!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            new_request.setLat(loc.latitude);
+            new_request.setLng(loc.longitude);
+            String hash = GeoFireUtils.getGeoHashForLocation(new GeoLocation(loc.latitude, loc.longitude));
+            new_request.setGeohash(hash);
             DocumentReference orderRef = app.firestore.collection(app.REQUESTS).document(new_request.req_id);
             orderRef.set(new_request)
                     .addOnSuccessListener(result -> {
@@ -139,6 +156,31 @@ public class CreateRequestActivity extends AppCompatActivity {
                 toast.show();
             });
         });
+    }
+
+    public LatLng getLocationFromAddress(Context context, String strAddress) {
+
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+            Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
     }
 
 
