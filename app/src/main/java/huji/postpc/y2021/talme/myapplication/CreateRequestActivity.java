@@ -27,7 +27,7 @@ import com.google.firebase.firestore.DocumentReference;
 
 public class CreateRequestActivity extends AppCompatActivity {
     HelpoApp app;
-
+    myRequestHolder holder;
 
     MaterialButtonToggleGroup selectHelpoType;
     ConstraintLayout groceriesConteiner;
@@ -64,6 +64,8 @@ public class CreateRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_request);
 
         app = HelpoApp.getInstance();
+
+        holder = app.getRequestsHolder();
 
         groceriesConteiner = findViewById(R.id.groceries_selected);
         mailConteiner = findViewById(R.id.mail_selected);
@@ -159,7 +161,13 @@ public class CreateRequestActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(app, "Failed to send request!", Toast.LENGTH_SHORT);
                 toast.show();
             });
+            holder.addRequest(new_request);
+            Intent intent = new Intent(app, RequestsActivity.class);
+            startActivity(intent);
         });
+
+        //add to RequestsActivity to the recycleView
+
     }
 
     public LatLng getLocationFromAddress(Context context, String strAddress) {

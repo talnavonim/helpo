@@ -13,8 +13,12 @@ public class myRequestGroceriesViewHolder extends RecyclerView.ViewHolder{
 
     public myRequestGroceriesViewHolder(@NonNull View itemView) {
         super(itemView);
-        picture = itemView.findViewById(R.id.imageView);
+//        picture = itemView.findViewById(R.id.imageView);
         message = itemView.findViewById(R.id.itemTextView);
+    }
+
+    public void setMessage(String m){
+        this.message.setText(m);
     }
 
 }

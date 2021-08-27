@@ -3,6 +3,7 @@ package huji.postpc.y2021.talme.myapplication;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,14 +19,14 @@ public class myRequestsAdapter extends RecyclerView.Adapter{
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(viewType ==VIEW_TYPE_GROCRIES){
             View sender = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_requests_grocries_item, parent, false);
-            return new SentMessageViewHolder(sender);
+            return new myRequestGroceriesViewHolder(sender);
         }
         if(viewType == VIEW_TYPE_MAIL){
             View receiver = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_requests_mail_item, parent, false);
-            return new ReceivedMessageViewHolder(receiver);
+            return new myRequestGroceriesViewHolder(receiver);
         }
         View sender = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_requests_mail_item, parent, false);
-        return new SentMessageViewHolder(sender);
+        return new myRequestGroceriesViewHolder(sender);
 
     }
 
@@ -43,9 +44,9 @@ public class myRequestsAdapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Request curr_request = myRequestHolder.getMyRequest().get(position);
-        if(curr_request.getType()== Request.RequestType.GROCERIES){
-
-        }
+//        if(curr_request.getType()== Request.RequestType.GROCERIES){
+//        }
+        ((myRequestGroceriesViewHolder) holder).setMessage(curr_request.toString());
     }
 
     @Override

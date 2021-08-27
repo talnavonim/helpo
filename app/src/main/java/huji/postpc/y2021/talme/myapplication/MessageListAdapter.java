@@ -56,7 +56,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             return new ReceivedMessageViewHolder(receiver);
         }
         View sender = LayoutInflater.from(parent.getContext()).inflate(R.layout.shape_bg_outgoing_bubble, parent, false);
-        return new SentMessageViewHolder(sender);
+        return new ReceivedMessageViewHolder(sender);
 //        return null;
     }
 

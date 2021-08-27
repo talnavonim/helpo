@@ -4,9 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,7 +45,11 @@ public class RequestsActivity extends AppCompatActivity {
     ConstraintLayout ihelpContainer;
     ConstraintLayout myRequestsContainer;
 
+    RecyclerView recyclerView_myrequests;
+    myRequestsAdapter myrequests_adapter;
+    myRequestHolder myrequests_holder;
     RecyclerView recyclerHelpOffers;
+    private BroadcastReceiver receiverToDBChanges; // changes with the myReuests
 
     HelpoApp app;
 
@@ -50,6 +59,14 @@ public class RequestsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_requests);
 
         app = HelpoApp.getInstance();
+
+        recyclerView_myrequests = findViewById(R.id.recycler_myrequests);
+        myrequests_adapter = new myRequestsAdapter();
+        myrequests_holder = app.getRequestsHolder();
+        myrequests_adapter.setMyRequestHolder(myrequests_holder);
+        recyclerView_myrequests.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView_myrequests.setAdapter(myrequests_adapter);
+
 
         signOut = findViewById(R.id.signOutButton);
         newRequastButton = findViewById(R.id.create_request_button);
@@ -69,20 +86,19 @@ public class RequestsActivity extends AppCompatActivity {
             @Override
             public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
                 if(isChecked){
+                    //TODO ophir to get the list of the requests from the firebase
                     switch (checkedId){
                         case R.id.i_help_button:
                             if(myRequestsContainer.getVisibility() == View.VISIBLE){
                                 myRequestsContainer.setVisibility(View.INVISIBLE);
                             }
                             ihelpContainer.setVisibility(View.VISIBLE);
-//                            iHelpButtonFunc();
                             break;
                         case R.id.my_requests_button:
                             if(ihelpContainer.getVisibility() == View.VISIBLE){
                                 ihelpContainer.setVisibility(View.INVISIBLE);
                             }
                             myRequestsContainer.setVisibility(View.VISIBLE);
-//                            groceryFunc();
                             break;
                     }
 
@@ -117,6 +133,13 @@ public class RequestsActivity extends AppCompatActivity {
                 startActivity(newRequest);
             }
         });
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        myrequests_adapter.notifyDataSetChanged();
     }
 
     private void loadHelpOffers() {
@@ -141,14 +164,6 @@ public class RequestsActivity extends AppCompatActivity {
                         Log.d("TAG", "Current cites in CA: " + cities);
                     }
                 });
-    }
-
-    private void iHelpButtonFunc(){
-        //TODO
-    }
-
-    private void myRequestsFunc(){
-
     }
 
     private void signOut() {

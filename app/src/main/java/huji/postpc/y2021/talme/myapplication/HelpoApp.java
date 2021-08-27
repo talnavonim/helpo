@@ -10,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HelpoApp extends Application {
     private static HelpoApp instance = null;
+
     private SharedPreferences sp = null;
     public FirebaseFirestore firestore = null; //exposed for tests
     public final String REQUESTS = "requests";
@@ -20,6 +21,7 @@ public class HelpoApp extends Application {
 
     public User user;
 
+    public myRequestHolder requests_holder;
 
     @Override
     public void onCreate() {
@@ -34,6 +36,13 @@ public class HelpoApp extends Application {
 
 
         user = new User("talme1091@gmail.com", "tal", 10, 1);
+
+        requests_holder = new myRequestHolder(this);
+
+    }
+
+    public myRequestHolder getRequestsHolder(){
+        return this.requests_holder;
     }
 
     public static HelpoApp getInstance()

@@ -1,14 +1,38 @@
 package huji.postpc.y2021.talme.myapplication;
 
+import android.content.Context;
+import android.content.Intent;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class myRequestHolder {
+public class myRequestHolder implements Serializable {
     List<Request> my_requests;
+    private Context context;
 
     public myRequestHolder(){
         my_requests = new ArrayList<>();
+    }
+
+    public myRequestHolder(Context c){
+        my_requests = new ArrayList<>();
+        this.context = c;
+    }
+
+    public void addRequest(Request new_request){
+        if(new_request.getType() == Request.RequestType.GROCERIES){
+            addMyRequestGroceries(new_request.getReq_id(), new_request.getRequest_email(), new_request.getStatus(), new_request.getLat(), new_request.getLng(), new_request.getAddress(), new_request.getGroceriesAmounts());
+        }
+        else{
+            addMyRequestMail(new_request.getReq_id(), new_request.getRequest_email(), new_request.getStatus(), new_request.getLat(), new_request.getLng(), new_request.getAddress(), new_request.getMailLocation(), new_request.getMailType());
+        }
+//        this.sendBroadcast();
+    }
+
+    public myRequestHolder(ArrayList<Request> requests){
+        my_requests = new ArrayList<Request>(requests);
     }
 
     public void addMyRequestMail(String req_id, String request_email, Request.RequestStatus status, double lat, double lng, String address, String mailLocation, String mailType){
@@ -21,4 +45,16 @@ public class myRequestHolder {
     }
 
     public List<Request> getMyRequest(){return my_requests;}
+
+    public ArrayList<Request> getCoppies(){
+        return new ArrayList<>(my_requests);
+    }
+
+    public void sendBroadcast(){
+        Intent broadcast = new Intent("db_changed");
+        ArrayList <Request> requests = this.getCoppies();
+        myRequestHolder db = new myRequestHolder(requests);
+        broadcast.putExtra("db", db);
+        context.sendBroadcast(broadcast);
+    }
 }
