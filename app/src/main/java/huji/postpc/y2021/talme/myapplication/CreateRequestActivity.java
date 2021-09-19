@@ -27,7 +27,7 @@ import com.google.firebase.firestore.DocumentReference;
 
 public class CreateRequestActivity extends AppCompatActivity {
     HelpoApp app;
-    myRequestHolder holder;
+    myRequestList holder;
 
     MaterialButtonToggleGroup selectHelpoType;
     ConstraintLayout groceriesConteiner;
@@ -65,7 +65,7 @@ public class CreateRequestActivity extends AppCompatActivity {
 
         app = HelpoApp.getInstance();
 
-        holder = app.getRequestsHolder();
+        holder = app.getRequestsList();
 
         groceriesConteiner = findViewById(R.id.groceries_selected);
         mailConteiner = findViewById(R.id.mail_selected);

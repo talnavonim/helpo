@@ -6,12 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,14 +16,17 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -38,6 +38,8 @@ public class RequestsActivity extends AppCompatActivity {
     ImageButton toMapButton;
     Button newRequastButton;
     GoogleSignInClient mGoogleSignInClient;
+    private CollectionReference requestsRef;
+    private CollectionReference helpOffersRef;
 
     MaterialButtonToggleGroup selectIhelpOrMyRequests;
     Button iHelpButton;
@@ -47,7 +49,8 @@ public class RequestsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView_myrequests;
     myRequestsAdapter myrequests_adapter;
-    myRequestHolder myrequests_holder;
+    IhelpAdapter help_offer_adapter;
+//    myRequestList myrequests_holder;
     RecyclerView recyclerHelpOffers;
     private BroadcastReceiver receiverToDBChanges; // changes with the myReuests
 
@@ -59,14 +62,10 @@ public class RequestsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_requests);
 
         app = HelpoApp.getInstance();
-
-        recyclerView_myrequests = findViewById(R.id.recycler_myrequests);
-        myrequests_adapter = new myRequestsAdapter();
-        myrequests_holder = app.getRequestsHolder();
-        myrequests_adapter.setMyRequestHolder(myrequests_holder);
-        recyclerView_myrequests.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView_myrequests.setAdapter(myrequests_adapter);
-
+        requestsRef = app.firestore.collection(app.REQUESTS);
+        helpOffersRef = app.firestore.collection(app.HELP_OFFERS);
+        setUpRequestRecylerView();
+        setUpRequestIhelpRecylerView();
 
         signOut = findViewById(R.id.signOutButton);
         newRequastButton = findViewById(R.id.create_request_button);
@@ -78,7 +77,7 @@ public class RequestsActivity extends AppCompatActivity {
 
         recyclerHelpOffers = findViewById(R.id.recycler_ihelp);
 
-        loadHelpOffers();
+//        loadHelpOffers();
 
 
         selectIhelpOrMyRequests = findViewById(R.id.ihelp_and_requests_buttons);
@@ -136,33 +135,67 @@ public class RequestsActivity extends AppCompatActivity {
 
     }
 
+    private void setUpRequestIhelpRecylerView() {
+        Query query = helpOffersRef.whereEqualTo("helper_email", app.email).orderBy("offer_timestamp", Query.Direction.DESCENDING);
+//        Query query = helpOffersRef.orderBy("offer_timestamp", Query.Direction.DESCENDING);
+
+        FirestoreRecyclerOptions<HelpOffer> options = new FirestoreRecyclerOptions.Builder<HelpOffer>()
+                .setQuery(query, HelpOffer.class)
+                .build();
+
+        recyclerHelpOffers = findViewById(R.id.recycler_ihelp);
+        help_offer_adapter = new IhelpAdapter(options);
+        recyclerHelpOffers.setHasFixedSize(true);
+        recyclerHelpOffers.setLayoutManager(new LinearLayoutManager(this));
+        recyclerHelpOffers.setAdapter(help_offer_adapter);
+    }
+
+    private void setUpRequestRecylerView()
+    {
+        Query query = requestsRef.whereEqualTo("request_email", app.email).orderBy("request_timestamp", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<Request> options = new FirestoreRecyclerOptions.Builder<Request>()
+                .setQuery(query, Request.class)
+                .build();
+
+        recyclerView_myrequests = findViewById(R.id.recycler_myrequests);
+        myrequests_adapter = new myRequestsAdapter(options);
+        recyclerView_myrequests.setHasFixedSize(true);
+        recyclerView_myrequests.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView_myrequests.setAdapter(myrequests_adapter);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
-        myrequests_adapter.notifyDataSetChanged();
+//        myrequests_adapter.notifyDataSetChanged();
+        myrequests_adapter.startListening();
+        help_offer_adapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        myrequests_adapter.stopListening();
+        help_offer_adapter.stopListening();
     }
 
     private void loadHelpOffers() {
 
         app.firestore.collection(app.HELP_OFFERS)
                 .whereEqualTo("helper_email", app.email)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w("TAG", "Listen failed.", e);
-                            return;
-                        }
-
-                        List<String> cities = new ArrayList<>();
-                        for (QueryDocumentSnapshot doc : value) {
-                            if (doc.get("name") != null) {
-                                cities.add(doc.getString("name"));
-                            }
-                        }
-                        Log.d("TAG", "Current cites in CA: " + cities);
+                .addSnapshotListener((value, e) -> {
+                    if (e != null) {
+                        Log.w("TAG", "Listen failed.", e);
+                        return;
                     }
+
+                    List<String> cities = new ArrayList<>();
+                    for (QueryDocumentSnapshot doc : value) {
+                        if (doc.get("name") != null) {
+                            cities.add(doc.getString("name"));
+                        }
+                    }
+                    Log.d("TAG", "Current cites in CA: " + cities);
                 });
     }
 

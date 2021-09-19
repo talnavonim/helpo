@@ -156,13 +156,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 for (DocumentSnapshot doc : snap.getDocuments()) {
                                     double lat = doc.getDouble("lat");
                                     double lng = doc.getDouble("lng");
+                                    String requester_email = doc.getString("requester_email");
 
                                     // We have to filter out a few false positives due to GeoHash
                                     // accuracy, but most will match
                                     GeoLocation docLocation = new GeoLocation(lat, lng);
                                     double distanceInM = GeoFireUtils.getDistanceBetween(docLocation, center);
                                     if (distanceInM <= radiusInM) {
-                                        matchingDocs.add(doc);
+                                        assert requester_email != null;
+                                        if (!requester_email.equals(app.email)) {
+                                            matchingDocs.add(doc);
+                                        }
                                     }
                                 }
                             }

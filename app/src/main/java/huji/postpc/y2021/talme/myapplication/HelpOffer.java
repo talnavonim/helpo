@@ -12,11 +12,11 @@ public class HelpOffer {
     String req_id;
     String help_id;
     String helper_email;
+    String helper_full_name;
     String requester_full_name;
     Request.RequestType requestType;
     Request.RequestStatus requestStatus;
     Timestamp offer_timestamp;
-    List<Message> chat;//todo add chats
 
     public HelpOffer(){}
 
@@ -26,7 +26,6 @@ public class HelpOffer {
         this.helper_email = helper_email;
         this.requester_full_name = requester_full_name;
         this.requestType = requestType;
-        chat = new ArrayList<>();
     }
 
     public String getReq_id() {
@@ -84,4 +83,13 @@ public class HelpOffer {
     public void setOffer_timestamp(Timestamp offer_timestamp) {
         this.offer_timestamp = offer_timestamp;
     }
+
+    public String getHelper_full_name() {
+        return helper_full_name;
+    }
+
+    public void setHelper_full_name(String helper_full_name) {
+        this.helper_full_name = helper_full_name;
+    }
+
 }

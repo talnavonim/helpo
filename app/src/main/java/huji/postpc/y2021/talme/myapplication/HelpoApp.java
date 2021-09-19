@@ -21,7 +21,7 @@ public class HelpoApp extends Application {
 
     public User user;
 
-    public myRequestHolder requests_holder;
+    public myRequestList requests_list;
 
     @Override
     public void onCreate() {
@@ -37,12 +37,12 @@ public class HelpoApp extends Application {
 
         user = new User("talme1091@gmail.com", "tal", 10, 1);
 
-        requests_holder = new myRequestHolder(this);
+        requests_list = new myRequestList(this);
 
     }
 
-    public myRequestHolder getRequestsHolder(){
-        return this.requests_holder;
+    public myRequestList getRequestsList(){
+        return this.requests_list;
     }
 
     public static HelpoApp getInstance()

@@ -14,6 +14,7 @@ public class Request implements Serializable {
 
     //needs to have timeout
     String req_id;
+    String help_offer_id;
     String request_email;
     public enum RequestType {GROCERIES, MAIL};
     RequestType type;
@@ -335,5 +336,13 @@ public class Request implements Serializable {
 
     public void setRequest_email(String request_email) {
         this.request_email = request_email;
+    }
+
+    public String getHelp_offer_id() {
+        return help_offer_id;
+    }
+
+    public void setHelp_offer_id(String help_offer_id) {
+        this.help_offer_id = help_offer_id;
     }
 }

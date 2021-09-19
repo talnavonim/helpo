@@ -8,7 +8,7 @@ import java.time.ZoneId;
 
 public class Message {
     String message;
-    String fullName;
+    String full_name;
 //    LocalDateTime message_timestamp;
     Timestamp message_timestamp;
     int type;
@@ -28,7 +28,7 @@ public class Message {
         message_timestamp = Timestamp.now();
 //        message_timestamp = LocalDateTime.now();
         type = typeOfUser;
-        this.fullName = fullName;
+        this.full_name = fullName;
 
     }
 
@@ -44,8 +44,8 @@ public class Message {
         return message;
     }
 
-    String getFullName(){
-        return fullName;
+    String getFull_name(){
+        return full_name;
     }
 
     String getCreatedAt(){
@@ -56,8 +56,8 @@ public class Message {
         this.message = message;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 
 //    public void setMessage_timestamp(LocalDateTime message_timestamp) {

@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class myRequestHolder implements Serializable {
+public class myRequestList implements Serializable {
     List<Request> my_requests;
     private Context context;
 
-    public myRequestHolder(){
+    public myRequestList(){
         my_requests = new ArrayList<>();
     }
 
-    public myRequestHolder(Context c){
+    public myRequestList(Context c){
         my_requests = new ArrayList<>();
         this.context = c;
     }
@@ -31,7 +31,7 @@ public class myRequestHolder implements Serializable {
 //        this.sendBroadcast();
     }
 
-    public myRequestHolder(ArrayList<Request> requests){
+    public myRequestList(ArrayList<Request> requests){
         my_requests = new ArrayList<Request>(requests);
     }
 
@@ -53,7 +53,7 @@ public class myRequestHolder implements Serializable {
     public void sendBroadcast(){
         Intent broadcast = new Intent("db_changed");
         ArrayList <Request> requests = this.getCoppies();
-        myRequestHolder db = new myRequestHolder(requests);
+        myRequestList db = new myRequestList(requests);
         broadcast.putExtra("db", db);
         context.sendBroadcast(broadcast);
     }

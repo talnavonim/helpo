@@ -8,7 +8,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         app:cardBackgroundColor="@color/browser_actions_bg_grey"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
@@ -44,7 +43,7 @@
                 android:id="@+id/txt_req_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Groceries"
+                android:text="Mail"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/txt_req_name"
                 app:layout_constraintTop_toBottomOf="@+id/txt_req_name" />
