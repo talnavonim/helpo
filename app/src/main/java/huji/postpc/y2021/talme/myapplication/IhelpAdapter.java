@@ -1,5 +1,6 @@
 package huji.postpc.y2021.talme.myapplication;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+
+import java.io.Serializable;
 
 public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapter.HelpOfferHolder> {
     private static final int VIEW_TYPE_GROCRIES = 1;
@@ -45,7 +48,11 @@ public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapt
         }
         setStatus(holder, model.status);
         holder.requester.setText(model.requester_full_name);
-
+        holder.requester.setOnClickListener(v->{
+            Intent chatIntent = new Intent(holder.view.getContext(), ChatActivity.class);
+            chatIntent.putExtra("offer", (Serializable) model);
+            holder.view.getContext().startActivity(chatIntent); //todo should use viewholder instead?
+        });
     }
 
 
@@ -68,10 +75,12 @@ public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapt
         TextView requester;
         TextView status;
         TextView req_type;
+        View view;
 
 
         public HelpOfferHolder(@NonNull View itemView) {
             super(itemView);
+            view = itemView;
             picture = itemView.findViewById(R.id.imageProfile);
             requester = itemView.findViewById(R.id.txt_req_name);
             status = itemView.findViewById(R.id.txt_req_status);

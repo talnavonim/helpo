@@ -2,9 +2,10 @@ package huji.postpc.y2021.talme.myapplication;
 
 import com.google.firebase.Timestamp;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class HelpOffer {
+public class HelpOffer implements Serializable {
     String req_id;
     String help_id;
     String helper_id;
@@ -13,7 +14,7 @@ public class HelpOffer {
     Request.RequestType requestType;
     enum OfferStatus {PENDING, APPROVED}
     OfferStatus status;
-    Timestamp offer_timestamp;
+    transient Timestamp offer_timestamp;
 
     public HelpOffer(){}
 
