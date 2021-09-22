@@ -1,5 +1,6 @@
 package huji.postpc.y2021.talme.myapplication;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -51,6 +53,12 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
                     HelpOffer offer = document.toObject(HelpOffer.class);
                     assert offer != null;
                     holder.setHelper(offer.helper_full_name);
+
+                    holder.helper.setOnClickListener(v->{ //todo set onclick for card not textview
+                        Intent chatIntent = new Intent(holder.view.getContext(), ChatActivity.class);
+                        chatIntent.putExtra("offer", (Serializable) offer);
+                        holder.view.getContext().startActivity(chatIntent);
+                    });
                 } else {
                     //todo set status to waiting, help_offer_id to null and update cloud
                     loadSearching(holder);

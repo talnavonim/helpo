@@ -39,7 +39,7 @@ public class HelpoApp extends Application {
 
         email = "talme1091@gmail.com"; // todo remove place holder
         full_name = "Tal Navon"; // todo remove place holder
-        user_id = "s53mTabvuHzWKpA3cRhw"; // todo remove place holder
+        user_id = "Carmel"; // todo remove place holder
 
 
         user = new User("talme1091@gmail.com", "tal", 10, 1);

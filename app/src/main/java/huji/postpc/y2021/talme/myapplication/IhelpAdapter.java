@@ -48,10 +48,10 @@ public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapt
         }
         setStatus(holder, model.status);
         holder.requester.setText(model.requester_full_name);
-        holder.requester.setOnClickListener(v->{
+        holder.requester.setOnClickListener(v->{ //todo set onclick for card not textview
             Intent chatIntent = new Intent(holder.view.getContext(), ChatActivity.class);
             chatIntent.putExtra("offer", (Serializable) model);
-            holder.view.getContext().startActivity(chatIntent); //todo should use viewholder instead?
+            holder.view.getContext().startActivity(chatIntent);
         });
     }
 

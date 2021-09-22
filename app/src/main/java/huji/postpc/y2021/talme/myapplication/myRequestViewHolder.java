@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class myRequestViewHolder extends RecyclerView.ViewHolder{
+    public View view;
     ImageView picture;
     TextView helper;
     TextView status;
@@ -15,6 +16,7 @@ public class myRequestViewHolder extends RecyclerView.ViewHolder{
 
     public myRequestViewHolder(@NonNull View itemView) {
         super(itemView);
+        view = itemView;
         picture = itemView.findViewById(R.id.imageProfile);
         helper = itemView.findViewById(R.id.txt_req_name);
         status = itemView.findViewById(R.id.txt_req_status);
