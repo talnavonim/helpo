@@ -43,52 +43,24 @@ public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapt
         {
             holder.req_type.setText("Groceries");
         }
-        setStatus(holder, model.requestStatus);
+        setStatus(holder, model.status);
         holder.requester.setText(model.requester_full_name);
 
     }
 
 
-//    @Override
-//    public int getItemViewType(int position) {
-////        Request curr_help = ihelpHolder.getIhelps().get(position);
-////        if(curr_help.getType()== Request.RequestType.GROCERIES){
-////            return VIEW_TYPE_GROCRIES;
-////        }
-////        else{
-////            return VIEW_TYPE_MAIL;
-////        }
-//        return 0;
-//    }
-
-    private void setStatus(HelpOfferHolder holder, Request.RequestStatus requestStatus) {
-        switch (requestStatus){
-            case IN_PROGRESS:
-                holder.status.setText("In progress");
+    private void setStatus(HelpOfferHolder holder, HelpOffer.OfferStatus offerStatus) {
+        switch (offerStatus){
+            case PENDING:
+                holder.status.setText("Pending");
                 break;
-            case WAITING:
-                holder.status.setText("Waiting");
-                break;
-            case READY:
-                holder.status.setText("Ready");
-                break;
-            case DONE:
-                holder.status.setText("Done");
+            case APPROVED:
+                holder.status.setText("Approved");
                 break;
             default:
                 holder.status.setText("Error");
         }
     }
-
-//    @Override
-//    public int getItemCount() {
-////        return ihelpHolder.getIhelps().size();
-//        return 0;
-//    }
-
-//    public void setIhelpHolder(HelpOfferList helpOfferList){
-////        this.ihelpHolder = ihelpHolder;
-//    }
 
     public class HelpOfferHolder extends RecyclerView.ViewHolder {
 

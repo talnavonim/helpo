@@ -15,7 +15,7 @@ public class Request implements Serializable {
     //needs to have timeout
     String req_id;
     String help_offer_id;
-    String request_email;
+    String user_id;
     public enum RequestType {GROCERIES, MAIL};
     RequestType type;
     public enum RequestStatus {WAITING, IN_PROGRESS, READY, DONE}
@@ -26,12 +26,12 @@ public class Request implements Serializable {
     HashMap<String, Integer> groceriesAmounts;
     String mailLocation;
     String mailType;
-    Timestamp request_timestamp;
+    transient Timestamp request_timestamp; //timestamp is none Serializable
 
     //for requests type groceries
-    public Request(String req_id, String request_email, RequestStatus status, double lat, double lng, String address, HashMap<String, Integer> groceriesAmounts){
+    public Request(String req_id, String user_id, RequestStatus status, double lat, double lng, String address, HashMap<String, Integer> groceriesAmounts){
         this.req_id = req_id;
-        this.request_email = request_email;
+        this.user_id = user_id;
         this.type = RequestType.GROCERIES;
         this.status = status;
         this.lat = lat;
@@ -42,9 +42,9 @@ public class Request implements Serializable {
     }
 
     //for requests type mail
-    public Request(String req_id, String request_email, RequestStatus status, double lat, double lng, String address, String mailLocation, String mailType){
+    public Request(String req_id, String user_id, RequestStatus status, double lat, double lng, String address, String mailLocation, String mailType){
         this.req_id = req_id;
-        this.request_email = request_email;
+        this.user_id = user_id;
         this.type = RequestType.MAIL;
         this.status = status;
         this.lat = lat;
@@ -82,7 +82,7 @@ public class Request implements Serializable {
 
     public Request(String id, String name){
         req_id = id;
-        request_email = "";
+        user_id = "";
         type = RequestType.GROCERIES;
         status = RequestStatus.WAITING;
         lat = 0;
@@ -109,9 +109,9 @@ public class Request implements Serializable {
         groceriesAmounts.put("sugar", 0);
     }
 
-    public Request(String email, RequestType type, double lat, double lng, String address, int eggs, int bread, int milk, int oil, int sugar, String mailL, String c){
+    public Request(String user_id, RequestType type, double lat, double lng, String address, int eggs, int bread, int milk, int oil, int sugar, String mailL, String c){
         req_id = UUID.randomUUID().toString();
-        request_email = email;
+        this.user_id = user_id;
         this.type = type;
         status = RequestStatus.WAITING;
         this.lat = lat;
@@ -127,8 +127,8 @@ public class Request implements Serializable {
         comment = c;
     }
 
-    @Override
-    public String toString() {
+
+    public String phraseRequest() {
         switch (this.type){
             case GROCERIES:
                 String shop = "";
@@ -146,7 +146,7 @@ public class Request implements Serializable {
 
         return "Request{" +
                 "req_id='" + req_id + '\'' +
-                ", request_email='" + request_email + '\'' +
+                ", request_user_id='" + user_id + '\'' +
                 ", type=" + type +
                 ", status=" + status +
                 ", latitude='" + lat + '\'' +
@@ -330,12 +330,13 @@ public class Request implements Serializable {
         this.req_id = req_id;
     }
 
-    public String getRequest_email() {
-        return request_email;
+
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setRequest_email(String request_email) {
-        this.request_email = request_email;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public String getHelp_offer_id() {

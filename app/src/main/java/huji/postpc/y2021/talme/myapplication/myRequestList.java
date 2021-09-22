@@ -23,10 +23,10 @@ public class myRequestList implements Serializable {
 
     public void addRequest(Request new_request){
         if(new_request.getType() == Request.RequestType.GROCERIES){
-            addMyRequestGroceries(new_request.getReq_id(), new_request.getRequest_email(), new_request.getStatus(), new_request.getLat(), new_request.getLng(), new_request.getAddress(), new_request.getGroceriesAmounts());
+            addMyRequestGroceries(new_request.getReq_id(), new_request.getUser_id(), new_request.getStatus(), new_request.getLat(), new_request.getLng(), new_request.getAddress(), new_request.getGroceriesAmounts());
         }
         else{
-            addMyRequestMail(new_request.getReq_id(), new_request.getRequest_email(), new_request.getStatus(), new_request.getLat(), new_request.getLng(), new_request.getAddress(), new_request.getMailLocation(), new_request.getMailType());
+            addMyRequestMail(new_request.getReq_id(), new_request.getUser_id(), new_request.getStatus(), new_request.getLat(), new_request.getLng(), new_request.getAddress(), new_request.getMailLocation(), new_request.getMailType());
         }
 //        this.sendBroadcast();
     }

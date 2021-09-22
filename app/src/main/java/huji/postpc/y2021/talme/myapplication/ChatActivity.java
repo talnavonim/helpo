@@ -2,21 +2,23 @@ package huji.postpc.y2021.talme.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.Query;
 
 public class ChatActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     MessageListAdapter adapter;
-    ChatMessageHolder chatMessagesHolder;
+    HelpOffer offer;
+    private CollectionReference chatRef;
 
 
     @Override
@@ -24,33 +26,68 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-//        Toast.makeText(HelpoApp.getInstance(), request.address, Toast.LENGTH_SHORT).show();
-
-        recyclerView = findViewById(R.id.recycler_gchat);
-        adapter = new MessageListAdapter();
-        chatMessagesHolder = new ChatMessageHolder();
-        adapter.setChatMessagesHolder(chatMessagesHolder);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
         Request request = (Request) getIntent().getSerializableExtra("request");
-        chatMessagesHolder.addChat(request.toString(), MessageListAdapter.VIEW_TYPE_MESSAGE_RECEIVED, request.full_name);
+        if (request != null)
+        {
+            newHelpOffer(request);
+        }
+        else
+        {
+            offer = (HelpOffer) getIntent().getSerializableExtra("offer");
+        }
+
+        setUpRecyclerView();
+
 
         EditText editText = findViewById(R.id.editTextInsertTask);
         Button sendButton = findViewById(R.id.button_gchat_send);
 
         sendButton.setOnClickListener(v->{
-            int length = editText.getText().toString().length();
-            if(length != 0){
-                //TODO call amitsour model
-                chatMessagesHolder.addChat(editText.getText().toString(), MessageListAdapter.VIEW_TYPE_MESSAGE_SENT);
-
-                adapter.notifyDataSetChanged();
+            String message = editText.getText().toString();
+            if(message.length() != 0){
+                chatRef.add(new Message(editText.getText().toString(),
+                        HelpoApp.getInstance().user_id, Timestamp.now()));
                 editText.setText("");
-
             }
-
         });
 
     }
+
+    private void setUpRecyclerView() {
+        chatRef = HelpoApp.getInstance().helpOffersRef.document(offer.help_id).collection("chat");
+
+        Query query = chatRef.orderBy("message_timestamp", Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<Message> options = new FirestoreRecyclerOptions.Builder<Message>()
+                .setQuery(query, Message.class)
+                .build();
+
+        adapter = new MessageListAdapter(options);
+        recyclerView = findViewById(R.id.recycler_gchat);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    private void newHelpOffer(Request request) {
+        offer = new HelpOffer(request.req_id, HelpoApp.getInstance().user_id, request.full_name, request.type);
+        HelpoApp.getInstance().helpOffersRef.document(offer.help_id).set(offer); //todo doesn't check success
+        chatRef = HelpoApp.getInstance().helpOffersRef.document(offer.help_id).collection("chat");
+        Message requestMessage = new Message(request.phraseRequest(), request.user_id, Timestamp.now());
+        chatRef.add(requestMessage);
+//        String req_id, String helper_email, String requester_full_name, Request.RequestType requestType
+
+    }
+
 }

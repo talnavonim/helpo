@@ -16,8 +16,8 @@ public class ReceivedMessageViewHolder extends RecyclerView.ViewHolder {
 
     public ReceivedMessageViewHolder(@NonNull  View itemView) {
         super(itemView);
-        message = itemView.findViewById(R.id.text_gchat_message_other);
-        hour = itemView.findViewById(R.id.text_gchat_timestamp_other);
-        sender = itemView.findViewById(R.id.text_gchat_user_other);
+//        message = itemView.findViewById(R.id.text_gchat_message_other);
+//        hour = itemView.findViewById(R.id.text_gchat_timestamp_other);
+//        sender = itemView.findViewById(R.id.text_full_name);
     }
 }

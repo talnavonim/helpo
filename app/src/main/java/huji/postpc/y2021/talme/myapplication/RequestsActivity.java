@@ -136,7 +136,7 @@ public class RequestsActivity extends AppCompatActivity {
     }
 
     private void setUpRequestIhelpRecylerView() {
-        Query query = helpOffersRef.whereEqualTo("helper_email", app.email).orderBy("offer_timestamp", Query.Direction.DESCENDING);
+        Query query = helpOffersRef.whereEqualTo("helper_id", app.user_id).orderBy("offer_timestamp", Query.Direction.DESCENDING);
 //        Query query = helpOffersRef.orderBy("offer_timestamp", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<HelpOffer> options = new FirestoreRecyclerOptions.Builder<HelpOffer>()
@@ -152,7 +152,7 @@ public class RequestsActivity extends AppCompatActivity {
 
     private void setUpRequestRecylerView()
     {
-        Query query = requestsRef.whereEqualTo("request_email", app.email).orderBy("request_timestamp", Query.Direction.DESCENDING);
+        Query query = requestsRef.whereEqualTo("user_id", app.user_id).orderBy("request_timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Request> options = new FirestoreRecyclerOptions.Builder<Request>()
                 .setQuery(query, Request.class)
                 .build();

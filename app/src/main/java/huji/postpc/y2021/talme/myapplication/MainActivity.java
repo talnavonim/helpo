@@ -156,15 +156,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 for (DocumentSnapshot doc : snap.getDocuments()) {
                                     double lat = doc.getDouble("lat");
                                     double lng = doc.getDouble("lng");
-                                    String requester_email = doc.getString("requester_email");
+                                    String user_id = doc.getString("user_id");
 
                                     // We have to filter out a few false positives due to GeoHash
                                     // accuracy, but most will match
                                     GeoLocation docLocation = new GeoLocation(lat, lng);
                                     double distanceInM = GeoFireUtils.getDistanceBetween(docLocation, center);
                                     if (distanceInM <= radiusInM) {
-                                        assert requester_email != null;
-                                        if (!requester_email.equals(app.email)) {
+                                        assert user_id != null;
+                                        if (!user_id.equals(app.user_id)) {
                                             matchingDocs.add(doc);
                                         }
                                     }
@@ -181,8 +181,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 String full_name = doc.getString("full_name");
                                 Objects.requireNonNull(mMap.addMarker(new MarkerOptions()
                                         .position(new LatLng(lat, lng))
-                                        .title(type)
-                                        .snippet(full_name))).setTag(req);
+                                        .title(type + "- " + full_name)
+                                        .snippet(req.phraseRequest()))).setTag(req);
 
                             }
                         }
@@ -249,7 +249,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onInfoWindowClick(@NonNull Marker marker) {
 //        Toast.makeText(this, "INFO CLICK", Toast.LENGTH_SHORT).show();
         Intent chatIntent = new Intent(app, ChatActivity.class);
-        chatIntent.putExtra("request", (Serializable) marker.getTag());
+        Serializable ser = (Serializable) marker.getTag();
+        chatIntent.putExtra("request", ser);
         startActivity(chatIntent);
     }
 }

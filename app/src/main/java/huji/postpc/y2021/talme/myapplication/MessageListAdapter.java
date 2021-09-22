@@ -8,79 +8,57 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.time.LocalDateTime;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
-public class MessageListAdapter extends RecyclerView.Adapter {
-    public static final int VIEW_TYPE_MESSAGE_SENT = 1;
-    public static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
+public class MessageListAdapter extends FirestoreRecyclerAdapter<Message, MessageListAdapter.messageHolder> {
 
-    ChatMessageHolder chatHolder = null;
 
-//    private Context mContext; TODO really needed?
-//    private List<Message> mMessageList; TODO really needed?
+    public MessageListAdapter(@NonNull FirestoreRecyclerOptions<Message> options) {
+        super(options);
+    }
 
-//    public MessageListAdapter(Context context, List<Message> messageList) {
-//        mContext = context;
-//        mMessageList = messageList;
-//    } todo really needed??
 
+    class messageHolder extends RecyclerView.ViewHolder {
+        TextView messageText, timeText;
+
+
+
+        public messageHolder(@NonNull View itemView) {
+            super(itemView);
+            messageText = (TextView) itemView.findViewById(R.id.text_message);
+            timeText = (TextView) itemView.findViewById(R.id.text_timestamp);
+
+        }
+
+    }
+
+    @NonNull
     @Override
-    public int getItemCount() {
-            return chatHolder.getChat().size();
+    public messageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View sender = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
+        return new messageHolder(sender);
     }
 
     // Determines the appropriate ViewType according to the sender of the message.
     @Override
     public int getItemViewType(int position) {
-        Message bubbleChat = chatHolder.getChat().get(position);
-        return bubbleChat.getType();
+        if (getItem(position).isSent(HelpoApp.getInstance().user_id))
+        {
+            return R.layout.outgoing_message_layout_bubble;
+        }
+        else
+        {
+            return R.layout.incoming_message_layout_bubble;
+        }
     }
 
-    public void setChatMessagesHolder(ChatMessageHolder chatMessagesHolder){
-        this.chatHolder = chatMessagesHolder;
-    }
-
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(viewType ==VIEW_TYPE_MESSAGE_SENT){
-            View sender = LayoutInflater.from(parent.getContext()).inflate(R.layout.shape_bg_outgoing_bubble, parent, false);
-            return new SentMessageViewHolder(sender);
-        }
-        if(viewType == VIEW_TYPE_MESSAGE_RECEIVED){
-            View receiver = LayoutInflater.from(parent.getContext()).inflate(R.layout.shape_bg_incoming_bubble, parent, false);
-            return new ReceivedMessageViewHolder(receiver);
-        }
-        View sender = LayoutInflater.from(parent.getContext()).inflate(R.layout.shape_bg_outgoing_bubble, parent, false);
-        return new ReceivedMessageViewHolder(sender);
-//        return null;
-    }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Message bubbleChat = chatHolder.getChat().get(position);
-        if(bubbleChat.getType()==VIEW_TYPE_MESSAGE_SENT){
-            TextView user_message_txv = ((SentMessageViewHolder) holder).message;
+    protected void onBindViewHolder(@NonNull messageHolder holder, int position, @NonNull Message model) {
 
-            TextView user_message_hour_txv = ((SentMessageViewHolder) holder).hour;
-            user_message_txv.setText(bubbleChat.getMessage());
-            LocalDateTime lcl = bubbleChat.getLocalDateTime();
-            int hour = lcl.getHour();
-            int minutes = lcl.getMinute();
-            String time = hour + ":" + minutes;
-            user_message_hour_txv.setText(time);
-        }
-        else{
-            TextView user_message_txv = ((ReceivedMessageViewHolder) holder).message;
-            TextView user_message_hour_txv = ((ReceivedMessageViewHolder) holder).hour;
-            TextView user_message_sender_txv = ((ReceivedMessageViewHolder) holder).sender;
-            user_message_sender_txv.setText(bubbleChat.getFull_name());
-            user_message_txv.setText(bubbleChat.getMessage());
-            LocalDateTime lcl = bubbleChat.getLocalDateTime();
-            int hour = lcl.getHour();
-            int minutes = lcl.getMinute();
-            String time = hour + ":" + minutes;
-            user_message_hour_txv.setText(time);
-        }
+        holder.timeText.setText(model.timeToString());
+        holder.messageText.setText(model.getMessage());
     }
+
 }

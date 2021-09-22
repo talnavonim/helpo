@@ -8,31 +8,25 @@ import java.time.ZoneId;
 
 public class Message {
     String message;
-    String full_name;
-//    LocalDateTime message_timestamp;
+    String user_id;
     Timestamp message_timestamp;
-    int type;
+    public enum MessageType {RECEIVED, SENT};
 
     Message(){}
 
-    Message(String message, int typeOfUser){
-        this.message = message;
-        message_timestamp = Timestamp.now();
-//        message_timestamp = LocalDateTime.now();
-        type = typeOfUser;
+    public boolean isSent(String uid)
+    {
+        return user_id.equals(uid);
     }
 
-    Message(String message, int typeOfUser, String fullName){
-
+    Message(String message, String user_id, Timestamp time){
         this.message = message;
-        message_timestamp = Timestamp.now();
-//        message_timestamp = LocalDateTime.now();
-        type = typeOfUser;
-        this.full_name = fullName;
-
+        this.user_id = user_id;
+        this.message_timestamp = time;
     }
 
-    public LocalDateTime getLocalDateTime()
+
+    private LocalDateTime getLocalDateTime()
     {
         long mili = (message_timestamp.getSeconds() * 1000) +
                 (message_timestamp.getNanoseconds() / 1000000);
@@ -40,13 +34,10 @@ public class Message {
     }
 
 
-    String getMessage(){
+    public String getMessage(){
         return message;
     }
 
-    String getFull_name(){
-        return full_name;
-    }
 
     String getCreatedAt(){
         return ""+ message_timestamp;
@@ -56,24 +47,25 @@ public class Message {
         this.message = message;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public String getUser_id() {
+        return user_id;
     }
 
-//    public void setMessage_timestamp(LocalDateTime message_timestamp) {
+    //    public void setMessage_timestamp(LocalDateTime message_timestamp) {
     public void setMessage_timestamp(Timestamp message_timestamp) {
         this.message_timestamp = message_timestamp;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public String timeToString()
+    {
+        LocalDateTime lcl = getLocalDateTime();
+        int hour = lcl.getHour();
+        int minutes = lcl.getMinute();
+        return hour + ":" + minutes;
     }
 
-    public int getType() {
-        return type;
-    }
 
-//    public LocalDateTime getMessage_timestamp() {
+    //    public LocalDateTime getMessage_timestamp() {
     public Timestamp getMessage_timestamp() {
         return message_timestamp;
     }

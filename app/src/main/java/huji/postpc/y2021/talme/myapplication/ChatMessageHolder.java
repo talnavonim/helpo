@@ -15,16 +15,16 @@ public class ChatMessageHolder {
 //        if(type != 1 || type != 2){
 //            TODO if the type is not valid
 //        }
-        Message bubbleChat = new Message(chat, type);
-        bubbleChatList.add(bubbleChat);
+//        Message bubbleChat = new Message(chat, type);
+//        bubbleChatList.add(bubbleChat);
     }
 
     public void addChat(String chat, int type, String sender){
 //        if(type != 1 || type != 2){
 //            TODO if the type is not valid
 //        }
-        Message bubbleChat = new Message(chat, type, sender);
-        bubbleChatList.add(bubbleChat);
+//        Message bubbleChat = new Message(chat, type, sender);
+//        bubbleChatList.add(bubbleChat);
     }
 
     public List<Message> getChat(){
