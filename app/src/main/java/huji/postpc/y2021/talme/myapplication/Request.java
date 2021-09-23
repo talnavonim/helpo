@@ -18,7 +18,7 @@ public class Request implements Serializable {
     String user_id;
     public enum RequestType {GROCERIES, MAIL};
     RequestType type;
-    public enum RequestStatus {WAITING, IN_PROGRESS, READY, DONE}
+    public enum RequestStatus {WAITING, READY,IN_PROGRESS,  DONE}
     RequestStatus status;
     double lat;
     double lng;
@@ -85,6 +85,7 @@ public class Request implements Serializable {
         user_id = "";
         type = RequestType.GROCERIES;
         status = RequestStatus.WAITING;
+        help_offer_id = "";
         lat = 0;
         lng = 0;
         address = "NONE";
@@ -143,6 +144,7 @@ public class Request implements Serializable {
             case MAIL:
 
         }
+
 
         return "Request{" +
                 "req_id='" + req_id + '\'' +

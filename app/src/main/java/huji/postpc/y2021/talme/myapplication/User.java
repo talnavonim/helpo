@@ -3,14 +3,14 @@ package huji.postpc.y2021.talme.myapplication;
 import java.util.ArrayList;
 
 public class User {
-    private String email; //the id of an user
+    String email; //the id of an user
     String name;
     String user_id;
 //    ArrayList<Protege> proteges;
 //    ArrayList<Request> my_requests;
 //    ArrayList<Request> I_help;
 //    Reports
-    int rating;
+    float rating;
     int raters;
 
     public User(String email, String name, int rating, int raters){
@@ -19,6 +19,8 @@ public class User {
         this.rating = rating;
         this.raters = raters;
     }
+
+    public User(){}
 
     public String getUser_id() {
         return user_id;
@@ -44,7 +46,7 @@ public class User {
         return email;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 

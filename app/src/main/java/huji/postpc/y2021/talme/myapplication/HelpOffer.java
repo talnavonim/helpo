@@ -12,7 +12,7 @@ public class HelpOffer implements Serializable {
     String helper_full_name;
     String requester_full_name;
     Request.RequestType requestType;
-    enum OfferStatus {PENDING, APPROVED}
+    enum OfferStatus {PENDING, APPROVED, DECLINED}
     OfferStatus status;
     transient Timestamp offer_timestamp;
 
