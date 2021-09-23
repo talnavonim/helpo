@@ -14,9 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -42,7 +47,11 @@ public class ChooseHelpOfferAdapter extends FirestoreRecyclerAdapter<HelpOffer, 
                     holder.txt_raters.setText(String.format("(%d)", user.raters));
                     holder.ratingBar.setRating(user.rating);
                     holder.btn_approve.setOnClickListener(v->{ //todo set onclick for card not textview
+
                         acceptOffer(model, holder);
+                    });
+                    holder.btn_decline.setOnClickListener(v -> {
+                        declineOffer(model, holder);
                     });
                 } else {
                     //todo set status to waiting, help_offer_id to null and update cloud
@@ -54,20 +63,60 @@ public class ChooseHelpOfferAdapter extends FirestoreRecyclerAdapter<HelpOffer, 
         });
     }
 
+    private void declineOffer(HelpOffer model, UserHolder holder) {
+        DocumentReference offerRef = HelpoApp.getInstance().helpOffersRef.document(model.getHelp_id());
+        offerRef.update("status", HelpOffer.OfferStatus.DECLINED);
+    }
+
+
     private void acceptOffer(HelpOffer model, UserHolder holder) {
 
+        HelpoApp.getInstance().helpOffersRef
+                .whereEqualTo("req_id", model.req_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            updateDcouments(task, model, holder);
+                        } else {
+//                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void updateDcouments(Task<QuerySnapshot> task, HelpOffer model, UserHolder holder) {
+        WriteBatch batch = HelpoApp.getInstance().firestore.batch();
+        Map<String, Object> approved = new HashMap<String, Object>() {{
+            put("status", HelpOffer.OfferStatus.APPROVED);
+        }};
+        Map<String, Object> declined = new HashMap<String, Object>() {{
+            put("status", HelpOffer.OfferStatus.DECLINED);
+        }};
+        for (QueryDocumentSnapshot document : task.getResult()) {
+            DocumentReference docRef = HelpoApp.getInstance().helpOffersRef.document(document.getId());
+            if (document.getId().equals(model.help_id))
+            {
+                batch.update(docRef, approved);
+            }
+            else
+            {
+                batch.update(docRef, declined);
+            }
+        }
+
         DocumentReference requestRef = HelpoApp.getInstance().requestsRef.document(model.getReq_id());
-        Map<String, Object> myMap = new HashMap<String, Object>() {{
+        Map<String, Object> updateRequest = new HashMap<String, Object>() {{
             put("help_offer_id", model.help_id);
             put("status", Request.RequestStatus.READY);
         }};
-        requestRef.update(myMap).addOnSuccessListener(aVoid -> {
-                    Intent chatIntent = new Intent(holder.view.getContext(), ChatActivity.class);
-                    chatIntent.putExtra("offer", (Serializable) model);
-                    holder.view.getContext().startActivity(chatIntent);
-                });
-        DocumentReference offerRef = HelpoApp.getInstance().helpOffersRef.document(model.help_id);
-        offerRef.update("status", HelpOffer.OfferStatus.APPROVED);
+        batch.update(requestRef, updateRequest);
+        batch.commit().addOnSuccessListener(aVoid -> {
+            Intent chatIntent = new Intent(holder.view.getContext(), ChatActivity.class);
+            chatIntent.putExtra("offer", (Serializable) model);
+            holder.view.getContext().startActivity(chatIntent);
+        });
     }
 
 
