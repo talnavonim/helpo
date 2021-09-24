@@ -27,7 +27,7 @@ import com.google.firebase.firestore.DocumentReference;
 
 public class CreateRequestActivity extends AppCompatActivity {
     HelpoApp app;
-    myRequestList holder;
+//    myRequestList holder;
 
     MaterialButtonToggleGroup selectHelpoType;
     ConstraintLayout groceriesConteiner;
@@ -65,7 +65,7 @@ public class CreateRequestActivity extends AppCompatActivity {
 
         app = HelpoApp.getInstance();
 
-        holder = app.getRequestsList();
+//        holder = app.getRequestsList();
 
         groceriesConteiner = findViewById(R.id.groceries_selected);
         mailConteiner = findViewById(R.id.mail_selected);
@@ -123,11 +123,11 @@ public class CreateRequestActivity extends AppCompatActivity {
         });
         sendRequestButton.setOnClickListener(v -> {
             if(groceriesConteiner.getVisibility() == View.VISIBLE){
-                new_request.setType(Request.RequestType.GROCERIES);
+                new_request.setType(Request.RequestType.Groceries);
                 new_request.setComment(comment.getText().toString());
             }
             else if(mailConteiner.getVisibility() == View.VISIBLE){
-                new_request.setType(Request.RequestType.MAIL);
+                new_request.setType(Request.RequestType.Mail);
                 new_request.setComment(comment.getText().toString());
                 new_request.setMailType(mailType.getText().toString());
                 new_request.setMailLocation(mailAddress.getText().toString());
@@ -161,7 +161,7 @@ public class CreateRequestActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(app, "Failed to send request!", Toast.LENGTH_SHORT);
                 toast.show();
             });
-            holder.addRequest(new_request);
+//            holder.addRequest(new_request);
             Intent intent = new Intent(app, RequestsActivity.class);
             startActivity(intent);
         });

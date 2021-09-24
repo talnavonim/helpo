@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.DownloadManager;
 import android.os.Bundle;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -24,7 +23,7 @@ public class chooseHelpOffer extends AppCompatActivity {
 
     private void setUpRecyclerView(String request_id) {
         Query query = HelpoApp.getInstance().helpOffersRef.whereEqualTo("req_id", request_id)
-                .whereEqualTo("status", HelpOffer.OfferStatus.PENDING);
+                .whereEqualTo("status", HelpOffer.OfferStatus.Pending);
         FirestoreRecyclerOptions<HelpOffer> options = new FirestoreRecyclerOptions.Builder<HelpOffer>()
                 .setQuery(query, HelpOffer.class)
                 .build();

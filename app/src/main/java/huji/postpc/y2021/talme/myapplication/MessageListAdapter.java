@@ -22,15 +22,12 @@ public class MessageListAdapter extends FirestoreRecyclerAdapter<Message, Messag
     class messageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText;
 
-
-
         public messageHolder(@NonNull View itemView) {
             super(itemView);
             messageText = (TextView) itemView.findViewById(R.id.text_message);
             timeText = (TextView) itemView.findViewById(R.id.text_timestamp);
 
         }
-
     }
 
     @NonNull
@@ -43,13 +40,21 @@ public class MessageListAdapter extends FirestoreRecyclerAdapter<Message, Messag
     // Determines the appropriate ViewType according to the sender of the message.
     @Override
     public int getItemViewType(int position) {
-        if (getItem(position).isSent(HelpoApp.getInstance().user_id))
+        String sender_id =getItem(position).getUser_id();
+        if (sender_id.equals(HelpoApp.getInstance().user_id))
         {
             return R.layout.outgoing_message_layout_bubble;
         }
         else
         {
-            return R.layout.incoming_message_layout_bubble;
+            if (sender_id.equals("system"))
+            {
+                return R.layout.system_message;
+            }
+            else
+            {
+                return R.layout.incoming_message_layout_bubble;
+            }
         }
     }
 

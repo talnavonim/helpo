@@ -2,11 +2,8 @@ package huji.postpc.y2021.talme.myapplication;
 
 
 import com.google.firebase.Timestamp;
-import com.google.type.DateTime;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -16,9 +13,9 @@ public class Request implements Serializable {
     String req_id;
     String help_offer_id;
     String user_id;
-    public enum RequestType {GROCERIES, MAIL};
+    public enum RequestType {Groceries, Mail};
     RequestType type;
-    public enum RequestStatus {WAITING, READY,IN_PROGRESS,  DONE}
+    public enum RequestStatus {Waiting, Ongoing, Done}
     RequestStatus status;
     double lat;
     double lng;
@@ -26,13 +23,13 @@ public class Request implements Serializable {
     HashMap<String, Integer> groceriesAmounts;
     String mailLocation;
     String mailType;
-    transient Timestamp request_timestamp; //timestamp is none Serializable
+    transient Timestamp request_timestamp; //timestamp is none Serializable maybe use parcable instead
 
     //for requests type groceries
     public Request(String req_id, String user_id, RequestStatus status, double lat, double lng, String address, HashMap<String, Integer> groceriesAmounts){
         this.req_id = req_id;
         this.user_id = user_id;
-        this.type = RequestType.GROCERIES;
+        this.type = RequestType.Groceries;
         this.status = status;
         this.lat = lat;
         this.lng = lng;
@@ -45,7 +42,7 @@ public class Request implements Serializable {
     public Request(String req_id, String user_id, RequestStatus status, double lat, double lng, String address, String mailLocation, String mailType){
         this.req_id = req_id;
         this.user_id = user_id;
-        this.type = RequestType.MAIL;
+        this.type = RequestType.Mail;
         this.status = status;
         this.lat = lat;
         this.lng = lng;
@@ -83,8 +80,8 @@ public class Request implements Serializable {
     public Request(String id, String name){
         req_id = id;
         user_id = "";
-        type = RequestType.GROCERIES;
-        status = RequestStatus.WAITING;
+        type = RequestType.Groceries;
+        status = RequestStatus.Waiting;
         help_offer_id = "";
         lat = 0;
         lng = 0;
@@ -114,7 +111,7 @@ public class Request implements Serializable {
         req_id = UUID.randomUUID().toString();
         this.user_id = user_id;
         this.type = type;
-        status = RequestStatus.WAITING;
+        status = RequestStatus.Waiting;
         this.lat = lat;
         this.lng = lng;
         this.address = address;
@@ -131,7 +128,7 @@ public class Request implements Serializable {
 
     public String phraseRequest() {
         switch (this.type){
-            case GROCERIES:
+            case Groceries:
                 String shop = "";
                 for(String key : this.groceriesAmounts.keySet()){
                     int val = this.groceriesAmounts.get(key);
@@ -141,7 +138,7 @@ public class Request implements Serializable {
                     }
                 }
                 return "Hello, i need some help with groceries, I need: "+shop;
-            case MAIL:
+            case Mail:
 
         }
 

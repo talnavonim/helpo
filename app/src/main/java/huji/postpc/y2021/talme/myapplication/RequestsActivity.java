@@ -71,7 +71,7 @@ public class RequestsActivity extends AppCompatActivity {
 
         recyclerHelpOffers = findViewById(R.id.recycler_ihelp);
 
-//        loadHelpOffers();
+
 
 
         selectIhelpOrMyRequests = findViewById(R.id.ihelp_and_requests_buttons);

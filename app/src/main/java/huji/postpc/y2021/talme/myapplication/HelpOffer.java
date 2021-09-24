@@ -13,7 +13,7 @@ public class HelpOffer implements Serializable {
     String helper_full_name;
     String requester_full_name;
     Request.RequestType requestType;
-    enum OfferStatus {PENDING, APPROVED, DECLINED, CANCELED}
+    enum OfferStatus {Pending, Ongoing, Done, Declined, Canceled}
     OfferStatus status;
     transient Timestamp offer_timestamp;
 
@@ -28,7 +28,7 @@ public class HelpOffer implements Serializable {
         this.requester_full_name = requester_full_name;
         this.requestType = requestType;
         this.offer_timestamp = Timestamp.now();
-        this.status = OfferStatus.PENDING;
+        this.status = OfferStatus.Pending;
     }
 
     public String getReq_id() {

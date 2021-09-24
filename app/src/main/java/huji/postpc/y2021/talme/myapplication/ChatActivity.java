@@ -2,14 +2,12 @@ package huji.postpc.y2021.talme.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -20,12 +18,12 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.WriteBatch;
+import com.google.firestore.v1.Write;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class ChatActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     TextView txt_partnerName;
@@ -51,7 +49,7 @@ public class ChatActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         {
             offer = (HelpOffer) getIntent().getSerializableExtra("offer");
         }
-
+        chatRef = app.helpOffersRef.document(offer.help_id).collection("chat");
         setUpRecyclerView();
 
         txt_partnerName = findViewById(R.id.txt_partner_name);
@@ -104,21 +102,26 @@ public class ChatActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         adapter.stopListening();
     }
 
+
     private void newHelpOffer(Request request) {
         offer = new HelpOffer(request.req_id, app.user_id,request.user_id, request.full_name, request.type);
         app.helpOffersRef.document(offer.help_id).set(offer); //todo doesn't check success
-        chatRef = app.helpOffersRef.document(offer.help_id).collection("chat");
         Message requestMessage = new Message(request.phraseRequest(), request.user_id, Timestamp.now());
-        chatRef.add(requestMessage);
-//        String req_id, String helper_email, String requester_full_name, Request.RequestType requestType
+        WriteBatch batch = app.firestore.batch();
+        batch.set(chatRef.document(UUID.randomUUID().toString()), requestMessage);
+        Message systemMessage = new Message("Help offer pending", "system", Timestamp.now());
+        batch.set(chatRef.document(UUID.randomUUID().toString()), systemMessage);
+        batch.commit();
 
     }
 
     public void showPopup(View view) {
-        PopupMenu popupMenu = new PopupMenu(this, view);
-        popupMenu.setOnMenuItemClickListener(this);
-        popupMenu.inflate(R.menu.popup_menu);
-        popupMenu.show();
+        PopupMenu popup = new PopupMenu(this, view);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.popup_menu);
+        if ( !offer.helper_id.equals(app.user_id) || offer.status != HelpOffer.OfferStatus.Ongoing)
+            popup.getMenu().removeItem(R.id.set_as_done);
+        popup.show();
     }
 
     @Override
@@ -130,9 +133,33 @@ public class ChatActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             case R.id.report_user:
                 reportUser();
                 return true;
+            case R.id.set_as_done:
+                setAsDone();
             default:
                 return false;
         }
+    }
+
+    private void setAsDone() {
+
+        WriteBatch batch = HelpoApp.getInstance().firestore.batch();
+        Map<String, Object> done = new HashMap<String, Object>() {{
+            put("status", Request.RequestStatus.Done);
+        }};
+
+        DocumentReference requestRef = HelpoApp.getInstance().requestsRef.document(offer.getReq_id());
+        batch.update(requestRef, done);
+
+        Map<String, Object> offerDone = new HashMap<String, Object>() {{
+            put("status", HelpOffer.OfferStatus.Done);
+        }};
+        DocumentReference offerRef = HelpoApp.getInstance().helpOffersRef.document(offer.getHelp_id());
+        batch.update(offerRef, offerDone);
+
+        Message systemMessage = new Message("Help offer done!", "system", Timestamp.now());
+        batch.set(chatRef.document(UUID.randomUUID().toString()), systemMessage);
+
+        batch.commit();
     }
 
     private void reportUser() {
@@ -154,7 +181,7 @@ public class ChatActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private void cancelOffer(WriteBatch batch) {
         Map<String, Object> waiting = new HashMap<String, Object>() {{
-            put("status", Request.RequestStatus.WAITING);
+            put("status", Request.RequestStatus.Waiting);
             put("help_offer_id", "");
         }};
 
@@ -162,7 +189,7 @@ public class ChatActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         batch.update(requestRef, waiting);
 
         Map<String, Object> canceled = new HashMap<String, Object>() {{
-            put("status", HelpOffer.OfferStatus.CANCELED);
+            put("status", HelpOffer.OfferStatus.Canceled);
         }};
         DocumentReference offerRef = HelpoApp.getInstance().helpOffersRef.document(offer.getHelp_id());
         batch.update(offerRef, canceled);

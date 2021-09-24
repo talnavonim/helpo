@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class myRequestViewHolder extends RecyclerView.ViewHolder{
@@ -13,6 +14,7 @@ public class myRequestViewHolder extends RecyclerView.ViewHolder{
     TextView helper;
     TextView status;
     TextView req_type;
+    CardView card;
 
     public myRequestViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -21,17 +23,11 @@ public class myRequestViewHolder extends RecyclerView.ViewHolder{
         helper = itemView.findViewById(R.id.txt_req_name);
         status = itemView.findViewById(R.id.txt_req_status);
         req_type = itemView.findViewById(R.id.txt_req_type);
+        card = itemView.findViewById(R.id.card_request_row);
     }
 
     public void setReq_type(Request.RequestType type) {
-        if (type == Request.RequestType.GROCERIES)
-        {
-            this.req_type.setText("Groceries");
-        }
-        else  // mail
-        {
-            this.req_type.setText("Mail");
-        }
+        this.req_type.setText(type.toString());
     }
 
     public void setPicture(ImageView picture) {
@@ -45,22 +41,7 @@ public class myRequestViewHolder extends RecyclerView.ViewHolder{
 
 
     public void setStatus(Request.RequestStatus status) {
-        switch (status){
-            case IN_PROGRESS:
-                this.status.setText("In progress");
-                break;
-            case WAITING:
-                this.status.setText("Waiting");
-                break;
-            case READY:
-                this.status.setText("Ready");
-                break;
-            case DONE:
-                this.status.setText("Done");
-                break;
-            default:
-                this.status.setText("Error");
-        }
+        this.status.setText(status.toString());
     }
 
 }

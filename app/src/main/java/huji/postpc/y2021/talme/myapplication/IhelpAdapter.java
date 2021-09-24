@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -16,10 +17,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import java.io.Serializable;
 
 public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapter.HelpOfferHolder> {
-    private static final int VIEW_TYPE_GROCRIES = 1;
-    private static final int VIEW_TYPE_MAIL = 2;
 
-    HelpOfferList helpOfferList = null;
 
     public IhelpAdapter(@NonNull FirestoreRecyclerOptions<HelpOffer> options) {
         super(options);
@@ -38,7 +36,7 @@ public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapt
     @Override
     protected void onBindViewHolder(@NonNull HelpOfferHolder holder, int position, @NonNull HelpOffer model) {
 
-        if (model.requestType == Request.RequestType.GROCERIES)
+        if (model.requestType == Request.RequestType.Groceries)
         {
             holder.req_type.setText("Groceries");
         }
@@ -48,20 +46,24 @@ public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapt
         }
         setStatus(holder, model.status);
         holder.requester.setText(model.requester_full_name);
-        holder.requester.setOnClickListener(v->{ //todo set onclick for card not textview
-            Intent chatIntent = new Intent(holder.view.getContext(), ChatActivity.class);
-            chatIntent.putExtra("offer", (Serializable) model);
-            holder.view.getContext().startActivity(chatIntent);
-        });
+        if (model.status != HelpOffer.OfferStatus.Canceled && model.status != HelpOffer.OfferStatus.Declined)
+        {
+            holder.card.setOnClickListener(v->{
+                Intent chatIntent = new Intent(holder.view.getContext(), ChatActivity.class);
+                chatIntent.putExtra("offer", (Serializable) model);
+                holder.view.getContext().startActivity(chatIntent);
+            });
+        }
+
     }
 
 
     private void setStatus(HelpOfferHolder holder, HelpOffer.OfferStatus offerStatus) {
         switch (offerStatus){
-            case PENDING:
+            case Pending:
                 holder.status.setText("Pending");
                 break;
-            case APPROVED:
+            case Ongoing:
                 holder.status.setText("Approved");
                 break;
             default:
@@ -76,6 +78,7 @@ public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapt
         TextView status;
         TextView req_type;
         View view;
+        CardView card;
 
 
         public HelpOfferHolder(@NonNull View itemView) {
@@ -85,6 +88,7 @@ public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapt
             requester = itemView.findViewById(R.id.txt_req_name);
             status = itemView.findViewById(R.id.txt_req_status);
             req_type = itemView.findViewById(R.id.txt_req_type);
+            card = itemView.findViewById(R.id.card_help_offer);
         }
     }
 }

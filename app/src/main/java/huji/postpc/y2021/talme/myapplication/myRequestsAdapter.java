@@ -14,12 +14,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myRequestViewHolder> {
 
@@ -32,11 +29,10 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
 
     @Override
     protected void onBindViewHolder(@NonNull myRequestViewHolder holder, int position, @NonNull Request model) {
-//            holder.setHelper();
-//        holder.setPicture();
+
         holder.setReq_type(model.type);
         holder.setStatus(model.status);
-        if (model.status != Request.RequestStatus.WAITING)
+        if (model.status != Request.RequestStatus.Waiting)
         {
             loadHelpOffer(holder, model.help_offer_id);
         }
@@ -44,7 +40,7 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
         {
             loadSearching(holder, model);
         }
-//        ((myRequestGroceriesViewHolder) holder).setHelper(curr_request.h);
+
 
     }
 
@@ -57,8 +53,8 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
                     HelpOffer offer = document.toObject(HelpOffer.class);
                     assert offer != null;
                     holder.setHelper(offer.helper_full_name);
-
-                    holder.helper.setOnClickListener(v->{ //todo set onclick for card not textview
+                    holder.status.setText(offer.status.toString());
+                    holder.card.setOnClickListener(v->{
                         Intent chatIntent = new Intent(holder.view.getContext(), ChatActivity.class);
                         chatIntent.putExtra("offer", (Serializable) offer);
                         holder.view.getContext().startActivity(chatIntent);
@@ -80,7 +76,7 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
         {
             return;
         }
-        app.helpOffersRef.whereEqualTo("req_id", request.req_id).whereEqualTo("status", HelpOffer.OfferStatus.PENDING)
+        app.helpOffersRef.whereEqualTo("req_id", request.req_id).whereEqualTo("status", HelpOffer.OfferStatus.Pending)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -90,7 +86,7 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
                             {
                                 holder.setHelper("someone offered help!");
 
-                                holder.helper.setOnClickListener(v->{ //todo set onclick for card not textview
+                                holder.card.setOnClickListener(v->{
                                     Intent chatIntent = new Intent(holder.view.getContext(), chooseHelpOffer.class);
                                     chatIntent.putExtra("request_id", request.req_id);
                                     holder.view.getContext().startActivity(chatIntent);
