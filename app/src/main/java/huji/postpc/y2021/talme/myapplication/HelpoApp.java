@@ -14,8 +14,8 @@ public class HelpoApp extends Application {
 
     private SharedPreferences sp = null;
     public FirebaseFirestore firestore = null; //exposed for tests
-    public final String REQUESTS = "requests";
-    public final String HELP_OFFERS = "help_offers";
+    private final String REQUESTS = "requests";
+    private final String HELP_OFFERS = "help_offers";
     public final String USERS = "users";
     public CollectionReference requestsRef;
     public CollectionReference helpOffersRef;
@@ -24,7 +24,7 @@ public class HelpoApp extends Application {
     public String full_name;
     public String user_id;
 
-    public User user;
+//    public User user;
 
     public myRequestList requests_list;
 
@@ -38,13 +38,10 @@ public class HelpoApp extends Application {
         helpOffersRef = firestore.collection(HELP_OFFERS);
         instance = this;
 
-        email = "talme1091@gmail.com"; // todo remove place holder
-        full_name = "Tal Navon"; // todo remove place holder
-//        user_id = "QdyRh1684aFJtaVLQ2qm"; //ophir todo remove place holder
-//        user_id = "s53mTabvuHzWKpA3cRhw"; //eldar
-        user_id = "Carmel";
+//        user_id = "QdyRh1684aFJtaVLQ2qm"; full_name= "Ophir Han"; email="ophirhan@gmail.com";  //todo remove place holder
+        user_id = "s53mTabvuHzWKpA3cRhw"; full_name= "Eldar Lerner"; email="eldar.lerner@gmail.com";
 
-        user = new User("talme1091@gmail.com", "tal", 10, 1);
+
 
         requests_list = new myRequestList(this);
 

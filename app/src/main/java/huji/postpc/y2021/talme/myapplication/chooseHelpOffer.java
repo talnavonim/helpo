@@ -24,7 +24,7 @@ public class chooseHelpOffer extends AppCompatActivity {
 
     private void setUpRecyclerView(String request_id) {
         Query query = HelpoApp.getInstance().helpOffersRef.whereEqualTo("req_id", request_id)
-                .whereNotEqualTo("status", HelpOffer.OfferStatus.DECLINED);
+                .whereEqualTo("status", HelpOffer.OfferStatus.PENDING);
         FirestoreRecyclerOptions<HelpOffer> options = new FirestoreRecyclerOptions.Builder<HelpOffer>()
                 .setQuery(query, HelpOffer.class)
                 .build();

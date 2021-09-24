@@ -72,7 +72,7 @@ public class CreateRequestActivity extends AppCompatActivity {
 //        groceries = findViewById(R.id.groceries_button);
 //        mail = findViewById(R.id.mail_button);
 
-        new_request = new Request(UUID.randomUUID().toString(), app.user.getName());
+        new_request = new Request(UUID.randomUUID().toString(), app.full_name);
 
         addBread = findViewById(R.id.add_bred);
         removeBread = findViewById(R.id.remove_bred);
@@ -152,7 +152,7 @@ public class CreateRequestActivity extends AppCompatActivity {
             new_request.setUser_id(app.user_id);
             new_request.setFull_name(app.full_name);
             new_request.setRequest_timestamp(Timestamp.now());
-            DocumentReference orderRef = app.firestore.collection(app.REQUESTS).document(new_request.req_id);
+            DocumentReference orderRef = app.requestsRef.document(new_request.req_id);
             orderRef.set(new_request)
                     .addOnSuccessListener(result -> {
                         Intent intent = new Intent(app, RequestsActivity.class);

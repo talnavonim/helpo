@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             List<GeoQueryBounds> bounds = GeoFireUtils.getGeoHashQueryBounds(center, radiusInM);
             final List<Task<QuerySnapshot>> tasks = new ArrayList<>();
             for (GeoQueryBounds b : bounds) {
-                Query q = app.firestore.collection(app.REQUESTS)
+                Query q = app.requestsRef
                         .orderBy("geohash")
                         .startAt(b.startHash)
                         .endAt(b.endHash);

@@ -9,19 +9,21 @@ public class HelpOffer implements Serializable {
     String req_id;
     String help_id;
     String helper_id;
+    String requester_id;
     String helper_full_name;
     String requester_full_name;
     Request.RequestType requestType;
-    enum OfferStatus {PENDING, APPROVED, DECLINED}
+    enum OfferStatus {PENDING, APPROVED, DECLINED, CANCELED}
     OfferStatus status;
     transient Timestamp offer_timestamp;
 
     public HelpOffer(){}
 
-    public HelpOffer(String req_id, String helper_id, String requester_full_name, Request.RequestType requestType) {
+    public HelpOffer(String req_id, String helper_id,String requester_id, String requester_full_name, Request.RequestType requestType) {
         this.req_id = req_id;
         this.help_id = UUID.randomUUID().toString();
         this.helper_id = helper_id;
+        this.requester_id = requester_id;
         this.helper_full_name = HelpoApp.getInstance().full_name;
         this.requester_full_name = requester_full_name;
         this.requestType = requestType;
@@ -51,6 +53,10 @@ public class HelpOffer implements Serializable {
 
     public void setHelper_id(String helper_id) {
         this.helper_id = helper_id;
+    }
+
+    public String getRequester_id() {
+        return requester_id;
     }
 
     public String getRequester_full_name() {

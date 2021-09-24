@@ -38,8 +38,6 @@ public class RequestsActivity extends AppCompatActivity {
     ImageButton toMapButton;
     Button newRequastButton;
     GoogleSignInClient mGoogleSignInClient;
-    private CollectionReference requestsRef;
-    private CollectionReference helpOffersRef;
 
     MaterialButtonToggleGroup selectIhelpOrMyRequests;
     Button iHelpButton;
@@ -50,9 +48,7 @@ public class RequestsActivity extends AppCompatActivity {
     RecyclerView recyclerView_myrequests;
     myRequestsAdapter myrequests_adapter;
     IhelpAdapter help_offer_adapter;
-//    myRequestList myrequests_holder;
     RecyclerView recyclerHelpOffers;
-    private BroadcastReceiver receiverToDBChanges; // changes with the myReuests
 
     HelpoApp app;
 
@@ -62,8 +58,6 @@ public class RequestsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_requests);
 
         app = HelpoApp.getInstance();
-        requestsRef = app.firestore.collection(app.REQUESTS);
-        helpOffersRef = app.firestore.collection(app.HELP_OFFERS);
         setUpRequestRecylerView();
         setUpRequestIhelpRecylerView();
 
@@ -136,7 +130,7 @@ public class RequestsActivity extends AppCompatActivity {
     }
 
     private void setUpRequestIhelpRecylerView() {
-        Query query = helpOffersRef.whereEqualTo("helper_id", app.user_id).orderBy("offer_timestamp", Query.Direction.DESCENDING);
+        Query query = app.helpOffersRef.whereEqualTo("helper_id", app.user_id).orderBy("offer_timestamp", Query.Direction.DESCENDING);
 //        Query query = helpOffersRef.orderBy("offer_timestamp", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<HelpOffer> options = new FirestoreRecyclerOptions.Builder<HelpOffer>()
@@ -152,7 +146,8 @@ public class RequestsActivity extends AppCompatActivity {
 
     private void setUpRequestRecylerView()
     {
-        Query query = requestsRef.whereEqualTo("user_id", app.user_id).orderBy("request_timestamp", Query.Direction.DESCENDING);
+        Query query = app.requestsRef.whereEqualTo("user_id", app.user_id)
+                .orderBy("request_timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Request> options = new FirestoreRecyclerOptions.Builder<Request>()
                 .setQuery(query, Request.class)
                 .build();
@@ -179,25 +174,6 @@ public class RequestsActivity extends AppCompatActivity {
         help_offer_adapter.stopListening();
     }
 
-    private void loadHelpOffers() {
-
-        app.firestore.collection(app.HELP_OFFERS)
-                .whereEqualTo("helper_email", app.email)
-                .addSnapshotListener((value, e) -> {
-                    if (e != null) {
-                        Log.w("TAG", "Listen failed.", e);
-                        return;
-                    }
-
-                    List<String> cities = new ArrayList<>();
-                    for (QueryDocumentSnapshot doc : value) {
-                        if (doc.get("name") != null) {
-                            cities.add(doc.getString("name"));
-                        }
-                    }
-                    Log.d("TAG", "Current cites in CA: " + cities);
-                });
-    }
 
     private void signOut() {
         mGoogleSignInClient.signOut()
@@ -206,8 +182,8 @@ public class RequestsActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(RequestsActivity.this,"Signed Out Successfully",Toast.LENGTH_LONG).show();
                         Intent goToLogin = new Intent(RequestsActivity.this, WelcomeActivity.class);
-                        finish();
 //                        startActivity(goToLogin);
+                        finish();
                     }
                 });
     }

@@ -3,7 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Ophir/StudioProjects/helpo/app/src/main/res/layout/activity_chat.xml" value="0.3203125" />
+        <entry key="..\:/Users/Ophir/StudioProjects/helpo/app/src/main/res/layout/activity_chat.xml" value="0.5" />
         <entry key="..\:/Users/Ophir/StudioProjects/helpo/app/src/main/res/layout/activity_choose_help_offer.xml" value="0.34010416666666665" />
         <entry key="..\:/Users/Ophir/StudioProjects/helpo/app/src/main/res/layout/activity_create_request.xml" value="0.375" />
         <entry key="..\:/Users/Ophir/StudioProjects/helpo/app/src/main/res/layout/activity_main.xml" value="0.3016304347826087" />
@@ -16,6 +16,7 @@
         <entry key="..\:/Users/Ophir/StudioProjects/helpo/app/src/main/res/layout/review_help_offer_user.xml" value="0.5" />
         <entry key="..\:/Users/Ophir/StudioProjects/helpo/app/src/main/res/layout/shape_bg_incoming_bubble.xml" value="0.75" />
         <entry key="..\:/Users/Ophir/StudioProjects/helpo/app/src/main/res/layout/shape_bg_outgoing_bubble.xml" value="0.29030797101449274" />
+        <entry key="..\:/Users/Ophir/StudioProjects/helpo/app/src/main/res/menu/popup_menu.xml" value="0.28958333333333336" />
       </map>
     </option>
   </component>

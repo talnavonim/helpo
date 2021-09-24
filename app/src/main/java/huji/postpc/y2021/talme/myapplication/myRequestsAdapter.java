@@ -49,7 +49,7 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
     }
 
     private void loadHelpOffer(myRequestViewHolder holder, String help_offer_id) {
-        DocumentReference docRef = app.firestore.collection(app.HELP_OFFERS).document(help_offer_id);
+        DocumentReference docRef = app.helpOffersRef.document(help_offer_id);
         docRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
@@ -80,7 +80,7 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
         {
             return;
         }
-        app.helpOffersRef.whereEqualTo("req_id", request.req_id)
+        app.helpOffersRef.whereEqualTo("req_id", request.req_id).whereEqualTo("status", HelpOffer.OfferStatus.PENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
