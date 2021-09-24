@@ -37,38 +37,22 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="51818239-ebda-4643-ac23-3f9f67b5604b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-anydpi/ic_back.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-anydpi/ic_send.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_back.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_send.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_back.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_send.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_back.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_send.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_back.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_send.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/popup_menu.xml" afterDir="false" />
+    <list default="true" id="51818239-ebda-4643-ac23-3f9f67b5604b" name="Default Changelist" comment="requests and help offers now sync in real time from cloud">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/PushNotificationService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/ChatActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/ChatActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/CreateRequestActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/CreateRequestActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/HelpOffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/HelpOffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/HelpoApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/HelpoApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/Report.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/RequestsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/RequestsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/chooseHelpOffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/chooseHelpOffer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/myRequestsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/myRequestsAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[2e336745]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[347696db7d27]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -149,21 +133,23 @@
     <property name="android-custom-viewC:/Users/Ophir/.gradle/caches/modules-2/files-2.1/com.google.android.material/material/1.4.0/51035a8f6342c20d4d8f242d100e6f25e0c271ac/material-1.4.0-sources.jar!/com/google/android/material/button/MaterialButton.java_SELECTED" value="MaterialButton" />
     <property name="android-custom-viewC:/Users/Ophir/AppData/Local/Android/Sdk/sources/android-30/android/view/View.java_SELECTED" value="View" />
     <property name="android-custom-viewC:/Users/Ophir/AppData/Local/Android/Sdk/sources/android-30/android/view/View.java_View_DIMENSIONS" value="1080&#10;1920" />
-    <property name="android-custom-viewC:/Users/Ophir/AppData/Local/Android/Sdk/sources/android-30/android/widget/RatingBar.java_RatingBar_DIMENSIONS" value="1080&#10;1920" />
-    <property name="android-custom-viewC:/Users/Ophir/AppData/Local/Android/Sdk/sources/android-30/android/widget/RatingBar.java_SELECTED" value="RatingBar" />
     <property name="android-custom-viewC:/Users/talma/AppData/Local/Android/Sdk/sources/android-30/android/view/View.java_SELECTED" value="View" />
     <property name="android-custom-viewC:/Users/talma/AppData/Local/Android/Sdk/sources/android-30/android/view/View.java_View_DIMENSIONS" value="1080&#10;1920" />
-    <property name="last_opened_file_path" value="$USER_HOME$/rootCalculator" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
     <property name="settings.editor.selected.configurable" value="experimental" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\projectsss\POST_PC\HelpoApp\app" />
+      <recent name="C:\projectsss\POST_PC\HelpoApp\app\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\projectsss\POST_PC\HelpoApp\app\src" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="huji.postpc.y2021.talme.myapplication" />
     </key>
     <key name="android.template.-1593085179">
-      <recent name="huji.postpc.y2021.talme.myapplication" />
-    </key>
-    <key name="android.template.343542374">
       <recent name="huji.postpc.y2021.talme.myapplication" />
     </key>
   </component>
@@ -430,35 +416,7 @@
       <option name="project" value="LOCAL" />
       <updated>1632320684661</updated>
     </task>
-    <task id="LOCAL-00024" summary="clicking requester name now opens the chat">
-      <created>1632321357656</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1632321357657</updated>
-    </task>
-    <task id="LOCAL-00025" summary="clicking helper name now opens the chat">
-      <created>1632323293872</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1632323293872</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Users now able to choose help offer">
-      <created>1632395742599</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1632395742599</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Users now able to choose help offer">
-      <created>1632403134890</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1632403134890</updated>
-    </task>
-    <option name="localTasksCounter" value="28" />
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -506,23 +464,35 @@
     <MESSAGE value="commit tal3" />
     <MESSAGE value="requests and help offers now sync in real time from cloud" />
     <MESSAGE value="chat works now relying on user id instead of email" />
-    <MESSAGE value="clicking requester name now opens the chat" />
-    <MESSAGE value="clicking helper name now opens the chat" />
-    <MESSAGE value="Users now able to choose help offer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Users now able to choose help offer" />
+    <option name="LAST_COMMIT_MESSAGE" value="chat works now relying on user id instead of email" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/ChatActivity.java</url>
-          <line>170</line>
-          <option name="timeStamp" value="46" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/CreateRequestActivity.java</url>
+          <line>150</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/Message.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/ChatActivity.java</url>
-          <line>130</line>
-          <option name="timeStamp" value="52" />
+          <line>71</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/ChatActivity.java</url>
+          <line>111</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/ChatActivity.java</url>
+          <line>110</line>
+          <option name="timeStamp" value="38" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

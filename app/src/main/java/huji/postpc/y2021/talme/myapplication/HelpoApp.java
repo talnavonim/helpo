@@ -8,6 +8,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class HelpoApp extends Application {
     private static HelpoApp instance = null;
@@ -34,6 +35,8 @@ public class HelpoApp extends Application {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         FirebaseApp.initializeApp(this);;
         firestore = FirebaseFirestore.getInstance();
+        FirebaseMessaging firebaseMessaging = FirebaseMessaging.getInstance();
+        firebaseMessaging.subscribeToTopic("new_offer");
         requestsRef = firestore.collection(REQUESTS);
         helpOffersRef = firestore.collection(HELP_OFFERS);
         instance = this;
