@@ -131,7 +131,7 @@ public class RequestsActivity extends AppCompatActivity {
 
     private void setUpRequestIhelpRecylerView() {
         Query query = app.helpOffersRef.whereEqualTo("helper_id", app.user_id).orderBy("offer_timestamp", Query.Direction.DESCENDING);
-//        Query query = helpOffersRef.orderBy("offer_timestamp", Query.Direction.DESCENDING);
+
 
         FirestoreRecyclerOptions<HelpOffer> options = new FirestoreRecyclerOptions.Builder<HelpOffer>()
                 .setQuery(query, HelpOffer.class)

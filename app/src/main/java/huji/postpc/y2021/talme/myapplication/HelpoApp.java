@@ -41,8 +41,8 @@ public class HelpoApp extends Application {
         helpOffersRef = firestore.collection(HELP_OFFERS);
         instance = this;
 
-//        user_id = "QdyRh1684aFJtaVLQ2qm"; full_name= "Ophir Han"; email="ophirhan@gmail.com";  //todo remove place holder
-        user_id = "s53mTabvuHzWKpA3cRhw"; full_name= "Eldar Lerner"; email="eldar.lerner@gmail.com";
+        user_id = "QdyRh1684aFJtaVLQ2qm"; full_name= "Ophir Han"; email="ophirhan@gmail.com";  //todo remove place holder
+//        user_id = "s53mTabvuHzWKpA3cRhw"; full_name= "Eldar Lerner"; email="eldar.lerner@gmail.com";
 
 
 

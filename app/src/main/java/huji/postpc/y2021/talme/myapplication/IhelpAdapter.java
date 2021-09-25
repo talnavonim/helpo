@@ -59,16 +59,7 @@ public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapt
 
 
     private void setStatus(HelpOfferHolder holder, HelpOffer.OfferStatus offerStatus) {
-        switch (offerStatus){
-            case Pending:
-                holder.status.setText("Pending");
-                break;
-            case Ongoing:
-                holder.status.setText("Approved");
-                break;
-            default:
-                holder.status.setText("Error");
-        }
+        holder.status.setText(offerStatus.toString());
     }
 
     public class HelpOfferHolder extends RecyclerView.ViewHolder {
