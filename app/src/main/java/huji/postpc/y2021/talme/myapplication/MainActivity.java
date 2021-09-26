@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    public void updateRequests(){ // todo double radius
+    public void updateRequests(){
         if (lastKnownLocation != null)
         {
             GeoLocation center = new GeoLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());

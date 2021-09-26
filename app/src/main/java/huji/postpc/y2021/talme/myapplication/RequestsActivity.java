@@ -71,7 +71,7 @@ public class RequestsActivity extends AppCompatActivity implements PopupMenu.OnM
             @Override
             public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
                 if(isChecked){
-                    //TODO ophir to get the list of the requests from the firebase
+
                     switch (checkedId){
                         case R.id.i_help_button:
                             if(myRequestsContainer.getVisibility() == View.VISIBLE){
@@ -135,7 +135,7 @@ public class RequestsActivity extends AppCompatActivity implements PopupMenu.OnM
         recyclerHelpOffers = findViewById(R.id.recycler_ihelp);
         help_offer_adapter = new IhelpAdapter(options, this);
         recyclerHelpOffers.setHasFixedSize(true);
-        recyclerHelpOffers.setItemAnimator(null); //todo check
+        recyclerHelpOffers.setItemAnimator(null);
         recyclerHelpOffers.setLayoutManager(new LinearLayoutManager(this));
         recyclerHelpOffers.setAdapter(help_offer_adapter);
     }
@@ -151,7 +151,7 @@ public class RequestsActivity extends AppCompatActivity implements PopupMenu.OnM
         recyclerView_myrequests = findViewById(R.id.recycler_myrequests);
         myrequests_adapter = new myRequestsAdapter(options, this);
         recyclerView_myrequests.setHasFixedSize(true);
-        recyclerView_myrequests.setItemAnimator(null); //todo check
+        recyclerView_myrequests.setItemAnimator(null);
         recyclerView_myrequests.setLayoutManager(new LinearLayoutManager(this));
         recyclerView_myrequests.setAdapter(myrequests_adapter);
 

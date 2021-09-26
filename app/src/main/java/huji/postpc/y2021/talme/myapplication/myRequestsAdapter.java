@@ -87,7 +87,7 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
                     }
 
                 } else {
-                    //todo set status to waiting, help_offer_id to null and update cloud
+
                     loadSearching(holder, null);
                 }
             } else {
@@ -127,7 +127,7 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
                         }
                     }
                 });
-        //todo set picture to megaphone
+
     }
 
 

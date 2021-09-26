@@ -6,368 +6,68 @@
     android:layout_height="match_parent"
     tools:context=".CreateRequestActivity">
 
-
-    <EditText
-        android:id="@+id/edittext_address"
-        android:layout_width="197dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="16dp"
-        android:hint="delivery's address"
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/select_helpo_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/groceries_conteiner"
-        android:layout_width="409dp"
-        android:layout_height="250dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="495dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints">
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/select_helpo_type"
+        app:checkedButton="@+id/groceries_button"
+        app:singleSelection="true"
+        app:selectionRequired="true">
+
+        <Button
+            android:id="@+id/groceries_button"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:singleSelection="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <Button
-                android:id="@+id/groceries_button"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="groceries"
-                tools:layout_editor_absoluteX="57dp"
-                tools:layout_editor_absoluteY="58dp" />
-            <Button
-                android:id="@+id/mail_button"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="mail"
-                tools:layout_editor_absoluteX="57dp"
-                tools:layout_editor_absoluteY="58dp" />
-        </com.google.android.material.button.MaterialButtonToggleGroup>
+            android:text="groceries"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/mail_button"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mail"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/other_button"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="other"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/groceries_selected"
-            android:layout_width="407dp"
-            android:layout_height="200dp"
-            android:visibility="invisible"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="49dp"
-            app:layout_constraintTop_toBottomOf="@+id/select_helpo_type"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="MissingConstraints">
-            <TextView
-                android:id="@+id/text_addgroceries"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:text="enter groceries:"
-                android:textColor="@color/black"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/select_groceries_conteiner"
-                android:layout_width="300dp"
-                android:layout_height="200dp"
-                android:visibility="visible"
-                tools:layout_editor_absoluteX="1dp"
-                tools:layout_editor_absoluteY="49dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:ignore="MissingConstraints">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/bred_amount"
-                    android:layout_width="300dp"
-                    android:layout_height="40dp"
-                    android:visibility="visible"
-                    tools:layout_editor_absoluteX="1dp"
-                    tools:layout_editor_absoluteY="49dp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="MissingConstraints">
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/add_bred"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:srcCompat="@android:drawable/ic_input_add"
-                        tools:layout_editor_absoluteX="3dp"
-                        app:layout_constraintLeft_toLeftOf="parent"/>
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/remove_bred"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:srcCompat="@android:drawable/ic_input_add"
-                        tools:layout_editor_absoluteX="3dp"
-                        app:layout_constraintLeft_toRightOf="@+id/add_bred"/>
 
-                    <TextView
-                        android:id="@+id/text_bread"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0 breads"
-                        tools:layout_editor_absoluteX="93dp"
-                        tools:layout_editor_absoluteY="10dp"
-                        app:layout_constraintLeft_toRightOf="@+id/remove_bred"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/sugar_amount"
-                    android:layout_width="300dp"
-                    android:layout_height="40dp"
-                    android:visibility="visible"
-                    tools:layout_editor_absoluteX="1dp"
-                    tools:layout_editor_absoluteY="49dp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/bred_amount"
-                    tools:ignore="MissingConstraints">
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/add_sugar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:srcCompat="@android:drawable/ic_input_add"
-                        tools:layout_editor_absoluteX="3dp"
-                        app:layout_constraintLeft_toLeftOf="parent"/>
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/remove_sugar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:srcCompat="@android:drawable/ic_input_add"
-                        tools:layout_editor_absoluteX="3dp"
-                        app:layout_constraintLeft_toRightOf="@+id/add_sugar"/>
 
-                    <TextView
-                        android:id="@+id/text_sugar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0 bags of sugar"
-                        tools:layout_editor_absoluteX="105dp"
-                        tools:layout_editor_absoluteY="14dp"
-                        app:layout_constraintLeft_toRightOf="@+id/remove_sugar"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/eggs_amount"
-                    android:layout_width="300dp"
-                    android:layout_height="40dp"
-                    android:visibility="visible"
-                    tools:layout_editor_absoluteX="1dp"
-                    tools:layout_editor_absoluteY="49dp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/sugar_amount"
-                    tools:ignore="MissingConstraints">
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/add_eggs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:srcCompat="@android:drawable/ic_input_add"
-                        tools:layout_editor_absoluteX="3dp"
-                        app:layout_constraintLeft_toLeftOf="parent"/>
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/remove_eggs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:srcCompat="@android:drawable/ic_input_add"
-                        tools:layout_editor_absoluteX="3dp"
-                        app:layout_constraintLeft_toRightOf="@+id/add_eggs"/>
+    <EditText
+        android:id="@+id/request_description"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:hint="request description"
 
-                    <TextView
-                        android:id="@+id/text_eggs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0 eggs"
-                        tools:layout_editor_absoluteX="92dp"
-                        tools:layout_editor_absoluteY="9dp"
-                        app:layout_constraintLeft_toRightOf="@+id/remove_eggs"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/milk_amount"
-                    android:layout_width="300dp"
-                    android:layout_height="40dp"
-                    android:visibility="visible"
-                    tools:layout_editor_absoluteX="1dp"
-                    tools:layout_editor_absoluteY="49dp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/eggs_amount"
-                    tools:ignore="MissingConstraints">
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/add_milk"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:srcCompat="@android:drawable/ic_input_add"
-                        tools:layout_editor_absoluteX="3dp"
-                        app:layout_constraintLeft_toLeftOf="parent"/>
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/remove_milk"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:srcCompat="@android:drawable/ic_input_add"
-                        tools:layout_editor_absoluteX="3dp"
-                        app:layout_constraintLeft_toRightOf="@+id/add_milk"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_helpo_type" />
+    <EditText
+        android:id="@+id/edittext_address"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:hint="delivery's address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/request_description" />
 
-                    <TextView
-                        android:id="@+id/text_milk"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0 milk cans"
-                        tools:layout_editor_absoluteX="114dp"
-                        tools:layout_editor_absoluteY="22dp"
-                        app:layout_constraintLeft_toRightOf="@+id/remove_milk"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/oil_amount"
-                    android:layout_width="300dp"
-                    android:layout_height="40dp"
-                    android:visibility="visible"
-                    tools:layout_editor_absoluteX="1dp"
-                    tools:layout_editor_absoluteY="49dp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/milk_amount"
-                    tools:ignore="MissingConstraints">
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/add_oil"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:srcCompat="@android:drawable/ic_input_add"
-                        tools:layout_editor_absoluteX="3dp"
-                        app:layout_constraintLeft_toLeftOf="parent"/>
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/remove_oil"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:srcCompat="@android:drawable/ic_input_add"
-                        tools:layout_editor_absoluteX="3dp"
-                        app:layout_constraintLeft_toRightOf="@+id/add_oil"/>
-
-                    <TextView
-                        android:id="@+id/text_oil"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0 oil cans"
-                        tools:layout_editor_absoluteX="109dp"
-                        tools:layout_editor_absoluteY="12dp"
-                        app:layout_constraintLeft_toRightOf="@+id/remove_oil"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mail_selected"
-            android:layout_width="407dp"
-            android:layout_height="200dp"
-            android:visibility="visible"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="49dp"
-            app:layout_constraintTop_toBottomOf="@+id/select_helpo_type"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="MissingConstraints">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/mail_address_conteiner"
-                android:layout_width="300dp"
-                android:layout_height="70dp"
-                android:visibility="visible"
-                tools:layout_editor_absoluteX="1dp"
-                tools:layout_editor_absoluteY="49dp"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints">
-
-                <TextView
-                    android:id="@+id/text_comment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="insert the address of the post office"
-                    android:textColor="@color/black"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="0dp" />
-
-                <EditText
-                    android:id="@+id/edittext_commend_mail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="post office address"
-                    app:layout_constraintTop_toBottomOf="@+id/text_comment"
-                    />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/mail_type_conteiner"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:visibility="visible"
-                tools:layout_editor_absoluteX="1dp"
-                tools:layout_editor_absoluteY="49dp"
-                app:layout_constraintTop_toBottomOf="@+id/mail_address_conteiner"
-                tools:ignore="MissingConstraints">
-                <TextView
-                    android:id="@+id/text_type_mail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="type of mail"/>
-                <EditText
-                    android:id="@+id/edittext_type_mail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="what is in the delivery?"
-                    app:layout_constraintTop_toBottomOf="@+id/text_type_mail"
-                    />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
         android:id="@+id/send_request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_send"
-        tools:layout_editor_absoluteX="336dp"
-        tools:layout_editor_absoluteY="656dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/conteiner_comment"
-        android:layout_width="409dp"
-        android:layout_height="120dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="492dp"
-        app:layout_constraintTop_toBottomOf="@+id/groceries_conteiner"
-        android:layout_marginTop="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/send_request"
-        android:layout_marginBottom="100dp"
-        tools:ignore="MissingConstraints">
-        <EditText
-            android:id="@+id/edittext_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="add comment"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        app:srcCompat="@android:drawable/ic_menu_send" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

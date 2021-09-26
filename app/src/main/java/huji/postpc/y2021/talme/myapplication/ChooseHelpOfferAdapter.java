@@ -53,7 +53,7 @@ public class ChooseHelpOfferAdapter extends FirestoreRecyclerAdapter<HelpOffer, 
                     holder.txt_name.setText(user.name);
                     holder.txt_raters.setText(String.format("(%d)", user.raters));
                     holder.ratingBar.setRating(user.rating);
-                    holder.btn_approve.setOnClickListener(v->{ //todo set onclick for card not textview
+                    holder.btn_approve.setOnClickListener(v->{
 
                         acceptOffer(model, holder);
                     });
@@ -61,7 +61,7 @@ public class ChooseHelpOfferAdapter extends FirestoreRecyclerAdapter<HelpOffer, 
                         declineOffer(model, holder);
                     });
                 } else {
-                    //todo set status to waiting, help_offer_id to null and update cloud
+
 //                    loadSearching(holder, null);
                 }
             } else {

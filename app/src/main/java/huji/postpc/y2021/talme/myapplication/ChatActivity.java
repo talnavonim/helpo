@@ -105,7 +105,7 @@ public class ChatActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private void newHelpOffer(Request request) {
         offer = new HelpOffer(request.req_id, app.user_id,request.user_id, request.full_name, request.type);
-        app.helpOffersRef.document(offer.help_id).set(offer); //todo doesn't check success
+        app.helpOffersRef.document(offer.help_id).set(offer);
         Message requestMessage = new Message(request.phraseRequest(), request.user_id, Timestamp.now());
         WriteBatch batch = app.firestore.batch();
         batch.set(chatRef.document(UUID.randomUUID().toString()), requestMessage);

@@ -31,7 +31,7 @@ public class chooseHelpOffer extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view_choose_help_offer);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setItemAnimator(null); //todo check
+        recyclerView.setItemAnimator(null);
         recyclerView.setAdapter(adapter);
     }
 
