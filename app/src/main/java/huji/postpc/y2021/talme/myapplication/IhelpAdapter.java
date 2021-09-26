@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,6 +42,7 @@ public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapt
     @Override
     protected void onBindViewHolder(@NonNull HelpOfferHolder holder, int position, @NonNull HelpOffer model) {
 
+        HelpoApp app = HelpoApp.getInstance();
         if (model.requestType == Request.RequestType.Groceries)
         {
             holder.req_type.setText("Groceries");
@@ -49,13 +53,38 @@ public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapt
         }
         setStatus(holder, model.status);
         holder.requester.setText(model.requester_full_name);
-        if (model.status != HelpOffer.OfferStatus.Canceled && model.status != HelpOffer.OfferStatus.Declined)
+
+        //enum OfferStatus {Pending, Ongoing, Done, Declined, Canceled, Rated, Hidden}
+        switch (model.status)
         {
-            holder.card.setOnClickListener(v->{
-                Intent chatIntent = new Intent(con, ChatActivity.class);
-                chatIntent.putExtra("offer", (Serializable) model);
-                con.startActivity(chatIntent);
-            });
+            case Pending:
+            case Ongoing:
+
+                holder.layoutRating.setVisibility(View.GONE);
+                holder.btn_dismiss.setVisibility(View.GONE);
+                holder.card.setOnClickListener(v->{
+                    Intent chatIntent = new Intent(con, ChatActivity.class);
+                    chatIntent.putExtra("offer", (Serializable) model);
+                    con.startActivity(chatIntent);
+                });
+                return;
+            case Done:
+
+                holder.layoutRating.setVisibility(View.VISIBLE);
+                holder.btn_dismiss.setVisibility(View.GONE);
+                holder.btn_approve_rating.setOnClickListener(v -> {
+                    User.rateRequester(model.requester_id, holder.ratingBar.getRating(), app.helpOffersRef.document(model.help_id));
+                });
+                return;
+            case Declined:
+            case Canceled:
+            case Rated:
+                holder.layoutRating.setVisibility(View.GONE);
+                holder.btn_dismiss.setVisibility(View.VISIBLE);
+                holder.btn_dismiss.setOnClickListener(v -> {
+                    app.helpOffersRef.document(model.help_id).update("status", HelpOffer.OfferStatus.Hidden);
+                });
+            case Hidden:
         }
 
     }
@@ -67,22 +96,30 @@ public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapt
 
     public class HelpOfferHolder extends RecyclerView.ViewHolder {
 
-        ImageView picture;
+
         TextView requester;
         TextView status;
         TextView req_type;
         View view;
         CardView card;
+        LinearLayout layoutRating;
+        ImageButton btn_approve_rating;
+        ImageButton btn_dismiss;
+        RatingBar ratingBar;
 
 
         public HelpOfferHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
-            picture = itemView.findViewById(R.id.imageProfile);
             requester = itemView.findViewById(R.id.txt_req_name);
             status = itemView.findViewById(R.id.txt_req_status);
             req_type = itemView.findViewById(R.id.txt_req_type);
             card = itemView.findViewById(R.id.card_help_offer);
+
+            btn_approve_rating = itemView.findViewById(R.id.imageButton_approve_rating);
+            btn_dismiss = itemView.findViewById(R.id.imageButton_dismiss);
+            ratingBar = itemView.findViewById(R.id.ratingBar_offer);
+            layoutRating = itemView.findViewById(R.id.layout_rate);
         }
     }
 }

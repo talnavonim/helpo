@@ -6,8 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
 
@@ -71,7 +69,7 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
                             holder.layoutRating.setVisibility(View.VISIBLE);
                             holder.btn_dismiss.setVisibility(View.GONE);
                             holder.btn_approve_rating.setOnClickListener(v -> {
-                                User.rateUser(offer.helper_id, holder.ratingBar.getRating(), app.requestsRef.document(request.req_id));
+                                User.rateHelper(offer.helper_id, holder.ratingBar.getRating(), app.requestsRef.document(request.req_id));
                             });
                         }
                         else
