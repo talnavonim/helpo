@@ -1,16 +1,14 @@
 package huji.postpc.y2021.talme.myapplication;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -23,15 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButtonToggleGroup;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RequestsActivity extends AppCompatActivity {
     Button signOut;
@@ -59,7 +49,7 @@ public class RequestsActivity extends AppCompatActivity {
 
         app = HelpoApp.getInstance();
         setUpRequestRecylerView();
-        setUpRequestIhelpRecylerView();
+        setUpIhelpRecylerView();
 
         signOut = findViewById(R.id.signOutButton);
         newRequastButton = findViewById(R.id.create_request_button);
@@ -129,8 +119,9 @@ public class RequestsActivity extends AppCompatActivity {
 
     }
 
-    private void setUpRequestIhelpRecylerView() {
-        Query query = app.helpOffersRef.whereEqualTo("helper_id", app.user_id).orderBy("offer_timestamp", Query.Direction.DESCENDING);
+    private void setUpIhelpRecylerView() {
+        Query query = app.helpOffersRef.whereEqualTo("helper_id", app.user_id).whereNotEqualTo("status", HelpOffer.OfferStatus.Hidden)
+                .orderBy("status", Query.Direction.DESCENDING).orderBy("offer_timestamp", Query.Direction.DESCENDING);
 
 
         FirestoreRecyclerOptions<HelpOffer> options = new FirestoreRecyclerOptions.Builder<HelpOffer>()
@@ -143,12 +134,15 @@ public class RequestsActivity extends AppCompatActivity {
         recyclerHelpOffers.setItemAnimator(null); //todo check
         recyclerHelpOffers.setLayoutManager(new LinearLayoutManager(this));
         recyclerHelpOffers.setAdapter(help_offer_adapter);
+
+
+
     }
 
     private void setUpRequestRecylerView()
     {
-        Query query = app.requestsRef.whereEqualTo("user_id", app.user_id)
-                .orderBy("request_timestamp", Query.Direction.DESCENDING);
+        Query query = app.requestsRef.whereEqualTo("user_id", app.user_id).whereNotEqualTo("status", Request.RequestStatus.Hidden)
+                .orderBy("status", Query.Direction.DESCENDING).orderBy("request_timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Request> options = new FirestoreRecyclerOptions.Builder<Request>()
                 .setQuery(query, Request.class)
                 .build();
@@ -159,12 +153,12 @@ public class RequestsActivity extends AppCompatActivity {
         recyclerView_myrequests.setItemAnimator(null); //todo check
         recyclerView_myrequests.setLayoutManager(new LinearLayoutManager(this));
         recyclerView_myrequests.setAdapter(myrequests_adapter);
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        myrequests_adapter.notifyDataSetChanged();
         myrequests_adapter.startListening();
         help_offer_adapter.startListening();
     }

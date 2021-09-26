@@ -1,7 +1,9 @@
 package huji.postpc.y2021.talme.myapplication;
 
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,9 @@ public class myRequestViewHolder extends RecyclerView.ViewHolder{
     TextView status;
     TextView req_type;
     CardView card;
+    ImageButton btn_dismiss, btn_approve_rating;
+    RatingBar ratingBar;
+    LinearLayout layoutRating;
 
     public myRequestViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -22,6 +27,10 @@ public class myRequestViewHolder extends RecyclerView.ViewHolder{
         status = itemView.findViewById(R.id.txt_req_status);
         req_type = itemView.findViewById(R.id.txt_req_type);
         card = itemView.findViewById(R.id.card_request_row);
+        btn_approve_rating = itemView.findViewById(R.id.imageButton_approve_rating);
+        btn_dismiss = itemView.findViewById(R.id.imageButton_dismiss);
+        ratingBar = itemView.findViewById(R.id.ratingBar_request);
+        layoutRating = itemView.findViewById(R.id.layout_rate);
     }
 
     public void setReq_type(Request.RequestType type) {

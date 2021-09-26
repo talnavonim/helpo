@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
 
@@ -37,17 +39,15 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
         holder.setStatus(model.status);
         if (model.status != Request.RequestStatus.Waiting)
         {
-            loadHelpOffer(holder, model.help_offer_id);
+            loadHelpOffer(holder, model.help_offer_id, model);
         }
         else
         {
             loadSearching(holder, model);
         }
-
-
     }
 
-    private void loadHelpOffer(myRequestViewHolder holder, String help_offer_id) {
+    private void loadHelpOffer(myRequestViewHolder holder, String help_offer_id, Request request) {
         DocumentReference docRef = app.helpOffersRef.document(help_offer_id);
         docRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -57,11 +57,37 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
                     assert offer != null;
                     holder.setHelper(offer.helper_full_name);
                     holder.status.setText(offer.status.toString());
-                    holder.card.setOnClickListener(v->{
-                        Intent chatIntent = new Intent(con, ChatActivity.class);
-                        chatIntent.putExtra("offer", (Serializable) offer);
-                        con.startActivity(chatIntent);
-                    });
+
+                    if (request.status == Request.RequestStatus.Rated)
+                    {
+                        holder.btn_dismiss.setVisibility(View.VISIBLE);
+                        holder.layoutRating.setVisibility(View.GONE);
+                        holder.btn_dismiss.setOnClickListener(v-> {
+                            app.requestsRef.document(request.req_id).update("status", Request.RequestStatus.Hidden);
+                        });
+                    }
+                    else{
+                        if(request.status == Request.RequestStatus.Done){
+                            holder.layoutRating.setVisibility(View.VISIBLE);
+                            holder.btn_dismiss.setVisibility(View.GONE);
+                            holder.btn_approve_rating.setOnClickListener(v -> {
+                                User.rateUser(offer.helper_id, holder.ratingBar.getRating(), app.requestsRef.document(request.req_id));
+                            });
+                        }
+                        else
+                        {
+
+                            holder.layoutRating.setVisibility(View.GONE);
+                            holder.btn_dismiss.setVisibility(View.GONE);
+
+                            holder.card.setOnClickListener(v->{
+                                Intent chatIntent = new Intent(con, ChatActivity.class);
+                                chatIntent.putExtra("offer", (Serializable) offer);
+                                con.startActivity(chatIntent);
+                            });
+                        }
+                    }
+
                 } else {
                     //todo set status to waiting, help_offer_id to null and update cloud
                     loadSearching(holder, null);
@@ -79,6 +105,9 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
         {
             return;
         }
+
+        holder.layoutRating.setVisibility(View.GONE);
+        holder.btn_dismiss.setVisibility(View.GONE);
         app.helpOffersRef.whereEqualTo("req_id", request.req_id).whereEqualTo("status", HelpOffer.OfferStatus.Pending)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

@@ -20,6 +20,7 @@ public class HelpoApp extends Application {
     public final String USERS = "users";
     public CollectionReference requestsRef;
     public CollectionReference helpOffersRef;
+    public CollectionReference usersRef;
     GoogleSignInAccount account;
     public String email;
     public String full_name;
@@ -39,6 +40,7 @@ public class HelpoApp extends Application {
         firebaseMessaging.subscribeToTopic("new_offer");
         requestsRef = firestore.collection(REQUESTS);
         helpOffersRef = firestore.collection(HELP_OFFERS);
+        usersRef = firestore.collection("users");
         instance = this;
 
 //        user_id = "QdyRh1684aFJtaVLQ2qm"; full_name= "Ophir Han"; email="ophirhan@gmail.com";  //todo remove place holder

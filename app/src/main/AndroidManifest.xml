@@ -16,11 +16,14 @@
         android:theme="@style/Theme.MyApplication">
         <activity android:name=".MainActivity"/>
         <activity android:name= ".WelcomeActivity"/>
-        <activity android:name=".ChatActivity" />
+        <activity android:name=".ChatActivity"
+            android:parentActivityName=".RequestsActivity"/>
         <activity android:name=".GetAccountInfoActivity"/>
         <activity android:name=".CreateRequestActivity" />
-        <activity android:name=".chooseHelpOffer"/>
-        <activity android:name=".RequestsActivity">
+        <activity android:name=".chooseHelpOffer"
+            android:parentActivityName=".RequestsActivity"/>
+        <activity android:name=".RequestsActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

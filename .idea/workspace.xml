@@ -38,14 +38,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51818239-ebda-4643-ac23-3f9f67b5604b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/ChooseHelpOfferAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/ChooseHelpOfferAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/HelpOffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/HelpOffer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/HelpoApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/HelpoApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/IhelpAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/IhelpAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/Request.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/RequestsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/RequestsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/chooseHelpOffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/chooseHelpOffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/myRequestViewHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/myRequestViewHolder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/myRequestsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/myRequestsAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/my_requests_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/my_requests_item.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -464,7 +467,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632599513806</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Fixed bug where app crashes when returning from activity opened via a recycler view item">
+      <created>1632651168916</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1632651168916</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -492,7 +502,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="first" />
     <MESSAGE value="activities" />
     <MESSAGE value="activities1" />
     <MESSAGE value="activities2" />
@@ -517,7 +526,8 @@
     <MESSAGE value="Users now able to choose help offer" />
     <MESSAGE value="Added ability to cancel offers and report users!" />
     <MESSAGE value="Added status changing and system messaging" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added status changing and system messaging" />
+    <MESSAGE value="Fixed bug where app crashes when returning from activity opened via a recycler view item" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug where app crashes when returning from activity opened via a recycler view item" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -531,6 +541,16 @@
           <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/ChatActivity.java</url>
           <line>133</line>
           <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/myRequestsAdapter.java</url>
+          <line>73</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/User.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="54" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

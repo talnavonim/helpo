@@ -15,7 +15,7 @@ public class Request implements Serializable {
     String user_id;
     public enum RequestType {Groceries, Mail};
     RequestType type;
-    public enum RequestStatus {Waiting, Ongoing, Done}
+    public enum RequestStatus {Waiting, Ongoing, Done, Rated, Hidden}
     RequestStatus status;
     double lat;
     double lng;
