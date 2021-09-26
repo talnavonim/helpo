@@ -1,5 +1,6 @@
 package huji.postpc.y2021.talme.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +18,12 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import java.io.Serializable;
 
 public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapter.HelpOfferHolder> {
+    Context con;
 
 
-    public IhelpAdapter(@NonNull FirestoreRecyclerOptions<HelpOffer> options) {
+    public IhelpAdapter(@NonNull FirestoreRecyclerOptions<HelpOffer> options, Context con) {
         super(options);
+        this.con = con;
     }
 
 
@@ -49,9 +52,9 @@ public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapt
         if (model.status != HelpOffer.OfferStatus.Canceled && model.status != HelpOffer.OfferStatus.Declined)
         {
             holder.card.setOnClickListener(v->{
-                Intent chatIntent = new Intent(holder.view.getContext(), ChatActivity.class);
+                Intent chatIntent = new Intent(con, ChatActivity.class);
                 chatIntent.putExtra("offer", (Serializable) model);
-                holder.view.getContext().startActivity(chatIntent);
+                con.startActivity(chatIntent);
             });
         }
 

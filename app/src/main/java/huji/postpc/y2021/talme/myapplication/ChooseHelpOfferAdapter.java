@@ -1,5 +1,6 @@
 package huji.postpc.y2021.talme.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,10 +32,12 @@ import java.util.UUID;
 
 public class ChooseHelpOfferAdapter extends FirestoreRecyclerAdapter<HelpOffer, ChooseHelpOfferAdapter.UserHolder> {
     HelpoApp app;
+    Context con;
 
-    public ChooseHelpOfferAdapter(@NonNull FirestoreRecyclerOptions<HelpOffer> options) {
+    public ChooseHelpOfferAdapter(@NonNull FirestoreRecyclerOptions<HelpOffer> options, Context con) {
         super(options);
         app = HelpoApp.getInstance();
+        this.con = con;
     }
 
     @Override
@@ -121,9 +124,9 @@ public class ChooseHelpOfferAdapter extends FirestoreRecyclerAdapter<HelpOffer, 
         batch.set(chatRef.document(UUID.randomUUID().toString()), systemMessage);
 
         batch.commit().addOnSuccessListener(aVoid -> {
-            Intent chatIntent = new Intent(holder.view.getContext(), ChatActivity.class);
+            Intent chatIntent = new Intent(con, ChatActivity.class);
             chatIntent.putExtra("offer", (Serializable) model);
-            holder.view.getContext().startActivity(chatIntent);
+            con.startActivity(chatIntent);
         });
     }
 

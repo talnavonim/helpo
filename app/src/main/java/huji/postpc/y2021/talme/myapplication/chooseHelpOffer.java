@@ -27,7 +27,7 @@ public class chooseHelpOffer extends AppCompatActivity {
         FirestoreRecyclerOptions<HelpOffer> options = new FirestoreRecyclerOptions.Builder<HelpOffer>()
                 .setQuery(query, HelpOffer.class)
                 .build();
-        adapter = new ChooseHelpOfferAdapter(options);
+        adapter = new ChooseHelpOfferAdapter(options, this);
         RecyclerView recyclerView = findViewById(R.id.recycler_view_choose_help_offer);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

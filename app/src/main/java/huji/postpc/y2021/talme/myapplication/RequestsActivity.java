@@ -138,8 +138,9 @@ public class RequestsActivity extends AppCompatActivity {
                 .build();
 
         recyclerHelpOffers = findViewById(R.id.recycler_ihelp);
-        help_offer_adapter = new IhelpAdapter(options);
+        help_offer_adapter = new IhelpAdapter(options, this);
         recyclerHelpOffers.setHasFixedSize(true);
+        recyclerHelpOffers.setItemAnimator(null); //todo check
         recyclerHelpOffers.setLayoutManager(new LinearLayoutManager(this));
         recyclerHelpOffers.setAdapter(help_offer_adapter);
     }
@@ -153,8 +154,9 @@ public class RequestsActivity extends AppCompatActivity {
                 .build();
 
         recyclerView_myrequests = findViewById(R.id.recycler_myrequests);
-        myrequests_adapter = new myRequestsAdapter(options);
+        myrequests_adapter = new myRequestsAdapter(options, this);
         recyclerView_myrequests.setHasFixedSize(true);
+        recyclerView_myrequests.setItemAnimator(null); //todo check
         recyclerView_myrequests.setLayoutManager(new LinearLayoutManager(this));
         recyclerView_myrequests.setAdapter(myrequests_adapter);
     }

@@ -1,5 +1,6 @@
 package huji.postpc.y2021.talme.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,9 +22,11 @@ import java.io.Serializable;
 public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myRequestViewHolder> {
 
     HelpoApp app = HelpoApp.getInstance();
+    Context con;
 
-    public myRequestsAdapter(@NonNull FirestoreRecyclerOptions<Request> options) {
+    public myRequestsAdapter(@NonNull FirestoreRecyclerOptions<Request> options, Context con) {
         super(options);
+        this.con = con;
     }
 
 
@@ -55,9 +58,9 @@ public class myRequestsAdapter extends FirestoreRecyclerAdapter<Request, myReque
                     holder.setHelper(offer.helper_full_name);
                     holder.status.setText(offer.status.toString());
                     holder.card.setOnClickListener(v->{
-                        Intent chatIntent = new Intent(holder.view.getContext(), ChatActivity.class);
+                        Intent chatIntent = new Intent(con, ChatActivity.class);
                         chatIntent.putExtra("offer", (Serializable) offer);
-                        holder.view.getContext().startActivity(chatIntent);
+                        con.startActivity(chatIntent);
                     });
                 } else {
                     //todo set status to waiting, help_offer_id to null and update cloud

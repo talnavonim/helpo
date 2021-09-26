@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class myRequestViewHolder extends RecyclerView.ViewHolder{
     public View view;
-    ImageView picture;
     TextView helper;
     TextView status;
     TextView req_type;
@@ -19,7 +18,6 @@ public class myRequestViewHolder extends RecyclerView.ViewHolder{
     public myRequestViewHolder(@NonNull View itemView) {
         super(itemView);
         view = itemView;
-        picture = itemView.findViewById(R.id.imageProfile);
         helper = itemView.findViewById(R.id.txt_req_name);
         status = itemView.findViewById(R.id.txt_req_status);
         req_type = itemView.findViewById(R.id.txt_req_type);
@@ -28,10 +26,6 @@ public class myRequestViewHolder extends RecyclerView.ViewHolder{
 
     public void setReq_type(Request.RequestType type) {
         this.req_type.setText(type.toString());
-    }
-
-    public void setPicture(ImageView picture) {
-        this.picture = picture; // todo
     }
 
 
