@@ -38,18 +38,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51818239-ebda-4643-ac23-3f9f67b5604b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/ChatActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/ChatActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/ChooseHelpOfferAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/ChooseHelpOfferAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/CreateRequestActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/CreateRequestActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/Request.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/RequestsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/RequestsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/chooseHelpOffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/chooseHelpOffer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/myRequestsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/myRequestsAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_request.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_request.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -495,7 +485,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632671592769</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Redesigned CreateRequestActivity">
+      <created>1632673865668</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1632673865668</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -523,7 +520,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="activities3" />
     <MESSAGE value="created the classes" />
     <MESSAGE value="blabla" />
     <MESSAGE value="started chat, need to continue with the adapter" />
@@ -548,7 +544,8 @@
     <MESSAGE value="Added rating and dismiss for requests" />
     <MESSAGE value="Added rating and dismiss for helpoffers" />
     <MESSAGE value="Redesigned the requests activity" />
-    <option name="LAST_COMMIT_MESSAGE" value="Redesigned the requests activity" />
+    <MESSAGE value="Redesigned CreateRequestActivity" />
+    <option name="LAST_COMMIT_MESSAGE" value="Redesigned CreateRequestActivity" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -572,6 +569,16 @@
           <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/User.java</url>
           <line>32</line>
           <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/Request.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/huji/postpc/y2021/talme/myapplication/Request.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="56" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

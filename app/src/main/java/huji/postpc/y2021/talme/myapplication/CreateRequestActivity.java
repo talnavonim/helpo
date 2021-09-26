@@ -40,6 +40,7 @@ public class CreateRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_request);
 
         app = HelpoApp.getInstance();
+        type = Request.RequestType.Groceries;
 
 
         textAddress = findViewById(R.id.edittext_address);
