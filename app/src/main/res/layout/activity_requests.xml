@@ -6,109 +6,108 @@
     android:layout_height="match_parent"
     tools:context=".RequestsActivity">
 
-    <Button
-        android:id="@+id/signOutButton"
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/ihelp_and_requests_buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:text="Sign Out"
-        app:layout_constraintBottom_toBottomOf="@+id/toMapButton"
+        app:checkedButton="@+id/my_requests_button"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toMapButton"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <Button
+            android:id="@+id/i_help_button"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I help"
+            tools:layout_editor_absoluteX="57dp"
+            tools:layout_editor_absoluteY="58dp" />
+
+        <Button
+            android:id="@+id/my_requests_button"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="my requests"
+            tools:layout_editor_absoluteX="57dp"
+            tools:layout_editor_absoluteY="58dp" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ihelp_selected"
+        android:layout_width="match_parent"
+        android:layout_height="630dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/signOutButton"
+        app:layout_constraintTop_toBottomOf="@+id/ihelp_and_requests_buttons">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_ihelp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/myrequests_selected"
+        android:layout_width="match_parent"
+        android:layout_height="630dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ihelp_and_requests_buttons">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_myrequests"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
-        android:id="@+id/toMapButton"
-        android:layout_width="61dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="36dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/btn_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:onClick="showPopup"
+        android:paddingRight="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+<!--    <Button-->
+<!--        android:id="@+id/signOutButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="11sp"-->
+<!--        android:paddingHorizontal="0dp"-->
+<!--        android:text="logout"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <Button
         android:id="@+id/create_request_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="new request"
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="573dp"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="30dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="25dp"/>
+        android:text="get help!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ihelp_and_requests_conteiner"
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="79dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/ihelp_and_requests_buttons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:singleSelection="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <Button
-                android:id="@+id/i_help_button"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="I help"
-                tools:layout_editor_absoluteX="57dp"
-                tools:layout_editor_absoluteY="58dp" />
-            <Button
-                android:id="@+id/my_requests_button"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="my requests"
-                tools:layout_editor_absoluteX="57dp"
-                tools:layout_editor_absoluteY="58dp" />
-
-        </com.google.android.material.button.MaterialButtonToggleGroup>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ihelp_selected"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:visibility="invisible"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="49dp"
-            app:layout_constraintTop_toBottomOf="@+id/ihelp_and_requests_buttons"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="MissingConstraints">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_ihelp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/myrequests_selected"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:visibility="visible"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="49dp"
-            app:layout_constraintTop_toBottomOf="@+id/ihelp_and_requests_buttons"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="MissingConstraints">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_myrequests"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/toMapButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="offer help!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

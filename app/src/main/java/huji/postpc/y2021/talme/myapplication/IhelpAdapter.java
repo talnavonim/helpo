@@ -43,14 +43,7 @@ public class IhelpAdapter extends FirestoreRecyclerAdapter<HelpOffer, IhelpAdapt
     protected void onBindViewHolder(@NonNull HelpOfferHolder holder, int position, @NonNull HelpOffer model) {
 
         HelpoApp app = HelpoApp.getInstance();
-        if (model.requestType == Request.RequestType.Groceries)
-        {
-            holder.req_type.setText("Groceries");
-        }
-        else  // mail
-        {
-            holder.req_type.setText("Groceries");
-        }
+        holder.req_type.setText(model.requestType.toString());
         setStatus(holder, model.status);
         holder.requester.setText(model.requester_full_name);
 
