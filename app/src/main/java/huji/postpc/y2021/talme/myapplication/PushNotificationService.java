@@ -15,6 +15,8 @@ import com.google.firebase.messaging.RemoteMessage;
 public class PushNotificationService extends FirebaseMessagingService {
     private final String CHAT_CHANNEL = "CHAT_CHANNEL";
     private final String OFFERS_CHANNEL = "OFFERS_CHANNEL";
+    private HelpoApp app;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
@@ -22,16 +24,21 @@ public class PushNotificationService extends FirebaseMessagingService {
         String title = remoteMessage.getNotification().getTitle();
         String body = remoteMessage.getNotification().getBody();
         int notificationCounter = 1;
+        app = HelpoApp.getInstance();
 
         // todo - check if offers or chat
 
-        NotificationChannel channel = new NotificationChannel(OFFERS_CHANNEL,"newOffers", NotificationManager.IMPORTANCE_HIGH);
-        getSystemService(NotificationManager.class).createNotificationChannel(channel);
-        Notification.Builder notification = new Notification.Builder(this,OFFERS_CHANNEL)
-                .setContentTitle("New offer for your request!")
-                .setContentText("Check HelpoApp for more info")
-                .setSmallIcon(R.drawable.googleg_disabled_color_18)
-                .setAutoCancel(true);
-        NotificationManagerCompat.from(this).notify(notificationCounter,notification.build());
+        if (title != null) {
+            if (title.equals(app.user_id)) {
+                NotificationChannel channel = new NotificationChannel(OFFERS_CHANNEL, "newOffers", NotificationManager.IMPORTANCE_HIGH);
+                getSystemService(NotificationManager.class).createNotificationChannel(channel);
+                Notification.Builder notification = new Notification.Builder(this, OFFERS_CHANNEL)
+                        .setContentTitle("New offer for your request!")
+                        .setContentText("Check HelpoApp for more info")
+                        .setSmallIcon(R.drawable.googleg_disabled_color_18)
+                        .setAutoCancel(true);
+                NotificationManagerCompat.from(this).notify(notificationCounter, notification.build());
+            }
+        }
     }
 }

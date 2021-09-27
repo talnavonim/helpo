@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -25,6 +26,7 @@ public class HelpoApp extends Application {
     public String email;
     public String full_name;
     public String user_id;
+    FirebaseAuth firebaseAuth;
 
 //    public User user;
 
@@ -42,6 +44,7 @@ public class HelpoApp extends Application {
         helpOffersRef = firestore.collection(HELP_OFFERS);
         usersRef = firestore.collection("users");
         instance = this;
+        firebaseAuth = FirebaseAuth.getInstance();
 
 //        user_id = "QdyRh1684aFJtaVLQ2qm"; full_name= "Ophir Han"; email="ophirhan@gmail.com";  //todo remove place holder
         user_id = "s53mTabvuHzWKpA3cRhw"; full_name= "Eldar Lerner"; email="eldar.lerner@gmail.com";

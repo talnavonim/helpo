@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.Query;
 
 public class RequestsActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
@@ -179,16 +180,22 @@ public class RequestsActivity extends AppCompatActivity implements PopupMenu.OnM
 
 
     private void signOut() {
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(RequestsActivity.this,"Signed Out Successfully",Toast.LENGTH_LONG).show();
-                        Intent goToLogin = new Intent(RequestsActivity.this, WelcomeActivity.class);
+        FirebaseAuth.getInstance().signOut();
+        mGoogleSignInClient.signOut();
+        Toast.makeText(RequestsActivity.this, "Signed Out Successfully", Toast.LENGTH_LONG).show();
+        Intent goToLogin = new Intent(RequestsActivity.this, WelcomeActivity.class);
+        startActivity(goToLogin);
+
+//        mGoogleSignInClient.signOut()
+//                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        Toast.makeText(RequestsActivity.this,"Signed Out Successfully",Toast.LENGTH_LONG).show();
+//                        Intent goToLogin = new Intent(RequestsActivity.this, WelcomeActivity.class);
 //                        startActivity(goToLogin);
-                        finish();
-                    }
-                });
+////                        finish();
+//                    }
+//                });
     }
 
     @Override
