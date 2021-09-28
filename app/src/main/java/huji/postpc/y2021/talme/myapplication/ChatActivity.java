@@ -39,6 +39,7 @@ public class ChatActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         app = HelpoApp.getInstance();
+        chatRef = app.helpOffersRef.document(offer.help_id).collection("chat");
 
         Request request = (Request) getIntent().getSerializableExtra("request");
         if (request != null)
@@ -49,7 +50,6 @@ public class ChatActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         {
             offer = (HelpOffer) getIntent().getSerializableExtra("offer");
         }
-        chatRef = app.helpOffersRef.document(offer.help_id).collection("chat");
         setUpRecyclerView();
 
         txt_partnerName = findViewById(R.id.txt_partner_name);
@@ -104,10 +104,11 @@ public class ChatActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
     private void newHelpOffer(Request request) {
-        offer = new HelpOffer(request.req_id, app.user_id,request.user_id, request.full_name, request.type);
-        app.helpOffersRef.document(offer.help_id).set(offer);
-        Message requestMessage = new Message(request.phraseRequest(), request.user_id, Timestamp.now());
         WriteBatch batch = app.firestore.batch();
+        offer = new HelpOffer(request.req_id, app.user_id,request.user_id, request.full_name, request.type);
+//        app.helpOffersRef.document(offer.help_id).set(offer);
+        batch.set(app.helpOffersRef.document(offer.help_id), offer);
+        Message requestMessage = new Message(request.phraseRequest(), request.user_id, Timestamp.now());
         batch.set(chatRef.document(UUID.randomUUID().toString()), requestMessage);
         Message systemMessage = new Message("Help offer pending", "system", Timestamp.now());
         batch.set(chatRef.document(UUID.randomUUID().toString()), systemMessage);

@@ -120,7 +120,7 @@ public class ChooseHelpOfferAdapter extends FirestoreRecyclerAdapter<HelpOffer, 
 
         CollectionReference chatRef = app.helpOffersRef.document(model.help_id).collection("chat");
 
-        Message systemMessage = new Message("Help offer pending", "system", Timestamp.now());
+        Message systemMessage = new Message("Help offer ongoing", "system", Timestamp.now());
         batch.set(chatRef.document(UUID.randomUUID().toString()), systemMessage);
 
         batch.commit().addOnSuccessListener(aVoid -> {
