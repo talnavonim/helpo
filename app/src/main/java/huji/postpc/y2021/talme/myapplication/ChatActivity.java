@@ -39,18 +39,28 @@ public class ChatActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         app = HelpoApp.getInstance();
-        chatRef = app.helpOffersRef.document(offer.help_id).collection("chat");
 
         Request request = (Request) getIntent().getSerializableExtra("request");
         if (request != null)
         {
-            newHelpOffer(request);
+            WriteBatch batch = app.firestore.batch();
+            offer = new HelpOffer(request.req_id, app.user_id,request.user_id, request.full_name, request.type);
+            chatRef = app.helpOffersRef.document(offer.help_id).collection("chat");
+//        app.helpOffersRef.document(offer.help_id).set(offer);
+            batch.set(app.helpOffersRef.document(offer.help_id), offer);
+            Message requestMessage = new Message(request.phraseRequest(), request.user_id, Timestamp.now());
+            batch.set(chatRef.document(UUID.randomUUID().toString()), requestMessage);
+            Message systemMessage = new Message("Help offer pending", "system", Timestamp.now());
+            batch.set(chatRef.document(UUID.randomUUID().toString()), systemMessage);
+            batch.commit();
         }
         else
         {
             offer = (HelpOffer) getIntent().getSerializableExtra("offer");
+            chatRef = app.helpOffersRef.document(offer.help_id).collection("chat");
         }
         setUpRecyclerView();
+
 
         txt_partnerName = findViewById(R.id.txt_partner_name);
         if (offer.helper_id.equals(HelpoApp.getInstance().user_id))
