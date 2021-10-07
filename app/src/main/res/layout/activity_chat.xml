@@ -17,8 +17,10 @@
             android:id="@+id/toolbar_gchannel"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@color/backGround_teal"
             android:theme="@style/Widget.AppCompat.Toolbar"
             app:popupTheme="@style/Theme.AppCompat.Light">
+
             <TextView
                 android:id="@+id/txt_partner_name"
                 android:layout_width="wrap_content"
@@ -26,17 +28,17 @@
                 android:paddingTop="8dp"
                 android:text="Ophir Han"
                 android:textColor="@color/white"
-                android:textSize="30sp"/>
+                android:textSize="30sp" />
 
             <ImageButton
                 android:id="@+id/btn_menu"
                 android:layout_width="wrap_content"
-                android:background="?android:selectableItemBackground"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_baseline_more_vert_24"
-                android:paddingRight="5dp"
                 android:layout_gravity="end"
-                android:onClick="showPopup"/>
+                android:background="?android:selectableItemBackground"
+                android:onClick="showPopup"
+                android:paddingRight="5dp"
+                app:srcCompat="@drawable/ic_baseline_more_vert_24" />
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>

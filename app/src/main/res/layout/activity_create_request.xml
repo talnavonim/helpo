@@ -42,16 +42,18 @@
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
 
-
     <EditText
         android:id="@+id/request_description"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="317dp"
         android:hint="request description"
 
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/select_helpo_type" />
+
     <EditText
         android:id="@+id/edittext_address"
         android:layout_width="match_parent"

@@ -1,10 +1,12 @@
 package huji.postpc.y2021.talme.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.firebase.geofire.GeoFireUtils;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -40,6 +42,9 @@ public class CreateRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_request);
 
         app = HelpoApp.getInstance();
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.backGround_teal)));
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.black));
+        getSupportActionBar().setTitle("New Request");
         type = Request.RequestType.Groceries;
 
 

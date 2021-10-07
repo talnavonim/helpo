@@ -2,7 +2,10 @@ package huji.postpc.y2021.talme.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +42,9 @@ public class ChatActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         app = HelpoApp.getInstance();
-
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.backGround_teal)));
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.black));
+        getSupportActionBar().setTitle("Return back");
         Request request = (Request) getIntent().getSerializableExtra("request");
         if (request != null)
         {

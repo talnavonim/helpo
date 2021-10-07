@@ -2,6 +2,7 @@ package huji.postpc.y2021.talme.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.Objects;
+
 public class WelcomeActivity extends AppCompatActivity {
     private static final String TAG = "Error";
     GoogleSignInClient mGoogleSignInClient;
@@ -36,6 +39,8 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         app = HelpoApp.getInstance();
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.black));
+        Objects.requireNonNull(getSupportActionBar()).hide();
         app.firebaseAuth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(client_id)

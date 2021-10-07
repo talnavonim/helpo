@@ -3,10 +3,12 @@ package huji.postpc.y2021.talme.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,6 +51,9 @@ public class RequestsActivity extends AppCompatActivity implements PopupMenu.OnM
         setContentView(R.layout.activity_requests);
 
         app = HelpoApp.getInstance();
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.backGround_teal)));
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.black));
+        getSupportActionBar().setTitle("Welcome to HelpoApp!");
         setUpRequestRecylerView();
         setUpIhelpRecylerView();
 

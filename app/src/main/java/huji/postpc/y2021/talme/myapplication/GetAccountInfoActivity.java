@@ -2,8 +2,10 @@ package huji.postpc.y2021.talme.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -33,6 +35,9 @@ public class GetAccountInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_account_info);
         HelpoApp app = HelpoApp.getInstance();
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.backGround_teal)));
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.black));
+        getSupportActionBar().setTitle("Confirm Information");
         name = findViewById(R.id.infoName);
         email = findViewById(R.id.InfoEmail);
         photo = findViewById(R.id.InfoImage);
