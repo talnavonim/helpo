@@ -104,6 +104,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = app.firebaseAuth.getCurrentUser();
@@ -124,8 +125,9 @@ public class WelcomeActivity extends AppCompatActivity {
                                                                }
                                                            });
                             }
-                            Intent signInIntent = new Intent(WelcomeActivity.this, GetAccountInfoActivity.class);
-                            startActivity(signInIntent);
+
+                              Intent signInIntent = new Intent(WelcomeActivity.this, GetAccountInfoActivity.class);
+                              startActivity(signInIntent);
 //                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -137,19 +139,19 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            app.account = completedTask.getResult(ApiException.class);
-
-            // Signed in successfully, show authenticated UI.
-//            updateUI(account);
-            Intent signInIntent = new Intent(WelcomeActivity.this, GetAccountInfoActivity.class);
-            startActivity(signInIntent);
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-//            updateUI(null);
-        }
-    }
+//    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+//        try {
+//            app.account = completedTask.getResult(ApiException.class);
+//
+//            // Signed in successfully, show authenticated UI.
+////            updateUI(account);
+//            Intent signInIntent = new Intent(WelcomeActivity.this, GetAccountInfoActivity.class);
+//            startActivity(signInIntent);
+//        } catch (ApiException e) {
+//            // The ApiException status code indicates the detailed failure reason.
+//            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+//            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+////            updateUI(null);
+//        }
+//    }
 }

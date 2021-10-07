@@ -93,10 +93,12 @@ public class CreateRequestActivity extends AppCompatActivity {
                     }).addOnFailureListener(u -> {
                 Toast toast = Toast.makeText(app, "Failed to send request!", Toast.LENGTH_SHORT);
                 toast.show();
+                Intent intent = new Intent(app, RequestsActivity.class);
+                startActivity(intent);
             });
 //            holder.addRequest(new_request);
-            Intent intent = new Intent(app, RequestsActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(app, RequestsActivity.class);
+//            startActivity(intent);
         });
 
         //add to RequestsActivity to the recycleView
